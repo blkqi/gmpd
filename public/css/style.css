@@ -1,0 +1,41 @@
+
+  ::-webkit-input-placeholder {
+   color: #CAF1ED; font-weight:lighter !important;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: #CAF1ED;   font-weight:lighter !important;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #CAF1ED;   font-weight:lighter !important;
+}
+:-ms-input-placeholder {  
+   color: #CAF1ED;   font-weight:lighter !important;
+}
+    body { font-family:sans-serif; margin:0; padding:0; }
+    body a, body a:visited { color:#0000EE; }
+    table thead { cursor:pointer; }
+    form#search { display:block; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; border-bottom:1px solid #ddd; }
+    form#search input { width:36%; float:left; font-size:20px; margin:15px 0 15px 15px; background-color:transparent; border:0; border-bottom:1px solid #4ECFC2; color:#fff; font-weight:bold; }
+    form#search button { color:#CAF1ED; width:auto; float:right; font-size:20px; height:100%; margin:15px 15px 0 0; border:0; background-color:transparent; }
+    form#search span { display:block; float:left; width:6%; overflow:hidden; margin:2% 0; padding:0; font-size:18px; }
+    form#search button i { color:#fff; font-size:24px; }
+    form#search button i:hover { opacity:0.75; cursor:pointer; }
+    div.o { padding-top:60px; margin:0 15px;  }
+    table#table { border-bottom:1px solid #bbb; }
+    table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
+    table#table button:hover { background-color:white; }
+    table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
+    table#table td div { font-size:12px; }
+    table#table td.num img { width:20px; padding:0; margin:0; vertical-align:middle; }
+    table#table td.num:hover img { opacity:0.75; }
+    table#table tr.selected { background-color:#eee; }
+    div.t { width:100%; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; bottom:0; z-index:999; background:url("../img/banner_back.gif") repeat-x; text-align:center; }
+    div.t button { font-size:20px; width:33%; padding:8px 0; border:0; background-color:transparent; }
+    div.t button:hover { background-color:#bbb; }
+    button:focus {outline:0;}
+    input:focus {outline:0;}
+    table#table td span.btn { color:#aaa; font-size:26px; }
+    table#table td span.btn:hover { opacity:0.75; }
+    .context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C; }
+    .context-menu-list span { font-size:20px; padding-left:5px; }
+    .context-menu-hover { background-color:#4ECFC2 !important; }
