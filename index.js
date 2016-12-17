@@ -33,15 +33,7 @@ function search_url(req) {
 }
 
 app.get('/', function(_req, _res) {
-    console.log(_req.query);
-    var params = {
-        'view': { },
-        'partials': {
-            hello: fs.readFileSync(app.get('views') + '/hello.mu').toString()
-        }
-    };
-
-    if (_req.query.artist && _req.query.title) {
+    if (_req.query.artist || _req.query.title) {
         http.get(search_url(_req), function(res) {
             const statusCode = res.statusCode;
             const contentType = res.headers['content-type'];
@@ -49,13 +41,16 @@ app.get('/', function(_req, _res) {
             res.setEncoding('utf8');
             res.on('data', function(chunk) { data += chunk });
             res.on('end', function() {
-                params.view = JSON.parse(data);
-                _res.render('test', params)
+                _res.render('main', {
+                    'view': JSON.parse(data),
+                    'partials': {
+                        search: fs.readFileSync(app.get('views') + '/search.mu').toString()
+                    }
+                });
             });
         })
     } else {
-        // TODO render no results view
-        _res.render('test', params)
+        _res.render('main');
     }
 })
 

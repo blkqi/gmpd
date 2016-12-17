@@ -19,7 +19,7 @@
 </form>
 </div>
 
-{{>hello}}
+{{>search}}
 
 </body>
 </html>
