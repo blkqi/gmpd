@@ -3,7 +3,7 @@ var app = express()
 var fs = require('fs') // this engine requires the fs module
 var mustache = require('mustache')
 var http = require('http')
-
+var bodyParser = require('body-parser')
 // Adding the template engine to ExpressJS
 app.engine('mu', function (filePath, options, callback) { // define the template engine
     fs.readFile(filePath, function (err, content) {
@@ -17,6 +17,10 @@ app.engine('mu', function (filePath, options, callback) { // define the template
 })
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 app.set('views', './views') // specify the views directory
 app.set('view engine', 'mu') // register the template engine
 
@@ -53,6 +57,11 @@ app.get('/', function(_req, _res) {
         _res.render('main');
     }
 })
+
+app.post('/load', function(_req, _res) {
+    console.log(_req.body);
+    // TODO add, play, etc.
+});
 
 var server = app.listen(3000, function () {
     var host = server.address().address

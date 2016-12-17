@@ -27,6 +27,7 @@
   "dependencies": {
     "express": "^4.13.3",
     "mustache": "^2.2.0",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "body-parser": "~1.15.2"
   }
 }
