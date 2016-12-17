@@ -24,8 +24,10 @@ app.use(bodyParser.urlencoded({
 app.set('views', './views') // specify the views directory
 app.set('view engine', 'mu') // register the template engine
 
+var endpoint = 'http://192.168.1.22:9999';
+
 function search_url(req) {
-    var url = 'http://192.168.1.22:9999/search_id?type=matches';
+    var url = endpoint + '/search_id?type=matches';
     if (req.query.artist)
         url += '&artist=' + encodeURIComponent(req.query.artist);
     if (req.query.title)
@@ -60,7 +62,19 @@ app.get('/', function(_req, _res) {
 
 app.post('/load', function(_req, _res) {
     console.log(_req.body);
-    // TODO add, play, etc.
+    switch (_req.body.type) {
+        case "track":
+            _req.body.track.map(function(id) {
+                console.log('mpd add ' + endpoint + '/get_song?id=' + id);
+            });
+            break;
+        case "radio":
+            // TODO
+            break;
+        case "album":
+            // TODO
+            break;
+    }
 });
 
 var server = app.listen(3000, function () {
