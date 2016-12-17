@@ -1,13 +1,19 @@
+<div class="t">
+    <button class="track" data-mode="add" disabled>Add</button>
+    <button class="track" data-mode="play" disabled>Play</button>
+    <button id="select">Select All</button>
+</div>
 
-<div class="t"><button class="track" data-mode="add" disabled>Add</button><button class="track" data-mode="play" disabled>Play</button><button id="select">Select All</button></div>
 <table id="table" class="display">
-<thead><tr>
-    <th style="display:none;">Relevance</th>
-    <th></th>
-    <th>Artist</th>
-    <th>Title</th>
-    <th></th>
-</tr></thead>
+<thead>
+    <tr>
+        <th style="display:none;">Relevance</th>
+        <th></th>
+        <th>Artist</th>
+        <th>Title</th>
+        <th></th>
+    </tr>
+</thead>
 <tbody>
 
 {{#.}}
@@ -22,4 +28,3 @@
 
 </tbody>
 </table>
-
