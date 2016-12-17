@@ -1,0 +1,10 @@
+{
+    "gmp" : {
+        "host" : "localhost",
+        "port" : "9999"
+    },
+    "mpd" : {
+        "host" : "localhost",
+        "port" : "6600"
+    }
+}

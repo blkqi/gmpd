@@ -5,6 +5,7 @@ var mustache = require('mustache')
 var http = require('http')
 var bodyParser = require('body-parser')
 var mpd = require('mpd');
+var config = require('./config.json');
 
 // Adding the template engine to ExpressJS
 app.engine('mu', function (filePath, options, callback) { // define the template engine
@@ -26,13 +27,9 @@ app.use(bodyParser.urlencoded({
 app.set('views', './views') // specify the views directory
 app.set('view engine', 'mu') // register the template engine
 
-// TODO config file
-var endpoint = 'http://192.168.1.22:9999';
+var endpoint = 'http://' + config.gmp.host + ':' + config.gmp.port;
 
-var mpc = mpd.connect({
-    port: 6600,
-    host: 'localhost',
-});
+var mpc = mpd.connect(config.mpd);
 
 function mpc_send(cmd, args) {
     var cmd = mpd.cmd(cmd, args);
