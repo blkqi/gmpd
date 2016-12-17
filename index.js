@@ -4,6 +4,15 @@ var fs = require('fs') // this engine requires the fs module
 var mustache = require('mustache')
 var http = require('http')
 var bodyParser = require('body-parser')
+var mpd = require('mpd');
+
+/*
+var client = mpd.connect({
+    port: 6600,
+    host: 'localhost',
+});
+*/
+
 // Adding the template engine to ExpressJS
 app.engine('mu', function (filePath, options, callback) { // define the template engine
     fs.readFile(filePath, function (err, content) {
