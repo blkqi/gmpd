@@ -84,8 +84,23 @@ app.post('/load', function(_req, _res) {
             if (_req.body.mode == 'play') mpc_send('play', []);
             break;
         case "radio":
-            console.log(search_url(_req.body, '/get_new_station_by_search?type=song'));
-            // TODO
+            http.get(search_url(_req.body, '/get_new_station_by_search?type=song'), function(res) {
+                const statusCode = res.statusCode;
+                const contentType = res.headers['content-type'];
+                var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
+                stream.once('open', function(fd) {
+                    res.setEncoding('utf8');
+                    res.on('data', function(chunk) { stream.write(chunk) });
+                    res.on('end', function() {
+                        stream.end()
+                    });
+                });
+                stream.once('close', function() {
+                    mpc_send('clear', []);
+                    mpc_send('load', ['tmp']);
+                    mpc_send('play', []);
+                });
+            });
             break;
         case "album":
             // TODO
