@@ -1,0 +1,31 @@
+{
+  "name": "express-mustache-template",
+  "version": "1.0.0",
+  "description": "Express JS with Mustache JS (Javascript implementation) Template Engine setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliomatcom/express-mustache-template.git"
+  },
+  "keywords": [
+    "express",
+    "mustache",
+    "mustachejs",
+    "template",
+    "engine",
+    "node"
+  ],
+  "author": "juliomatcom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juliomatcom/express-mustache-template/issues"
+  },
+  "homepage": "https://github.com/juliomatcom/express-mustache-template#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mustache": "^2.2.0"
+  }
+}
