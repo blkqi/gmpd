@@ -39,23 +39,22 @@ function mpc_send(cmd, args) {
     });
 }
 
-function search_url(params, oper) {
-    var url = endpoint + oper;
-    if (params.artist)
-        url += '&artist=' + encodeURIComponent(params.artist);
-    if (params.title)
-        url += '&title=' + encodeURIComponent(params.title);
-    if (params.exact)
-        url += '&exact=' + encodeURIComponent(params.exact);
-    return url;
+function gpm_call(oper, params) {
+    return endpoint + '/' + oper + '?' + Object.keys(params).map(function(key) {
+          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+    }).join('&');
 }
 
 app.get('/', function(_req, _res) {
     // TODO validate type: track, radio, album
     if (_req.query.artist || _req.query.title) {
-        http.get(search_url(_req.query, '/search_id?type=matches'), function(res) {
-            const statusCode = res.statusCode;
-            const contentType = res.headers['content-type'];
+        http.get(gpm_call('search_id', {
+            'artist': _req.query.artist,
+            'title': _req.query.title,
+            'exact': _req.query.exact,
+            'type': 'matches'
+        }),
+        function(res) {
             var data = '';
             res.setEncoding('utf8');
             res.on('data', function(chunk) { data += chunk });
@@ -72,40 +71,52 @@ app.get('/', function(_req, _res) {
     else _res.render('main');
 })
 
+function mpc_track(ids, play) {
+    if (play) mpc_send('clear', []);
+    ids.map(function(id) {
+        mpc_send('add', [endpoint + '/get_song?id=' + id]);
+    });
+    if (play) mpc_send('play', []);
+}
+
+function mpc_playlist(res) {
+    var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
+    stream.once('open', function(fd) {
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) { stream.write(chunk) });
+        res.on('end', function() { stream.end() });
+    });
+    stream.once('close', function() {
+        mpc_send('clear', []);
+        mpc_send('load', ['tmp']);
+        mpc_send('play', []);
+    });
+}
+
 app.post('/load', function(_req, _res) {
     console.log(_req.body);
     switch (_req.body.type) {
-        case "":
         case "track":
-            if (_req.body.mode == 'play') mpc_send('clear', []);
-            _req.body.track.map(function(id) {
-                mpc_send('add', [endpoint + '/get_song?id=' + id]);
-            });
-            if (_req.body.mode == 'play') mpc_send('play', []);
+            mpc_track(_req.body.track, _req.body.mode==='play')
             break;
+
         case "radio":
-            http.get(search_url(_req.body, '/get_new_station_by_search?type=song'), function(res) {
-                const statusCode = res.statusCode;
-                const contentType = res.headers['content-type'];
-                var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
-                stream.once('open', function(fd) {
-                    res.setEncoding('utf8');
-                    res.on('data', function(chunk) { stream.write(chunk) });
-                    res.on('end', function() {
-                        stream.end()
-                    });
-                });
-                stream.once('close', function() {
-                    mpc_send('clear', []);
-                    mpc_send('load', ['tmp']);
-                    mpc_send('play', []);
-                });
-            });
+            http.get(gpm_call('get_new_station_by_search', {
+                'artist': _req.body.artist,
+                'title': _req.body.title,
+                'exact': _req.body.exact,
+                'type': 'song'
+            }), mpc_playlist);
             break;
+
         case "album":
-            // TODO
+            http.get(gpm_call('get_album', {
+                'id': _req.body.id
+            }), mpc_playlist)
             break;
     }
+    _res.status(200);
+    _res.send();
 });
 
 var server = app.listen(3000, function () {
