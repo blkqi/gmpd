@@ -18,24 +18,13 @@ $(document).ready(function(){
         selector: '.context-menu-one', 
         trigger: 'left',
     	callback: function(key, opt){ 
-      		var id = opt.$trigger.attr("data-id");
-      		var album = opt.$trigger.attr("data-album");
-      		var artist = opt.$trigger.attr("data-artist");
-      		var track = opt.$trigger.attr("data-track");
-      		var type;
-      		if ( key == "radio" ) {
-      			type="radio";
-      		}
-      		else {
-      			type="album";
-      		}
       		var data = {
-       		 "mode": key,
-       		 "type": type,
-       		 "id": id,
-       		 "album": album,
-       		 "artist": artist,
-       		 "track": track
+       		  "mode": key,
+       		  "type": key==="radio" ? "radio" : "album",
+       		  "id": opt.$trigger.attr("data-id"),
+       		  "album": opt.$trigger.attr("data-album"),
+       		  "artist": opt.$trigger.attr("data-artist"),
+       		  "title": opt.$trigger.attr("data-track")
       		};
       		$.post("load", data, function(data, status){
           		$.notify(data,"success");

@@ -39,26 +39,21 @@ function mpc_send(cmd, args) {
     });
 }
 
-function search_url(req) {
-    var url = endpoint;
-    if (req.params.type === "track") {
-        url += '/search_id?type=matches';
-        if (req.query.artist)
-            url += '&artist=' + encodeURIComponent(req.query.artist);
-        if (req.query.title)
-            url += '&title=' + encodeURIComponent(req.query.title);
-        if (req.query.exact)
-            url += '&exact=' + encodeURIComponent(req.query.exact);
-    }
-    console.log(url);
+function search_url(params, oper) {
+    var url = endpoint + oper;
+    if (params.artist)
+        url += '&artist=' + encodeURIComponent(params.artist);
+    if (params.title)
+        url += '&title=' + encodeURIComponent(params.title);
+    if (params.exact)
+        url += '&exact=' + encodeURIComponent(params.exact);
     return url;
 }
 
-app.get('/:type?', function(_req, _res) {
+app.get('/', function(_req, _res) {
     // TODO validate type: track, radio, album
-    console.log(_req.params);
     if (_req.query.artist || _req.query.title) {
-        http.get(search_url(_req), function(res) {
+        http.get(search_url(_req.query, '/search_id?type=matches'), function(res) {
             const statusCode = res.statusCode;
             const contentType = res.headers['content-type'];
             var data = '';
@@ -80,6 +75,7 @@ app.get('/:type?', function(_req, _res) {
 app.post('/load', function(_req, _res) {
     console.log(_req.body);
     switch (_req.body.type) {
+        case "":
         case "track":
             if (_req.body.mode == 'play') mpc_send('clear', []);
             _req.body.track.map(function(id) {
@@ -88,6 +84,7 @@ app.post('/load', function(_req, _res) {
             if (_req.body.mode == 'play') mpc_send('play', []);
             break;
         case "radio":
+            console.log(search_url(_req.body, '/get_new_station_by_search?type=song'));
             // TODO
             break;
         case "album":
