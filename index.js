@@ -27,8 +27,6 @@ app.use(bodyParser.urlencoded({
 app.set('views', './views') // specify the views directory
 app.set('view engine', 'mu') // register the template engine
 
-var endpoint = 'http://' + config.gmp.host + ':' + config.gmp.port;
-
 var mpc = mpd.connect(config.mpd);
 
 function mpc_send(cmd, args) {
@@ -39,16 +37,38 @@ function mpc_send(cmd, args) {
     });
 }
 
-function gpm_call(oper, params) {
+function mpc_track(ids, play) {
+    if (play) mpc_send('clear', []);
+    ids.map(function(id) {
+        mpc_send('add', [gpm_url('get_song', {'id': id})]);
+    });
+    if (play) mpc_send('play', []);
+}
+
+function mpc_playlist(res) {
+    var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
+    stream.once('open', function(fd) {
+        res.setEncoding('utf8');
+        res.on('data', function(chunk) { stream.write(chunk) });
+        res.on('end', function() { stream.end() });
+    });
+    stream.once('close', function() {
+        mpc_send('clear', []);
+        mpc_send('load', ['tmp']);
+        mpc_send('play', []);
+    });
+}
+
+function gpm_url(oper, params) {
+    var endpoint = 'http://' + config.gmp.host + ':' + config.gmp.port;
     return endpoint + '/' + oper + '?' + Object.keys(params).map(function(key) {
           return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }).join('&');
 }
 
 app.get('/', function(_req, _res) {
-    // TODO validate type: track, radio, album
     if (_req.query.artist || _req.query.title) {
-        http.get(gpm_call('search_id', {
+        http.get(gpm_url('search_id', {
             'artist': _req.query.artist,
             'title': _req.query.title,
             'exact': _req.query.exact,
@@ -71,37 +91,14 @@ app.get('/', function(_req, _res) {
     else _res.render('main');
 })
 
-function mpc_track(ids, play) {
-    if (play) mpc_send('clear', []);
-    ids.map(function(id) {
-        mpc_send('add', [endpoint + '/get_song?id=' + id]);
-    });
-    if (play) mpc_send('play', []);
-}
-
-function mpc_playlist(res) {
-    var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
-    stream.once('open', function(fd) {
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) { stream.write(chunk) });
-        res.on('end', function() { stream.end() });
-    });
-    stream.once('close', function() {
-        mpc_send('clear', []);
-        mpc_send('load', ['tmp']);
-        mpc_send('play', []);
-    });
-}
-
 app.post('/load', function(_req, _res) {
-    console.log(_req.body);
     switch (_req.body.type) {
         case "track":
             mpc_track(_req.body.track, _req.body.mode==='play')
             break;
 
         case "radio":
-            http.get(gpm_call('get_new_station_by_search', {
+            http.get(gpm_url('get_new_station_by_search', {
                 'artist': _req.body.artist,
                 'title': _req.body.title,
                 'exact': _req.body.exact,
@@ -110,7 +107,7 @@ app.post('/load', function(_req, _res) {
             break;
 
         case "album":
-            http.get(gpm_call('get_album', {
+            http.get(gpm_url('get_album', {
                 'id': _req.body.id
             }), mpc_playlist)
             break;
