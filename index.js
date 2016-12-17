@@ -29,18 +29,18 @@ app.set('view engine', 'mu') // register the template engine
 // TODO config file
 var endpoint = 'http://192.168.1.22:9999';
 
-var client = mpd.connect({
+var mpc = mpd.connect({
     port: 6600,
     host: 'localhost',
 });
 
-client.on('system-player', function() {
-    client.sendCommand(mpd.cmd("status", []), function(err, msg) {
+function mpc_send(cmd, args) {
+    var cmd = mpd.cmd(cmd, args);
+    mpc.sendCommand(cmd, function(err, msg) {
         if (err) throw err;
         console.log(msg);
     });
-});
-
+}
 
 function search_url(req) {
     var url = endpoint + '/search_id?type=matches';
@@ -80,27 +80,11 @@ app.post('/load', function(_req, _res) {
     console.log(_req.body);
     switch (_req.body.type) {
         case "track":
-            if (_req.body.mode == 'play') {
-                var cmd = mpd.cmd('clear', []);
-                client.sendCommand(cmd, function(err, msg) {
-                    if (err) throw err;
-                    console.log(msg);
-                });
-            }
+            if (_req.body.mode == 'play') mpc_send('clear', []);
             _req.body.track.map(function(id) {
-                var cmd = mpd.cmd('add', [endpoint + '/get_song?id=' + id]);
-                client.sendCommand(cmd, function(err, msg) {
-                    if (err) throw err;
-                    console.log(msg);
-                });
+                mpc_send('add', [endpoint + '/get_song?id=' + id]);
             });
-            if (_req.body.mode == 'play') {
-                var cmd = mpd.cmd('play', []);
-                client.sendCommand(cmd, function(err, msg) {
-                    if (err) throw err;
-                    console.log(msg);
-                });
-            }
+            if (_req.body.mode == 'play') mpc_send('play', []);
             break;
         case "radio":
             // TODO
