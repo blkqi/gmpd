@@ -40,18 +40,23 @@ function mpc_send(cmd, args) {
 }
 
 function search_url(req) {
-    var url = endpoint + '/search_id?type=matches';
-    if (req.query.artist)
-        url += '&artist=' + encodeURIComponent(req.query.artist);
-    if (req.query.title)
-        url += '&title=' + encodeURIComponent(req.query.title);
-    if (req.query.exact)
-        url += '&exact=' + encodeURIComponent(req.query.exact);
+    var url = endpoint;
+    if (req.params.type === "track") {
+        url += '/search_id?type=matches';
+        if (req.query.artist)
+            url += '&artist=' + encodeURIComponent(req.query.artist);
+        if (req.query.title)
+            url += '&title=' + encodeURIComponent(req.query.title);
+        if (req.query.exact)
+            url += '&exact=' + encodeURIComponent(req.query.exact);
+    }
     console.log(url);
     return url;
 }
 
-app.get('/', function(_req, _res) {
+app.get('/:type?', function(_req, _res) {
+    // TODO validate type: track, radio, album
+    console.log(_req.params);
     if (_req.query.artist || _req.query.title) {
         http.get(search_url(_req), function(res) {
             const statusCode = res.statusCode;
@@ -68,9 +73,8 @@ app.get('/', function(_req, _res) {
                 });
             });
         })
-    } else {
-        _res.render('main');
     }
+    else _res.render('main');
 })
 
 app.post('/load', function(_req, _res) {
