@@ -26,6 +26,7 @@
   "homepage": "https://github.com/juliomatcom/express-mustache-template#readme",
   "dependencies": {
     "express": "^4.13.3",
-    "mustache": "^2.2.0"
+    "mustache": "^2.2.0",
+    "http": "0.0.0"
   }
 }
