@@ -7,26 +7,6 @@ var bodyParser = require('body-parser')
 var mpd = require('mpd');
 var config = require('./config.json');
 
-// Adding the template engine to ExpressJS
-app.engine('mu', function (filePath, options, callback) { // define the template engine
-    fs.readFile(filePath, function (err, content) {
-        if (err) return callback(new Error(err))
-    
-        // Process view
-        var rendered = mustache.render(content.toString(), options.view, options.partials)
-
-        return callback(null, rendered)
-    })
-})
-
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.set('views', './views') // specify the views directory
-app.set('view engine', 'mu') // register the template engine
-
 var mpc = mpd.connect(config.mpd);
 
 function mpc_send(cmd, args) {
@@ -65,6 +45,20 @@ function gpm_url(oper, params) {
           return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }).join('&');
 }
+
+app.engine('mu', function (filePath, options, callback) {
+    fs.readFile(filePath, function (err, content) {
+        if (err) return callback(new Error(err))
+        var rendered = mustache.render(content.toString(), options.view, options.partials)
+        return callback(null, rendered)
+    })
+})
+
+app.set('views', './views')
+app.set('view engine', 'mu')
+
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(_req, _res) {
     if (_req.query.artist || _req.query.title) {
