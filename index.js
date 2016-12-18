@@ -71,7 +71,7 @@ app.get('/', function(_req, _res) {
 
 var tmp = require('tmp');
 
-function build_id3(id, callback) {
+function id3_wrapper(id, callback) {
     var path = '/tmp/id3.mp3';
     var tags = { 'title' : 'MPD All Access' };
     tmp.file(path, function(err, path, fd) {
@@ -87,14 +87,14 @@ app.get('/play', function(_req, _res) {
             https.get(url, function(res) {
                 _res.status(res.statusCode);
                 if (res.statusCode === 200) {
-                    build_id3(_req.query.id, function(sts, data) {
+                    id3_wrapper(_req.query.id, function(sts, data) {
                         if (sts) _res.write(data);
                         res.on('data', function(chunk) { _res.write(chunk) });
                         res.on('end', function() { _res.send(); });
                     });
                 }
                 else _res.end();
-            })
+            });
         });
     }
     else _res.status(400).end();
