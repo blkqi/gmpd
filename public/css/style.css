@@ -15,7 +15,8 @@
     body a, body a:visited { color:#0000EE; }
     table thead { cursor:pointer; }
     form#search { display:block; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; border-bottom:1px solid #ddd; }
-    form#search input { width:36%; float:left; font-size:20px; margin:15px 0 15px 15px; background-color:transparent; border:0; border-bottom:1px solid #4ECFC2; color:#fff; font-weight:bold; }
+    form#search input { width:72%; float:left; font-size:20px; margin:10px 0; padding:6px 10px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; font-weight:bold; }
+    form#search input.focused { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; }
     form#search button { color:#CAF1ED; width:auto; float:right; font-size:20px; height:100%; margin:15px 15px 0 0; border:0; background-color:transparent; }
     form#search span { display:block; float:left; width:6%; overflow:hidden; margin:2% 0; padding:0; font-size:18px; }
     form#search button i { color:#fff; font-size:24px; }
