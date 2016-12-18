@@ -120,7 +120,7 @@ app.post('/load', function(_req, _res) {
                 var ids = info.tracks.map(function(track) {
                     return track.nid;
                 });
-                mpc_add_track(ids, true)
+                mpc_add_track(ids, _req.body.mode==='play')
             });
             break;
     }
