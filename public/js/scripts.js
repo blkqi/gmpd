@@ -12,8 +12,7 @@ $(document).ready(function(){
 
   var width = $(window).width();
   $('#table').width(width);
-    
-    //$(function(){
+
     $.contextMenu({
         selector: '.context-menu-one', 
         trigger: 'left',
@@ -36,7 +35,6 @@ $(document).ready(function(){
             "radio": {name: "Play Radio", icon: "fa-feed"}
         }
     });
-	//});
     
     $('#table tbody tr td.num').on( 'click', function () {
         if ( $(this).parent('tr').hasClass('selected') ) {
