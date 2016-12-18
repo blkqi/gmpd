@@ -1,16 +1,21 @@
-var express = require('express')
-var app = express()
-var fs = require('fs') // this engine requires the fs module
-var mustache = require('mustache')
-var bodyParser = require('body-parser')
+var express = require('express');
+var fs = require('fs');
+var https = require('https');
+var mustache = require('mustache');
+var bodyParser = require('body-parser');
 var mpd = require('mpd');
 var config = require('./config.json');
 var PlayMusic = require('playmusic');
+
+// PlayMusic setup
+
 var pm = new PlayMusic();
 
 pm.init(config.gmp, function(err) {
-    if(err) console.error(err);
+    if (err) throw err;
 });
+
+// MPD setup
 
 var mpc = mpd.connect(config.mpd);
 
@@ -22,15 +27,18 @@ mpc_callback = function(err, msg) {
 function mpc_add_track(ids, play) {
     if (play) mpc.sendCommand(mpd.cmd('clear', []), mpc_callback);
     ids.map(function(id) {
-        pm.getStreamUrl(id, function(err, url) {
-            mpc.sendCommand(mpd.cmd('add', [url]), mpc_callback);
-            if (play) {
-                mpc.sendCommand(mpd.cmd('play', []), mpc_callback);
-                play = false; // only play once
-            }
-        });
+        var url = 'http://localhost:3000/play?id=' + encodeURIComponent(id);
+        mpc.sendCommand(mpd.cmd('add', [url]), mpc_callback);
+        if (play) {
+            mpc.sendCommand(mpd.cmd('play', []), mpc_callback);
+            play = false; // only play once
+        }
     });
 }
+
+// Express setup
+
+var app = express();
 
 app.engine('mu', function (filePath, options, callback) {
     fs.readFile(filePath, function (err, content) {
@@ -63,6 +71,19 @@ app.get('/', function(_req, _res) {
     }
     else _res.render('main');
 })
+
+app.get('/play', function(_req, _res) {
+    pm.getStreamUrl(_req.query.id, function(err, url) {
+        https.get(url, function(res) {
+            _res.status(res.statusCode);
+            if (res.statusCode === 200) {
+                res.on('data', function(chunk) { _res.write(chunk) });
+                res.on('end', function() { _res.send(); });
+            }
+            else _res.end();
+        })
+    });
+});
 
 app.post('/load', function(_req, _res) {
     switch (_req.body.type) {
