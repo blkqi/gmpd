@@ -72,12 +72,18 @@ app.get('/', function(_req, _res) {
 var tmp = require('tmp');
 
 function id3_wrapper(id, callback) {
-    var path = '/tmp/id3.mp3';
-    var tags = { 'title' : 'MPD All Access' };
-    tmp.file(path, function(err, path, fd) {
-        if (err) throw err;
-        var sts = id3.write(tags, path);
-        callback(sts, fs.readFileSync(path));
+    pm.getAllAccessTrack(id, function(err, track) {
+        var tags = {
+            'artist' : track.artist,
+            'album' : track.album,
+            'title' : track.title,
+            //'year' : track.year
+        };
+        tmp.file(function(err, path, fd) {
+            if (err) throw err;
+            var sts = id3.write(tags, path);
+            callback(sts, fs.readFileSync(path));
+        });
     });
 }
 
