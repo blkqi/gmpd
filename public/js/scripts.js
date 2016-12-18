@@ -95,6 +95,9 @@ $(document).ready(function(){
     
     $('form#search input').focus(function(){
     	$(this).select();
+    	$(this).addClass("focused");
+	}).focusout(function(){
+    	$(this).removeClass("focused");
 	});
 
 });

@@ -3,6 +3,7 @@ var fs = require('fs');
 var https = require('https');
 var mustache = require('mustache');
 var bodyParser = require('body-parser');
+var tmp = require('tmp');
 var mpd = require('mpd');
 var config = require('./config.json');
 var PlayMusic = require('playmusic');
@@ -54,9 +55,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(_req, _res) {
-    if (_req.query.artist || _req.query.title) {
-        var query = _req.query.artist + ' ' + _req.query.title;
-        pm.search(query, 25, function(err, data) {
+    if (_req.query.q) {
+        pm.search(_req.query.q, 25, function(err, data) {
             _res.render('main', {
                 'view': data.entries.filter(function(entry) { return entry.type == '1' }),
                 'partials': { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() }
@@ -68,8 +68,6 @@ app.get('/', function(_req, _res) {
     }
     else _res.render('main');
 })
-
-var tmp = require('tmp');
 
 function id3_wrapper(id, callback) {
     pm.getAllAccessTrack(id, function(err, track) {

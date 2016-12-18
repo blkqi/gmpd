@@ -18,8 +18,8 @@
 
 <div class="frm">
     <form id="search" action="" method="get">
-        <input type="text" name="artist" value="" placeholder="Artist">
-        <input type="text" name="title" value="" placeholder="Title or Album">
+	<span>gmpd</span>
+        <input type="text" name="q" value="" placeholder="Search">
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div style="clear:both;"></div>
     </form>
