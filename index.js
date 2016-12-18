@@ -3,6 +3,7 @@ var fs = require('fs');
 var https = require('https');
 var mustache = require('mustache');
 var bodyParser = require('body-parser');
+var tmp = require('tmp');
 var mpd = require('mpd');
 var config = require('./config.json');
 var PlayMusic = require('playmusic');
@@ -67,8 +68,6 @@ app.get('/', function(_req, _res) {
     }
     else _res.render('main');
 })
-
-var tmp = require('tmp');
 
 function id3_wrapper(id, callback) {
     pm.getAllAccessTrack(id, function(err, track) {
