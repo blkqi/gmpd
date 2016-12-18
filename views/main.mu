@@ -18,7 +18,7 @@
 
 <div class="frm">
     <form id="search" action="" method="get">
-	<span style="margin:0;padding:17px 10px 0 20px;color:#fff;font-weight:normal;">gmpd</span>
+	<span>gmpd</span>
         <input type="text" name="q" value="" placeholder="Search">
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div style="clear:both;"></div>
