@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var mpd = require('mpd');
 var config = require('./config.json');
 var PlayMusic = require('playmusic');
+var id3 = require('node-id3');
 
 // PlayMusic setup
 
@@ -19,21 +20,19 @@ pm.init(config.gmp, function(err) {
 
 var mpc = mpd.connect(config.mpd);
 
+mpc_clear_cmd = function() { mpd.cmd('clear', []) };
+mpc_play_cmd = function() { mpd.cmd('play', []) };
+mpc_load_cmd = function(id) { mpd.cmd('add', ['http://localhost:3000/play?id=' + encodeURIComponent(id)]) };
+
 mpc_callback = function(err, msg) { 
     if (err) throw err;
     if (msg) console.log(msg);
 }
 
 function mpc_add_track(ids, play) {
-    if (play) mpc.sendCommand(mpd.cmd('clear', []), mpc_callback);
-    ids.map(function(id) {
-        var url = 'http://localhost:3000/play?id=' + encodeURIComponent(id);
-        mpc.sendCommand(mpd.cmd('add', [url]), mpc_callback);
-        if (play) {
-            mpc.sendCommand(mpd.cmd('play', []), mpc_callback);
-            play = false; // only play once
-        }
-    });
+    if (play) mpc.sendCommand(mpc_clear_cmd(), mpc_callback);
+    ids.map(function(id) { mpc.sendCommand(mpc_load_cmd(id), mpc_callback) });
+    if (play) mpc.sendCommand(mpc_play_cmd(), mpc_callback);
 }
 
 // Express setup
@@ -60,9 +59,7 @@ app.get('/', function(_req, _res) {
         pm.search(query, 25, function(err, data) {
             _res.render('main', {
                 'view': data.entries.filter(function(entry) { return entry.type == '1' }),
-                'partials': {
-                    'search': fs.readFileSync(app.get('views') + '/search.mu').toString()
-                }
+                'partials': { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() }
             });
         }, function(msg, body, err, res) {
             if (err) throw err;
@@ -72,13 +69,28 @@ app.get('/', function(_req, _res) {
     else _res.render('main');
 })
 
+var tmp = require('tmp');
+
+function build_id3(id, callback) {
+    var path = '/tmp/id3.mp3';
+    var tags = { 'title' : 'MPD All Access' };
+    tmp.file(path, function(err, path, fd) {
+        if (err) throw err;
+        var sts = id3.write(tags, path);
+        callback(sts, fs.readFileSync(path));
+    });
+}
+
 app.get('/play', function(_req, _res) {
     pm.getStreamUrl(_req.query.id, function(err, url) {
         https.get(url, function(res) {
             _res.status(res.statusCode);
             if (res.statusCode === 200) {
-                res.on('data', function(chunk) { _res.write(chunk) });
-                res.on('end', function() { _res.send(); });
+                build_id3(_req.query.id, function(sts, data) {
+                    if (sts) _res.write(data);
+                    res.on('data', function(chunk) { _res.write(chunk) });
+                    res.on('end', function() { _res.send(); });
+                });
             }
             else _res.end();
         })
