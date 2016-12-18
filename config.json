@@ -1,7 +1,7 @@
 {
     "gmp" : {
-        "host" : "localhost",
-        "port" : "9999"
+        "email" : "user@gmail.com",
+        "password" : "password"
     },
     "mpd" : {
         "host" : "localhost",

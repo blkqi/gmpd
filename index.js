@@ -2,46 +2,34 @@ var express = require('express')
 var app = express()
 var fs = require('fs') // this engine requires the fs module
 var mustache = require('mustache')
-var http = require('http')
 var bodyParser = require('body-parser')
 var mpd = require('mpd');
 var config = require('./config.json');
+var PlayMusic = require('playmusic');
+var pm = new PlayMusic();
+
+pm.init(config.gmp, function(err) {
+    if(err) console.error(err);
+});
 
 var mpc = mpd.connect(config.mpd);
 
-function mpc_send(cmd, args) {
-    var cmd = mpd.cmd(cmd, args);
-    mpc.sendCommand(cmd, function(err, msg) {
-        if (err) throw err;
-        console.log(msg);
-    });
+mpc_callback = function(err, msg) { 
+    if (err) throw err;
+    if (msg) console.log(msg);
 }
 
-function mpc_track(ids, play) {
-    if (play) mpc_send('clear', []);
-    ids.map(function(id) { mpc_send('add', [gpm_url('get_song', {'id': id})]) });
-    if (play) mpc_send('play', []);
-}
-
-function mpc_playlist(res) {
-    var stream = fs.createWriteStream("/var/lib/mpd/playlists/tmp.m3u");
-    stream.once('open', function(fd) {
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) { stream.write(chunk) });
-        res.on('end', function() { stream.end() });
+function mpc_add_track(ids, play) {
+    if (play) mpc.sendCommand(mpd.cmd('clear', []), mpc_callback);
+    ids.map(function(id) {
+        pm.getStreamUrl(id, function(err, url) {
+            mpc.sendCommand(mpd.cmd('add', [url]), mpc_callback);
+            if (play) {
+                mpc.sendCommand(mpd.cmd('play', []), mpc_callback);
+                play = false; // only play once
+            }
+        });
     });
-    stream.once('close', function() {
-        mpc_send('clear', []);
-        mpc_send('load', ['tmp']);
-        mpc_send('play', []);
-    });
-}
-
-function gpm_url(oper, params) {
-    var endpoint = 'http://' + config.gmp.host + ':' + config.gmp.port;
-    return endpoint + '/' + oper + '?' + Object.keys(params).map(function(key) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-    }).join('&');
 }
 
 app.engine('mu', function (filePath, options, callback) {
@@ -60,25 +48,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(_req, _res) {
     if (_req.query.artist || _req.query.title) {
-        http.get(gpm_url('search_id', {
-            'artist': _req.query.artist,
-            'title': _req.query.title,
-            'exact': _req.query.exact,
-            'type': 'matches'
-        }),
-        function(res) {
-            var data = '';
-            res.setEncoding('utf8');
-            res.on('data', function(chunk) { data += chunk });
-            res.on('end', function() {
-                _res.render('main', {
-                    'view': JSON.parse(data),
-                    'partials': {
-                        'search': fs.readFileSync(app.get('views') + '/search.mu').toString()
-                    }
-                });
+        var query = _req.query.artist + ' ' + _req.query.title;
+        pm.search(query, 25, function(err, data) {
+            _res.render('main', {
+                'view': data.entries.filter(function(entry) { return entry.type == '1' }),
+                'partials': {
+                    'search': fs.readFileSync(app.get('views') + '/search.mu').toString()
+                }
             });
-        })
+        }, function(msg, body, err, res) {
+            if (err) throw err;
+            if (msg) console.log(msg);
+        });
     }
     else _res.render('main');
 })
@@ -86,22 +67,28 @@ app.get('/', function(_req, _res) {
 app.post('/load', function(_req, _res) {
     switch (_req.body.type) {
         case "track":
-            mpc_track(_req.body.track, _req.body.mode==='play')
+            mpc_add_track(_req.body.track, _req.body.mode==='play')
             break;
 
         case "radio":
-            http.get(gpm_url('get_new_station_by_search', {
-                'artist': _req.body.artist,
-                'title': _req.body.title,
-                'exact': _req.body.exact,
-                'type': 'song'
-            }), mpc_playlist);
+            var name = _req.body.artist + ' ' + _req.body.title + ' Radio';
+            pm.createStation(name, _req.body.id, "track", function(err, body) {
+                pm.getStationTracks(body.mutate_response[0].id, 25, function(err, info) {
+                    var ids = info.data.stations[0].tracks.map(function(track) {
+                        return track.nid;
+                    });
+                    mpc_add_track(ids, true)
+                });
+            });
             break;
 
         case "album":
-            http.get(gpm_url('get_album', {
-                'id': _req.body.id
-            }), mpc_playlist)
+            pm.getAlbum(_req.body.id, true, function(err, info) {
+                var ids = info.tracks.map(function(track) {
+                    return track.nid;
+                });
+                mpc_add_track(ids, true)
+            });
             break;
     }
     _res.status(202);
