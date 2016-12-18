@@ -82,19 +82,22 @@ function build_id3(id, callback) {
 }
 
 app.get('/play', function(_req, _res) {
-    pm.getStreamUrl(_req.query.id, function(err, url) {
-        https.get(url, function(res) {
-            _res.status(res.statusCode);
-            if (res.statusCode === 200) {
-                build_id3(_req.query.id, function(sts, data) {
-                    if (sts) _res.write(data);
-                    res.on('data', function(chunk) { _res.write(chunk) });
-                    res.on('end', function() { _res.send(); });
-                });
-            }
-            else _res.end();
-        })
-    });
+    if (_req.query.id) {
+        pm.getStreamUrl(_req.query.id, function(err, url) {
+            https.get(url, function(res) {
+                _res.status(res.statusCode);
+                if (res.statusCode === 200) {
+                    build_id3(_req.query.id, function(sts, data) {
+                        if (sts) _res.write(data);
+                        res.on('data', function(chunk) { _res.write(chunk) });
+                        res.on('end', function() { _res.send(); });
+                    });
+                }
+                else _res.end();
+            })
+        });
+    }
+    else _res.status(400).end();
 });
 
 app.post('/load', function(_req, _res) {
@@ -107,9 +110,7 @@ app.post('/load', function(_req, _res) {
             var name = _req.body.artist + ' ' + _req.body.title + ' Radio';
             pm.createStation(name, _req.body.id, "track", function(err, body) {
                 pm.getStationTracks(body.mutate_response[0].id, 25, function(err, info) {
-                    var ids = info.data.stations[0].tracks.map(function(track) {
-                        return track.nid;
-                    });
+                    var ids = info.data.stations[0].tracks.map(function(track) { return track.nid; });
                     mpc_add_track(ids, true)
                 });
             });
@@ -117,9 +118,7 @@ app.post('/load', function(_req, _res) {
 
         case "album":
             pm.getAlbum(_req.body.id, true, function(err, info) {
-                var ids = info.tracks.map(function(track) {
-                    return track.nid;
-                });
+                var ids = info.tracks.map(function(track) { return track.nid; });
                 mpc_add_track(ids, _req.body.mode==='play')
             });
             break;
