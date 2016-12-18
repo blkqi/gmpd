@@ -19,9 +19,7 @@ function mpc_send(cmd, args) {
 
 function mpc_track(ids, play) {
     if (play) mpc_send('clear', []);
-    ids.map(function(id) {
-        mpc_send('add', [gpm_url('get_song', {'id': id})]);
-    });
+    ids.map(function(id) { mpc_send('add', [gpm_url('get_song', {'id': id})]) });
     if (play) mpc_send('play', []);
 }
 
@@ -76,7 +74,7 @@ app.get('/', function(_req, _res) {
                 _res.render('main', {
                     'view': JSON.parse(data),
                     'partials': {
-                        search: fs.readFileSync(app.get('views') + '/search.mu').toString()
+                        'search': fs.readFileSync(app.get('views') + '/search.mu').toString()
                     }
                 });
             });
@@ -106,11 +104,11 @@ app.post('/load', function(_req, _res) {
             }), mpc_playlist)
             break;
     }
-    _res.status(200);
+    _res.status(202);
     _res.send();
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(3000, function() {
     var host = server.address().address
     var port = server.address().port
     console.log('Example app listening at http://%s:%s', host, port)
