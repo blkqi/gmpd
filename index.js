@@ -20,9 +20,9 @@ pm.init(config.gmp, function(err) {
 
 var mpc = mpd.connect(config.mpd);
 
-mpc_clear_cmd = function() { mpd.cmd('clear', []) };
-mpc_play_cmd = function() { mpd.cmd('play', []) };
-mpc_load_cmd = function(id) { mpd.cmd('add', ['http://localhost:3000/play?id=' + encodeURIComponent(id)]) };
+mpc_clear_cmd = function() { return mpd.cmd('clear', []) };
+mpc_play_cmd = function() { return mpd.cmd('play', []) };
+mpc_load_cmd = function(id) { return mpd.cmd('add', ['http://localhost:3000/play?id=' + encodeURIComponent(id)]) };
 
 mpc_callback = function(err, msg) { 
     if (err) throw err;
