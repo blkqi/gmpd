@@ -86,7 +86,7 @@ app.get('/', function(_req, _res) {
             return album.tracks.map(function(track) { return {'type': 1, 'track': track} });
         }));
     }
-    else _res.render('main', params);
+    else _res.render('main');
 })
 
 function id3_wrapper(id, callback) {
