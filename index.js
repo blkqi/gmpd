@@ -78,19 +78,18 @@ app.get('/', function(_req, _res) {
     }
     else if (_req.query.artist_id) {
         pm.getArtist(_req.query.artist_id, false, 25, 0, wrap_callback(function(artist) {
-            return artist.topTracks.map(function(track) { return {'type': 1, 'track': track} });
+            return artist.topTracks ? artist.topTracks.map(function(track) { return {'type': 1, 'track': track} }) : [ ];
         }));
     }
     else if (_req.query.album_id) {
         pm.getAlbum(_req.query.album_id, true, wrap_callback(function(album) {
-            return album.tracks.map(function(track) { return {'type': 1, 'track': track} });
+            return album.tracks ? album.tracks.map(function(track) { return {'type': 1, 'track': track} }) : [ ];
         }));
     }
     else _res.render('main');
 });
 
 function id3_wrapper(id, callback) {
-    console.log(id);
     pm.getAllAccessTrack(id, function(err, track) {
         var tags = {
             'artist' : track.artist,
@@ -142,7 +141,7 @@ app.post('/load', function(_req, _res) {
             break;
 
         case "album":
-            pm.getAlbum(_req.body.album, true, function(err, data) {
+            pm.getAlbum(_req.body.id, true, function(err, data) {
                 var ids = data.tracks.map(function(track) { return track.nid; });
                 mpc_add_track(ids, _req.body.mode==='play')
             });
