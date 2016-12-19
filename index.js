@@ -23,7 +23,7 @@ var mpc = mpd.connect(config.mpd);
 
 mpc_clear_cmd = function() { return mpd.cmd('clear', []) };
 mpc_play_cmd = function() { return mpd.cmd('play', []) };
-mpc_load_cmd = function(id) { return mpd.cmd('add', ['http://localhost:3000/play?id=' + encodeURIComponent(id)]) };
+mpc_load_cmd = function(id) { return mpd.cmd('add', ['http://localhost:3000/play.mp3?id=' + encodeURIComponent(id)]) };
 
 mpc_callback = function(err, msg) { 
     if (err) throw err;
@@ -105,7 +105,7 @@ function id3_wrapper(id, callback) {
     });
 }
 
-app.get('/play', function(_req, _res) {
+app.get('/play.mp3', function(_req, _res) {
     if (_req.query.id) {
         pm.getStreamUrl(_req.query.id, function(err, url) {
             https.get(url, function(res) {
