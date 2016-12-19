@@ -54,22 +54,47 @@ app.set('view engine', 'mu')
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+function render_params(info, callback) {
+    var params = { };
+    params.view = callback(info);
+    params.partials = { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() };
+    return params;
+}
+
 app.get('/', function(_req, _res) {
     if (_req.query.q) {
-        pm.search(_req.query.q, 25, function(err, data) {
-            _res.render('main', {
-                'view': data.entries.filter(function(entry) { return entry.type == '1' }),
-                'partials': { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() }
-            });
-        }, function(msg, body, err, res) {
-            if (err) throw err;
-            if (msg) console.log(msg);
+        pm.search(_req.query.q, 25, function(err, search) {
+            _res.render('main', render_params(search, function(search) {
+                return search.entries.filter(function(entry) { return entry.type == '1' })
+            }));
         });
     }
-    else _res.render('main');
+    else if (_req.query.track_id) {
+        pm.getAllAccessTrack(_req.query.track_id, function(err, track) {
+            _res.render('main', render_params(track, function(track) {
+                return [{'type': 1, 'track': track}];
+            }));
+        });
+    }
+    else if (_req.query.artist_id) {
+        pm.getArtist(_req.query.artist_id, false, 25, 0, function(err, artist) {
+            _res.render('main', render_params(artist, function(artist) {
+                return artist.topTracks.map(function(track) { return {'type': 1, 'track': track} });
+            }));
+        });
+    }
+    else if (_req.query.album_id) {
+        pm.getAlbum(_req.query.album_id, true, function(err, album) {
+            _res.render('main', render_params(album, function(album) {
+                return album.tracks.map(function(track) { return {'type': 1, 'track': track} });
+            }));
+        });
+    }
+    else _res.render('main', params);
 })
 
 function id3_wrapper(id, callback) {
+    console.log(id);
     pm.getAllAccessTrack(id, function(err, track) {
         var tags = {
             'artist' : track.artist,
@@ -113,16 +138,16 @@ app.post('/load', function(_req, _res) {
         case "radio":
             var name = _req.body.artist + ' ' + _req.body.title + ' Radio';
             pm.createStation(name, _req.body.id, "track", function(err, body) {
-                pm.getStationTracks(body.mutate_response[0].id, 25, function(err, info) {
-                    var ids = info.data.stations[0].tracks.map(function(track) { return track.nid; });
+                pm.getStationTracks(body.mutate_response[0].id, 25, function(err, data) {
+                    var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
                     mpc_add_track(ids, true)
                 });
             });
             break;
 
         case "album":
-            pm.getAlbum(_req.body.id, true, function(err, info) {
-                var ids = info.tracks.map(function(track) { return track.nid; });
+            pm.getAlbum(_req.body.id, true, function(err, data) {
+                var ids = data.tracks.map(function(track) { return track.nid; });
                 mpc_add_track(ids, _req.body.mode==='play')
             });
             break;
