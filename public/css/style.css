@@ -14,11 +14,14 @@
     body { font-family:sans-serif; margin:0; padding:0; }
     body a, body a:visited { color:#0000EE; }
     table thead { cursor:pointer; }
-    form#search { display:block; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; border-bottom:1px solid #ddd; }
-    form#search input { width:60%; float:left; font-size:20px; margin:10px 0; padding:6px 10px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; font-weight:bold; }
-    form#search input.focused { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; }
-    form#search button { color:#CAF1ED; width:auto; float:right; font-size:20px; height:100%; margin:15px 15px 0 0; border:0; background-color:transparent; }
-    form#search span { float:left;margin:0;padding:20px 20px 0 20px;color:#fff;font-weight:normal; }
+    div.frm { line-height: 50px; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; }
+    div.frm span {  font-size:17px;vertical-align: middle; line-height: normal; margin:0; padding:0 15px 0 15px;color:#fff;font-weight:normal; width:100px; }
+    form#search { vertical-align: middle; height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:calc(100% - 140px); margin:0; padding:0; }
+    form#search input { width:calc(100% - 24px); position:absolute; top:0; left:0; font-size:20px; margin:10px 0; padding:6px 12px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; font-weight:bold; }
+    form#search.focused input { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:         inset 1px 1px 10px rgba(0,0,0,0.1); }
+    form#search:not(.focused) input:hover { background:rgba(255, 255, 255, 0.35); }
+    form#search.focused button i { color:#4ECFC2; }
+    form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 2% 0 0; border:0; background-color:transparent; }
     form#search button i { color:#fff; font-size:24px; }
     form#search button i:hover { opacity:0.75; cursor:pointer; }
     div.o { padding-top:60px; margin:0 15px;  }
