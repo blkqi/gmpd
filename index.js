@@ -75,7 +75,7 @@ app.get('/', function(_req, _res) {
     }
     else if (_req.query.track_id) {
         pm.getAllAccessTrack(_req.query.track_id, wrap_callback(function(track) {
-            return [{'type': 1, 'track': track}];
+            return track ? [{'type': 1, 'track': track}] : [ ];
         }));
     }
     else if (_req.query.artist_id) {
@@ -148,8 +148,7 @@ app.post('/load', function(_req, _res) {
             });
             break;
     }
-    _res.status(202);
-    _res.send();
+    _res.status(202).end();
 });
 
 var server = app.listen(3000, function() {
