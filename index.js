@@ -133,8 +133,7 @@ app.post('/load', function(_req, _res) {
             break;
 
         case "radio":
-            var name = _req.body.artist + ' ' + _req.body.title + ' Radio';
-            pm.createStation(name, _req.body.id, "track", function(err, body) {
+            pm.createStation('radio:' + _req.body.id, _req.body.id, "track", function(err, body) {
                 pm.getStationTracks(body.mutate_response[0].id, max_results, function(err, data) {
                     var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
                     mpc_add_track(ids, true)
