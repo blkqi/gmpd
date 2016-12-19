@@ -1,5 +1,4 @@
-
-  ::-webkit-input-placeholder {
+::-webkit-input-placeholder {
    color: #CAF1ED; font-weight:lighter !important;
 }
 :-moz-placeholder { /* Firefox 18- */
@@ -30,9 +29,6 @@
     table#table button:hover { background-color:white; }
     table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
     table#table td div { font-size:12px; }
-    table#table td.num img { width:20px; padding:0; margin:0; vertical-align:middle; }
-    table#table td.num:hover img { opacity:0.75; }
-    table#table tr.selected { background-color:#eee; }
     button:focus {outline:0;}
     input:focus {outline:0;}
     table#table td span.btn { color:#aaa; font-size:26px; }
