@@ -29,12 +29,6 @@
 <div class="o">
 </div>
 
-<div class="t">
-    <button class="track" data-mode="add" disabled>Add</button>
-    <button class="track" data-mode="play" disabled>Play</button>
-    <button id="select">Select All</button>
-</div>
-
 {{>search}}
 
 </body>
