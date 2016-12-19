@@ -17,12 +17,12 @@
 <body>
 
 <div class="frm">
-    <form id="search" action="" method="get">
 	<span>gmpd</span>
-        <input type="text" name="q" value="" placeholder="Search">
+    <form id="search" action="" method="get">
+        <input type="text" name="q" value="" placeholder="Search"/>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <div style="clear:both;"></div>
     </form>
+    <div style="clear:both;"></div>
 </div>
 
 <div class="o">
