@@ -13,11 +13,12 @@
     <link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
 </head>
 <body>
 
 <div class="frm">
-	<span>gmpd</span>
+	<span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" action="" method="get">
         <input type="text" name="q" value="" placeholder="Search"/>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
