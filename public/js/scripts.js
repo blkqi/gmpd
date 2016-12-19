@@ -1,17 +1,14 @@
 $(document).ready(function(){
 
     var table = $('#table').DataTable( {
-        columnDefs: [ {
+      columnDefs: [ {
             orderable: false,
-            targets: [1,4]
+            targets: [3]
         } ],
       paging: false,
       searching: false,
       "order": [[ 0, "desc" ]]
     });
-
-  var width = $(window).width();
-  $('#table').width(width);
 
     $.contextMenu({
         selector: '.context-menu-one', 
@@ -40,69 +37,17 @@ $(document).ready(function(){
         }
     });
     
-    $('#table tbody tr td.num').on( 'click', function () {
-        if ( $(this).parent('tr').hasClass('selected') ) {
-            $(this).parent('tr').removeClass('selected');
-            $(this).find('img').attr('src','img/unchecked.png');
-        }
-        else {
-            $(this).parent('tr').addClass('selected');
-            $(this).find('img').attr('src','img/checked.png');
-        }
-        if ( $('#table tbody tr.selected').length > 0 ) {
-          $('button.track').prop('disabled', false);
-        }
-        else {
-          $('button.track').prop('disabled', true);
-        }
-    } );
- 
-    $('button.track').click( function () {
-      var mode = $(this).attr('data-mode');
-      var tracks = new Array();
-      $('#table tbody tr.selected').each(function() {
-        var id = $(this).attr('id');
-        tracks.push(id);
-      });
-      var data = {
-        "mode": mode,
-        "type": "track",
-        "track": tracks,
-        "id": null
-      };
-      $.post("load", data, function(data, status){
-          $.notify(data,"success");
-          $('#table tbody tr').removeClass('selected');
-          $('#table tbody tr td.num img').attr('src','img/unchecked.png');
-      });
-    });
-    
-    
-    $('button#select').click( function () {
-      if ( $(this).text().match('Select All') ) {
-        $('#table tbody tr').addClass('selected');
-        $('#table tbody tr td.num').find('img').attr('src','img/checked.png');
-        $(this).text("Deselect All");
-      }
-      else {
-        $('#table tbody tr').removeClass('selected');
-        $('#table tbody tr td.num').find('img').attr('src','img/unchecked.png');
-        $(this).text("Select All");
-      }
-      if ( $('#table tbody tr.selected').length > 0 ) {
-       $('button.track').prop('disabled', false);
-      }
-      else {
-        $('button.track').prop('disabled', true);
-      }
-    });
-    
     $('div.frm input').focus(function(){
     	$(this).select();
     	$(this).parent().addClass("focused");
 	}).focusout(function(){
     	$(this).parent().removeClass("focused");
 	});
+    
+    $("form#search input").val($.urlParam('q'));
+
+    var width = $(window).width();
+    $('#table').width(width);
 
 });
 
@@ -110,3 +55,8 @@ $(window).resize(function() {
   var width = $(window).width();
   $('#table').width(width);
 });
+
+$.urlParam = function (name) {
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  return results[1] || 0;
+}
