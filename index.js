@@ -61,13 +61,15 @@ function render_params(info, callback) {
     return params;
 }
 
+var max_results = config.max_results || 25;
+
 app.get('/', function(_req, _res) {
     wrap_callback = function(callback) {
         return function (err, info) { _res.render('main', render_params(info, callback)); };
     };
 
     if (_req.query.q) {
-        pm.search(_req.query.q, 25, wrap_callback(function(search) {
+        pm.search(_req.query.q, max_results, wrap_callback(function(search) {
             return search.entries ? search.entries.filter(function(entry) { return entry.type == '1' }) : [ ];
         }));
     }
@@ -77,7 +79,7 @@ app.get('/', function(_req, _res) {
         }));
     }
     else if (_req.query.artist_id) {
-        pm.getArtist(_req.query.artist_id, false, 25, 0, wrap_callback(function(artist) {
+        pm.getArtist(_req.query.artist_id, false, max_results, 0, wrap_callback(function(artist) {
             return artist.topTracks ? artist.topTracks.map(function(track) { return {'type': 1, 'track': track} }) : [ ];
         }));
     }
@@ -131,9 +133,8 @@ app.post('/load', function(_req, _res) {
             break;
 
         case "radio":
-            var name = _req.body.artist + ' ' + _req.body.title + ' Radio';
-            pm.createStation(name, _req.body.id, "track", function(err, body) {
-                pm.getStationTracks(body.mutate_response[0].id, 25, function(err, data) {
+            pm.createStation('radio:' + _req.body.id, _req.body.id, "track", function(err, body) {
+                pm.getStationTracks(body.mutate_response[0].id, max_results, function(err, data) {
                     var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
                     mpc_add_track(ids, true)
                 });
