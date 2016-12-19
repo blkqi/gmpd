@@ -18,12 +18,14 @@
     div.frm span.title span { vertical-align:sub; font-family:'Gentium Basic', serif; font-size:28px; /*background:rgba(255, 255, 255, 0.5); color:#4ECFC2;*/ margin:0 2px 0 0; }
     form#search { vertical-align: middle; text-align:center;height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:calc(100% - 140px); margin:0; padding:0 70px; }
     form#search input { width:calc(100% - 24px); max-width:800px; font-size:20px; margin:10px 0; padding:6px 12px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
+/*TODO:replace with focus selector, remove jquery */
     form#search.focused input { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
     form#search:not(.focused) input:hover { background:rgba(255, 255, 255, 0.35); }
     form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
     form#search button i { color:#fff; font-size:24px; }
     form#search button i:hover { opacity:0.75; cursor:pointer; }
     div.o { padding-top:60px; margin:0 15px;  }
+/*TODO:update table formatting, remove datatables*/
     table#table { border-bottom:1px solid #bbb; }
     table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
     table#table button:hover { background-color:white; }
