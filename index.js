@@ -62,33 +62,29 @@ function render_params(info, callback) {
 }
 
 app.get('/', function(_req, _res) {
+    wrap_callback = function(callback) {
+        return function (err, info) { _res.render('main', render_params(info, callback)); };
+    };
+
     if (_req.query.q) {
-        pm.search(_req.query.q, 25, function(err, search) {
-            _res.render('main', render_params(search, function(search) {
-                return search.entries.filter(function(entry) { return entry.type == '1' })
-            }));
-        });
+        pm.search(_req.query.q, 25, wrap_callback(function(search) {
+            return search.entries.filter(function(entry) { return entry.type == '1' });
+        }));
     }
     else if (_req.query.track_id) {
-        pm.getAllAccessTrack(_req.query.track_id, function(err, track) {
-            _res.render('main', render_params(track, function(track) {
-                return [{'type': 1, 'track': track}];
-            }));
-        });
+        pm.getAllAccessTrack(_req.query.track_id, wrap_callback(function(track) {
+            return [{'type': 1, 'track': track}];
+        }));
     }
     else if (_req.query.artist_id) {
-        pm.getArtist(_req.query.artist_id, false, 25, 0, function(err, artist) {
-            _res.render('main', render_params(artist, function(artist) {
-                return artist.topTracks.map(function(track) { return {'type': 1, 'track': track} });
-            }));
-        });
+        pm.getArtist(_req.query.artist_id, false, 25, 0, wrap_callback(function(artist) {
+            return artist.topTracks.map(function(track) { return {'type': 1, 'track': track} });
+        }));
     }
     else if (_req.query.album_id) {
-        pm.getAlbum(_req.query.album_id, true, function(err, album) {
-            _res.render('main', render_params(album, function(album) {
-                return album.tracks.map(function(track) { return {'type': 1, 'track': track} });
-            }));
-        });
+        pm.getAlbum(_req.query.album_id, true, wrap_callback(function(album) {
+            return album.tracks.map(function(track) { return {'type': 1, 'track': track} });
+        }));
     }
     else _res.render('main', params);
 })
