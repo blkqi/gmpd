@@ -68,7 +68,7 @@ app.get('/', function(_req, _res) {
 
     if (_req.query.q) {
         pm.search(_req.query.q, 25, wrap_callback(function(search) {
-            return search.entries.filter(function(entry) { return entry.type == '1' });
+            return search.entries ? search.entries.filter(function(entry) { return entry.type == '1' }) : [ ];
         }));
     }
     else if (_req.query.track_id) {
@@ -87,7 +87,7 @@ app.get('/', function(_req, _res) {
         }));
     }
     else _res.render('main');
-})
+});
 
 function id3_wrapper(id, callback) {
     console.log(id);
