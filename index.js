@@ -58,30 +58,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 function render_params(info, callback, view) {
     var params = { };
     params.view = callback(info);
-    params.partials = { 'search': fs.readFileSync(app.get('views') + view).toString() };
+    params.partials = { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() };
     return params;
 }
 
 var max_results = config.max_results || 25;
 
 app.get('/', function(_req, _res) {
-	var view;
-	var type;
-	switch (_req.query.t) {
-		case "album":
-			view = '/search.mu';
-			type = '3';
-			break;
-		case "artist":
-			view = '/search-artist.mu';
-			type = '2';
-			break;
-		default:
-			view = '/search.mu';
-			type = '1';
-	}
     wrap_callback = function(callback) {
-        return function (err, info) { _res.render('main', render_params(info, callback, view)); };
+        return function (err, info) { _res.render('main', render_params(info, callback)); };
     };
 
     if (_req.query.q) {
