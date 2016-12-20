@@ -108,7 +108,7 @@ app.get('/:tag', function(_req, _res) {
                 break;
 
             default:
-                _res.status(400).end();
+                _res.status(404).end();
         }
     }
     else _res.render('main');
