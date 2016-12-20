@@ -65,7 +65,6 @@ app.set('view engine', 'mu')
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 function render_params(info, callback, view) {
     var params = { };
     params.view = callback(info);
@@ -88,7 +87,7 @@ app.get('/', function(_req, _res) {
         pm.search(_req.query.q, max_results, wrap_callback(function(search) {
             return {
                 'tracks'  : entry_type(search.entries, 'track', '1'),
-                'artists' : entry_type(search.entries, 'artist', '2'),
+                'artists' : entry_type(search.entries, 'artist', '2').slice(0, 8),
             };
         }));
     }
