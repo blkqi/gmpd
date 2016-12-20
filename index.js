@@ -65,32 +65,37 @@ function render_params(info, callback, view) {
 var max_results = config.max_results || 25;
 
 app.get('/', function(_req, _res) {
-    wrap_callback = function(callback) {
+    var wrap_callback = function(callback) {
         return function (err, info) { _res.render('main', render_params(info, callback)); };
+    };
+    var slice_entries = function(entries) {
+        return {
+            'tracks'  : entries.filter(function(entry) { return entry.type == 1 }),
+            'artists' : entries.filter(function(entry) { return entry.type == 2 }),
+        };
+    };
+    var wrap_track = function(track) {
+        return {'type': 1, 'track': track};
     };
 
     if (_req.query.q) {
         pm.search(_req.query.q, max_results, wrap_callback(function(search) {
-            var entries = search.entries || [ ];
-            return {
-                'tracks'  : entries.filter(function(entry) { return entry.type == 1 }),
-                'artists' : entries.filter(function(entry) { return entry.type == 2 }),
-            };
+            return slice_entries(search.entries || []);
         }));
     }
     else if (_req.query.track_id) {
         pm.getAllAccessTrack(_req.query.track_id, wrap_callback(function(track) {
-            return track ? [{'type': 1, 'track': track}] : [ ];
+            return slice_entries(track ? [track].map(make_track) : []);
         }));
     }
     else if (_req.query.artist_id) {
         pm.getArtist(_req.query.artist_id, false, max_results, 0, wrap_callback(function(artist) {
-            return artist.topTracks ? artist.topTracks.map(function(track) { return {'type': 1, 'track': track} }) : [ ];
+            return slice_entries(artist.topTracks ? artist.topTracks.map(wrap_track) : []);
         }));
     }
     else if (_req.query.album_id) {
         pm.getAlbum(_req.query.album_id, true, wrap_callback(function(album) {
-            return album.tracks ? album.tracks.map(function(track) { return {'type': 1, 'track': track} }) : [ ];
+            return slice_entries(album.tracks ? album.tracks.map(wrap_track) : []);
         }));
     }
     else _res.render('main');
