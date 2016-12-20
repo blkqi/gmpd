@@ -1,4 +1,4 @@
-<div style="padding:20px;">
+<div style="padding:10px;">
 <ul class="cards" id="artist-cards">
 
 {{#artists}}

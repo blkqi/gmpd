@@ -66,7 +66,8 @@ $(document).ready(function(){
 
     $("#artist-cards").lightSlider({
         autoWidth: false,
-        slideMargin: 20,
+        item:4,
+        slideMargin: 10,
         mode: "slide",
         useCSS: true,
         speed: 400, //ms'
@@ -79,7 +80,23 @@ $(document).ready(function(){
         enableDrag:true,
         freeMove:true,
         swipeThreshold: 40,
-        pager: false
+        pager: false,
+        responsive : [
+            {
+                breakpoint:900,
+                settings: {
+                    item:3,
+                    slideMove:1
+                  }
+            },
+            {
+                breakpoint:700,
+                settings: {
+                    item:2,
+                    slideMove:1
+                  }
+            }
+        ]
     });
 
     $('.btn.track').click( function () {
