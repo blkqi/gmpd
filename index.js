@@ -21,11 +21,11 @@ pm.init(config.gmp, function(err) {
 
 var mpc = mpd.connect(config.mpd);
 
-mpc_clear_cmd = function() { return mpd.cmd('clear', []) };
-mpc_play_cmd = function() { return mpd.cmd('play', []) };
-mpc_load_cmd = function(id) { return mpd.cmd('add', ['http://localhost:3000/play.mp3?id=' + encodeURIComponent(id)]) };
+function mpc_clear_cmd() { return mpd.cmd('clear', []) };
+function mpc_play_cmd() { return mpd.cmd('play', []) };
+function mpc_load_cmd(id) { return mpd.cmd('add', ['http://localhost:3000/play.mp3?id=' + encodeURIComponent(id)]) };
 
-mpc_callback = function(err, msg) { 
+function mpc_callback(err, msg) { 
     if (err) throw err;
     if (msg) console.log(msg);
 }
