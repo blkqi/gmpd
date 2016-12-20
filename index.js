@@ -86,7 +86,11 @@ app.get('/', function(_req, _res) {
 
     if (_req.query.q) {
         pm.search(_req.query.q, max_results, wrap_callback(function(search) {
-            return search.entries ? search.entries.filter(function(entry) { return entry.type == type }) : [ ];
+            var entries = search.entries || [ ];
+            return {
+                'tracks'  : entries.filter(function(entry) { return entry.type == 1 }),
+                'artists' : entries.filter(function(entry) { return entry.type == 2 }),
+            };
         }));
     }
     else if (_req.query.track_id) {
