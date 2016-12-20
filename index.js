@@ -91,11 +91,6 @@ app.get('/', function(_req, _res) {
             };
         }));
     }
-    else if (_req.query.track_id) {
-        pm.getAllAccessTrack(_req.query.track_id, wrap_callback(function(track) {
-            return {'tracks': track ? [track] : []};
-        }));
-    }
     else if (_req.query.artist_id) {
         pm.getArtist(_req.query.artist_id, false, max_results, 0, wrap_callback(function(artist) {
             artist.tracks = artist.topTracks;
