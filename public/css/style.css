@@ -10,27 +10,30 @@
 :-ms-input-placeholder {  
    color: #CAF1ED;   font-weight:lighter !important;
 }
+
     body { font-family:sans-serif; margin:0; padding:0; }
     body a, body a:visited { color:#0000EE; }
     table thead { cursor:pointer; }
     div.frm { line-height: 50px; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; }
     div.frm span.title {  position:absolute; top:0; left:0; font-size:17px; margin:0; padding:0 15px 0 15px;color:#fff;font-weight:normal; width:100px; height:50px; }
-    div.frm span.title span { vertical-align:sub; font-family:'Gentium Basic', serif; font-size:28px; /*background:rgba(255, 255, 255, 0.5); color:#4ECFC2;*/ margin:0 2px 0 0; }
+    div.frm span.title span { vertical-align:sub; font-family:'Gentium Basic', serif; font-size:28px; margin:0 2px 0 0; }
     form#search { vertical-align: middle; text-align:center;height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:calc(100% - 140px); margin:0; padding:0 70px; }
     form#search input { width:calc(100% - 24px); max-width:800px; font-size:20px; margin:10px 0; padding:6px 12px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
-/*TODO:replace with focus selector, remove jquery */
-    form#search.focused input { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
-    form#search:not(.focused) input:hover { background:rgba(255, 255, 255, 0.35); }
+    form#search input:focus { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
+    form#search input:not(:focus):hover { background:rgba(255, 255, 255, 0.35); }
     form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
     form#search button i { color:#fff; font-size:24px; }
     form#search button i:hover { opacity:0.75; cursor:pointer; }
-    div.o { padding-top:60px; margin:0 15px;  }
-/*TODO:update table formatting, remove datatables*/
-    table#table { border-bottom:1px solid #bbb; }
+    div.o { padding-top:54px; margin:0 15px; }
+    table#table { border-collapse: collapse; margin:0; padding:0; }
     table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
     table#table button:hover { background-color:white; }
     table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
-    table#table td div { font-size:12px; }
+    table#table td { padding:6px 16px; border:none; }
+    table#table td div { font-size:12px; padding:4px 0; }
+    table#table tr { border-bottom:1px solid #eee; }
+    table#table tr:nth-child(odd) td { background-color:#f9f9f9; }
+    table#table tr:hover td { background-color:#f2f2f2; }
     button:focus {outline:0;}
     input:focus {outline:0;}
     table#table td span.btn { color:#aaa; font-size:26px; }
@@ -38,3 +41,7 @@
     .context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C; }
     .context-menu-list span { font-size:20px; padding-left:5px; }
     .context-menu-hover { background-color:#4ECFC2 !important; }
+    div.card { height:200px; width:250px; }
+	div.artist-card { position:relative; float:left; box-shadow:1px 1px 5px rgba(0,0,0,0.2); margin:20px 0 0 20px; }
+	div.artist-card .info { width:230px; padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
+	div.artist-card .info a { color:#fff; text-decoration:none; cursor:pointer; }

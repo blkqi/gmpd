@@ -1,12 +1,4 @@
 <table id="table" class="display">
-<thead>
-    <tr>
-        <th style="display:none;">Relevance</th>
-        <th>Artist</th>
-        <th>Title</th>
-        <th></th>
-    </tr>
-</thead>
 <tbody>
 
 {{#.}}

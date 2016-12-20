@@ -1,15 +1,5 @@
 $(document).ready(function(){
 
-    var table = $('#table').DataTable( {
-      columnDefs: [ {
-            orderable: false,
-            targets: [3]
-        } ],
-      paging: false,
-      searching: false,
-      "order": [[ 0, "desc" ]]
-    });
-
     $.contextMenu({
         selector: '.context-menu-one', 
         trigger: 'left',
@@ -39,9 +29,6 @@ $(document).ready(function(){
     
     $('div.frm input').focus(function(){
     	$(this).select();
-    	$(this).parent().addClass("focused");
-	}).focusout(function(){
-    	$(this).parent().removeClass("focused");
 	});
     
     $("form#search input").val($.urlParam('q'));
