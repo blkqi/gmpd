@@ -166,6 +166,10 @@ app.post('/load', function(_req, _res) {
                 mpc_add_track(_req, ids, _req.body.mode==='play')
             });
             break;
+
+        default:
+            _res.status(400).end();
+            return;
     }
     _res.status(202).end();
 });
