@@ -1,6 +1,9 @@
 $(document).ready(function(){
 
+    //$('#table').width($(window).width());
+    
 	var context_menu_items = new Array();
+	
     if ( $( window ).width() < 600 ) {
         context_menu_items = {
             "album-add": {name: "Add Album", icon: "add"},
@@ -83,9 +86,12 @@ $(document).ready(function(){
 	});
     
     $("form#search input").val($.urlParam('q'));
-
-    var width = $(window).width();
-    $('#table').width(width);
+    
+	/*$('.artist-card .card').mousemove(function(e){
+    	var amountMovedX = (e.pageX * -1 / 6);
+   		var amountMovedY = (e.pageY * -1 / 6);
+    	$(this).css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');
+	});*/
 
 });
 

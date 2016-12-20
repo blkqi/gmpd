@@ -25,7 +25,7 @@
     form#search button i { color:#fff; font-size:24px; }
     form#search button i:hover { opacity:0.75; cursor:pointer; }
     div.o { padding-top:54px; margin:0 15px; }
-    table#table { border-collapse: collapse; margin:0; padding:0; }
+    table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
     table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
     table#table button:hover { background-color:white; }
     table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
@@ -42,6 +42,20 @@
     .context-menu-list span { font-size:20px; padding-left:5px; }
     .context-menu-hover { background-color:#4ECFC2 !important; }
     div.card { height:200px; width:250px; }
-	div.artist-card { position:relative; float:left; box-shadow:1px 1px 5px rgba(0,0,0,0.2); margin:20px 0 0 20px; }
-	div.artist-card .info { width:230px; padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
-	div.artist-card .info a { color:#fff; text-decoration:none; cursor:pointer; }
+	div.artist-card { position:relative; float:left; box-shadow:1px 1px 10px rgba(0,0,0,0.25); margin:20px 0 0 20px; }
+	div.artist-card div.info { width:230px; padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
+	div.artist-card div.info a { color:#fff; text-decoration:none; cursor:pointer; }
+	div.artist-card div.image {
+    	background-size: 170% !important;
+		transition: all .5s;
+		-moz-transition: all .5s;
+		-ms-transition: all .5s;
+		-o-transition: all .5s;
+		-webkit-transition: all .5s;
+    }
+    div.artist-card:hover div.image {
+    	background-size: 190% !important;
+    }
+    div.artist-card:hover {
+    	box-shadow:1px 1px 10px rgba(0,0,0,.75);
+    }
