@@ -99,12 +99,14 @@ app.get('/', function(_req, _res) {
     }
     else if (_req.query.artist_id) {
         pm.getArtist(_req.query.artist_id, false, max_results, 0, wrap_callback(function(artist) {
-            return {'tracks': artist.topTracks ? artist.topTracks : []};
+            artist.tracks = artist.topTracks;
+            delete artist.topTracks;
+            return artist;
         }));
     }
     else if (_req.query.album_id) {
         pm.getAlbum(_req.query.album_id, true, wrap_callback(function(album) {
-            return {'tracks': album.tracks ? album.tracks : []};
+            return album;
         }));
     }
     else _res.render('main');
