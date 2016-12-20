@@ -147,29 +147,29 @@ app.get('/play.mp3', function(_req, _res) {
 
 app.post('/load', function(_req, _res) {
     switch (_req.body.type) {
-        case "track":
-            mpc_add_track(_req, _req.body.track, _req.body.mode==='play')
-            break;
+    case "track":
+        mpc_add_track(_req, _req.body.track, _req.body.mode==='play')
+        break;
 
-        case "radio":
-            pm.createStation('radio:' + _req.body.id, _req.body.id, "track", function(err, body) {
-                pm.getStationTracks(body.mutate_response[0].id, max_results, function(err, data) {
-                    var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
-                    mpc_add_track(_req, ids, true)
-                });
+    case "radio":
+        pm.createStation('radio:' + _req.body.id, _req.body.id, "track", function(err, body) {
+            pm.getStationTracks(body.mutate_response[0].id, max_results, function(err, data) {
+                var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
+                mpc_add_track(_req, ids, true)
             });
-            break;
+        });
+        break;
 
-        case "album":
-            pm.getAlbum(_req.body.id, true, function(err, data) {
-                var ids = data.tracks.map(function(track) { return track.nid; });
-                mpc_add_track(_req, ids, _req.body.mode==='play')
-            });
-            break;
+    case "album":
+        pm.getAlbum(_req.body.id, true, function(err, data) {
+            var ids = data.tracks.map(function(track) { return track.nid; });
+            mpc_add_track(_req, ids, _req.body.mode==='play')
+        });
+        break;
 
-        default:
-            _res.status(400).end();
-            return;
+    default:
+        _res.status(400).end();
+        return;
     }
     _res.status(202).end();
 });
