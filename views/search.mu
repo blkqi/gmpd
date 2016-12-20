@@ -3,11 +3,11 @@
 
 {{#artists}}
     <li id="{{artistId}}" class="artist-card card">
-    	<a href="?artist_id={{artistId}}">
+    	<a href="/artist?id={{artistId}}">
     		<div class="image card" style="background:url('{{artistArtRef}}') no-repeat center center;"></div>
     	</a>
     	<div class="info" style="">
-    		<a href="?artist_id={{artistId}}">{{name}}</a>
+    		<a href="/artist?id={{artistId}}">{{name}}</a>
     	</div>
     </li>
 {{/artists}}
@@ -21,8 +21,8 @@
 {{#tracks}}
     <tr id="{{storeId}}">
         <td style="display:none;">{{score}}</td>
-        <td><a href="?artist_id={{artistId}}">{{artist}}</a></td>
-        <td>{{title}}<div><a href="?album_id={{albumId}}">{{album}}</a>&nbsp;({{year}})</div></td>
+        <td><a href="/artist?id={{artistId}}">{{artist}}</a></td>
+        <td>{{title}}<div><a href="/album?id={{albumId}}">{{album}}</a>&nbsp;({{year}})</div></td>
         <td style="width:1px;white-space:nowrap;">
         	<span class="btn track" data-track="{{storeId}}" data-mode="add">
         		<i class="fa fa-plus" aria-hidden="true"></i>

@@ -65,9 +65,9 @@ app.set('view engine', 'mu')
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-function render_params(info, callback, view) {
+function render_params(info) {
     var params = { };
-    params.view = callback(info);
+    params.view = info;
     params.partials = { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() };
     return params;
 }
@@ -75,33 +75,41 @@ function render_params(info, callback, view) {
 var max_results = config.max_results || 25;
 
 app.get('/', function(_req, _res) {
-    var wrap_callback = function(callback) {
-        return function (err, info) { _res.render('main', render_params(info, callback)); };
-    };
-    
     var entry_type = function(entries, key, type) {
         return entries.filter(function(entry) { return entry.type == type }).map(function(entry) { return entry[key] });
     };
 
     if (_req.query.q) {
-        pm.search(_req.query.q, max_results, wrap_callback(function(search) {
-            return {
-                'tracks'  : entry_type(search.entries, 'track', '1'),
-                'artists' : entry_type(search.entries, 'artist', '2').slice(0, 8),
-            };
-        }));
+        pm.search(_req.query.q, max_results, function (err, data) {
+            _res.render('main', render_params({
+                'tracks'  : entry_type(data.entries, 'track', '1'),
+                'artists' : entry_type(data.entries, 'artist', '2').slice(0, 8),
+            }));
+        });
     }
-    else if (_req.query.artist_id) {
-        pm.getArtist(_req.query.artist_id, false, max_results, 0, wrap_callback(function(artist) {
-            artist.tracks = artist.topTracks;
-            delete artist.topTracks;
-            return artist;
-        }));
-    }
-    else if (_req.query.album_id) {
-        pm.getAlbum(_req.query.album_id, true, wrap_callback(function(album) {
-            return album;
-        }));
+    else _res.render('main');
+});
+
+app.get('/:tag', function(_req, _res) {
+    if (_req.query.id) {
+        switch (_req.params.tag) {
+            case 'artist':
+                pm.getArtist(_req.query.id, false, max_results, 0, function (err, data) {
+                    data.tracks = data.topTracks;
+                    delete data.topTracks;
+                    _res.render('main', render_params(data));
+                });
+                break;
+
+            case 'album':
+                pm.getAlbum(_req.query.id, true, function (err, data) {
+                    _res.render('main', render_params(data));
+                });
+                break;
+
+            default:
+                _res.status(400).end();
+        }
     }
     else _res.render('main');
 });

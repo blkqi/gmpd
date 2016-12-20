@@ -19,7 +19,7 @@
 
 <div class="frm">
 	<span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
-    <form id="search" action="" method="get">
+    <form id="search" action="/" method="get">
         <input type="text" name="q" value="" placeholder="Search"/>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
