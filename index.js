@@ -85,8 +85,8 @@ app.get('/', function(_req, _res) {
     if (_req.query.q) {
         pm.search(_req.query.q, max_results, function (err, data) {
             _res.render('main', render_params({
-                'tracks'  : entry_type(data.entries, 'track', '1'),
-                'artists' : entry_type(data.entries, 'artist', '2').slice(0, 8),
+                'tracks'  : entry_type(data.entries || [], 'track', '1'),
+                'artists' : entry_type(data.entries || [], 'artist', '2').slice(0, 8),
             }));
         });
     }
