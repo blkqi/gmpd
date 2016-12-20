@@ -120,7 +120,7 @@ $(document).ready(function(){
     	$(this).select();
 	});
     
-    $("form#search input").val($.urlParam('q'));
+    $("form#search input").val(decodeURIComponent($.urlParam('q').replace(/\+/g, '%20')));
     
 	/*$('.artist-card .card').mousemove(function(e){
     	var amountMovedX = (e.pageX * -1 / 6);
