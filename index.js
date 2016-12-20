@@ -90,26 +90,22 @@ app.get('/', function(_req, _res) {
     else _res.render('main');
 });
 
-app.get('/:tag', function(_req, _res) {
+app.get('/artist', function(_req, _res) {
     if (_req.query.id) {
-        switch (_req.params.tag) {
-            case 'artist':
-                pm.getArtist(_req.query.id, false, max_results, 0, function (err, data) {
-                    data.tracks = data.topTracks;
-                    delete data.topTracks;
-                    _res.render('main', render_params(data));
-                });
-                break;
+        pm.getArtist(_req.query.id, false, max_results, 0, function (err, data) {
+            data.tracks = data.topTracks;
+            delete data.topTracks;
+            _res.render('main', render_params(data));
+        });
+    }
+    else _res.render('main');
+});
 
-            case 'album':
-                pm.getAlbum(_req.query.id, true, function (err, data) {
-                    _res.render('main', render_params(data));
-                });
-                break;
-
-            default:
-                _res.status(404).end();
-        }
+app.get('/album', function(_req, _res) {
+    if (_req.query.id) {
+        pm.getAlbum(_req.query.id, true, function (err, data) {
+            _res.render('main', render_params(data));
+        });
     }
     else _res.render('main');
 });
