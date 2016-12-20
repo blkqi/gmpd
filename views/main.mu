@@ -19,6 +19,11 @@
 	<span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" action="" method="get">
         <input type="text" name="q" value="" placeholder="Search"/>
+        <select name="t">
+  			<option value="album">Album</option>
+  			<option value="artist">Artist</option>
+  			<option value="track" selected>Track</option>
+        </select>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
     <div style="clear:both;"></div>
