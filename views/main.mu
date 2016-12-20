@@ -12,6 +12,8 @@
     <link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/lightslider.css" />
+	<script src="js/lightslider.js"></script>
 </head>
 <body>
 
@@ -19,11 +21,6 @@
 	<span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" action="" method="get">
         <input type="text" name="q" value="" placeholder="Search"/>
-        <select name="t">
-  			<option value="album">Album</option>
-  			<option value="artist">Artist</option>
-  			<option value="track" selected>Track</option>
-        </select>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
     <div style="clear:both;"></div>

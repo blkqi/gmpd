@@ -13,6 +13,7 @@
 
     body { font-family:sans-serif; margin:0; padding:0; }
     body a, body a:visited { color:#0000EE; }
+    div#body { padding:20px; }
     table thead { cursor:pointer; }
     div.frm { line-height: 50px; box-shadow:0px 0px 20px rgba(0,0,0,0.2); position:fixed; top:0; z-index:999; width:100%; color:#4ECFC2; background-color:#3ACABB; padding:0; margin:0; font-weight:bold; }
     div.frm span.title {  position:absolute; top:0; left:0; font-size:17px; margin:0; padding:0 15px 0 15px;color:#fff;font-weight:normal; width:100px; height:50px; }
@@ -41,21 +42,21 @@
     .context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C; }
     .context-menu-list span { font-size:20px; padding-left:5px; }
     .context-menu-hover { background-color:#4ECFC2 !important; }
-    div.card { height:200px; width:250px; }
-	div.artist-card { position:relative; float:left; box-shadow:1px 1px 10px rgba(0,0,0,0.25); margin:20px 0 0 20px; }
-	div.artist-card div.info { width:230px; padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
-	div.artist-card div.info a { color:#fff; text-decoration:none; cursor:pointer; }
-	div.artist-card div.image {
-    	background-size: 170% !important;
+    ul.cards { }
+    .card { height:200px; }
+	li.artist-card { position:relative; background-color:#000; }
+	li.artist-card div.info { width:calc(100% - 20px); padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
+	li.artist-card div.info a { color:#fff; text-decoration:none; cursor:pointer; }
+	li.artist-card div.image {
+		width:100%;
+    	background-size: 130% !important;
 		transition: all .5s;
 		-moz-transition: all .5s;
 		-ms-transition: all .5s;
 		-o-transition: all .5s;
 		-webkit-transition: all .5s;
     }
-    div.artist-card:hover div.image {
-    	background-size: 190% !important;
+    li.artist-card:hover div.image {
+    	background-size: 140% !important;
     }
-    div.artist-card:hover {
-    	box-shadow:1px 1px 10px rgba(0,0,0,.75);
-    }
+    h2 { padding:0; margin:10px 0; }

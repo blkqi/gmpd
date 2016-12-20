@@ -64,6 +64,24 @@ $(document).ready(function(){
         items: context_menu_items
     });
 
+    $("#artist-cards").lightSlider({
+        autoWidth: false,
+        slideMargin: 20,
+        mode: "slide",
+        useCSS: true,
+        speed: 400, //ms'
+        auto: false,
+        loop: false,
+        slideEndAnimation: true,
+        pause: 2000,
+        pager: true,
+        enableTouch:true,
+        enableDrag:true,
+        freeMove:true,
+        swipeThreshold: 40,
+        pager: false
+    });
+
     $('.btn.track').click( function () {
       var mode = $(this).attr('data-mode');
       var tracks = new Array();

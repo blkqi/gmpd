@@ -1,3 +1,20 @@
+<div style="padding:20px;">
+<ul class="cards" id="artist-cards">
+
+{{#artists}}
+    <li id="{{artist.artistId}}" class="artist-card card">
+    	<a href="?artist_id={{artist.artistId}}">
+    		<div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
+    	</a>
+    	<div class="info" style="">
+    		<a href="?artist_id={{artist.artistId}}">{{artist.name}}</a>
+    	</div>
+    </li>
+{{/artists}}
+
+</ul>
+</div>
+
 <table id="table" class="display">
 <tbody>
 
@@ -22,19 +39,3 @@
 
 </tbody>
 </table>
-
-<div style="width:100%;">
-
-{{#artists}}
-    <div id="{{artist.artistId}}" class="artist-card card">
-    	<a href="?artist_id={{artist.artistId}}">
-    		<div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
-    	</a>
-    	<div class="info" style="">
-    		<a href="?artist_id={{artist.artistId}}">{{artist.name}}</a>
-    	</div>
-    </div>
-{{/artists}}
-
-<div style="clear:both;"></div>
-</div>
