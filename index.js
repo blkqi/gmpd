@@ -6,9 +6,14 @@ var mustache = require('mustache');
 var bodyParser = require('body-parser');
 var tmp = require('tmp');
 var mpd = require('mpd');
-var config = require('./config.json');
 var PlayMusic = require('playmusic');
 var id3 = require('node-id3');
+
+// Config setup
+
+var config = require('./config.json');
+var max_results = config.max_results || 25;
+var listen_port = config.listen_port || 3000;
 
 // PlayMusic setup
 
@@ -26,7 +31,7 @@ function play_url(req, id) {
     return url.format({
         'protocol': req.protocol,
         'hostname': req.hostname,
-        'port': 3000,
+        'port': listen_port,
         'pathname': 'play.mp3',
         'query': {'id': id}
     });
@@ -71,8 +76,6 @@ function render_params(info) {
     params.partials = { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() };
     return params;
 }
-
-var max_results = config.max_results || 25;
 
 app.get('/', function(_req, _res) {
     var entry_type = function(entries, key, type) {
@@ -174,7 +177,7 @@ app.post('/load', function(_req, _res) {
     _res.status(202).end();
 });
 
-var server = app.listen(3000, function() {
+var server = app.listen(listen_port, function() {
     var host = server.address().address
     var port = server.address().port
     console.log('Example app listening at http://%s:%s', host, port)
