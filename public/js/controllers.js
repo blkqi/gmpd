@@ -13,6 +13,23 @@ angular.module('GMPDApp', [])
                 });
             }
         }
+        $scope.load = function(id) {
+            if ($scope.query) {
+                $http({
+                    method: 'POST',
+                    url: '/load',
+					data: { 
+						track: id,
+						type: 'track',
+						mode: 'play'
+						}
+                }).then(function successCallback(res) {
+                    console.log(res);
+                }, function errorCallback(res) {
+                    console.log(res);
+                });
+            }
+        }
     })
 
 .directive('lightslider', function() {
@@ -58,4 +75,4 @@ angular.module('GMPDApp', [])
       }
     }
   };
-});
+})

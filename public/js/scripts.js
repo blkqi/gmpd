@@ -3,6 +3,19 @@ $(document).ready(function(){
     $(window).on('load', function(){ updateView() });
     $(window).on('resize', function(){ updateView() });
     
+    $('.btn.track').click( function () {
+      var data = {
+        "mode": $(this).attr('data-mode'),
+        "type": "track",
+        "track": [ $(this).attr('data-track') ],
+        "id": null
+      };
+      $.post("load", data, function(data, status){
+          //$.notify(data,"success");
+          alert('success');
+      });
+    });
+    
     $('div.frm input').focus(function(){
     	$(this).select();
 	});
