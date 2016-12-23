@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="GMPDApp">
 <head>
     <title>MPD All Access</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="js/controllers.js"></script>
+
     <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.12.3.js"></script>
     <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
     <script src="https://use.fontawesome.com/2f2f714e84.js"></script>
+    <!--
     <script type="text/javascript" charset="utf8" src="js/scripts.js"></script>
     <script type="text/javascript" charset="utf8" src="js/notify.min.js"></script>
+    -->
     <link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
@@ -29,6 +34,7 @@
 <div class="o">
 </div>
 
+<!--
 <div style="padding:10px;">
 <ul class="cards" id="artist-cards">
 
@@ -45,10 +51,14 @@
 
 </ul>
 </div>
+-->
 
-<table id="table" class="display">
+<div ng-controller="TrackController">
+<table id="table" class="display" >
 <tbody>
 
+<h1>{{tracks}}</h1>
+<!--
 {{#tracks}}
     <tr id="{{storeId}}">
         <td style="display:none;">{{score}}</td>
@@ -67,9 +77,11 @@
         </td>
     </tr>
 {{/tracks}}
+-->
 
 </tbody>
 </table>
+</div>
 
 </body>
 </html>
