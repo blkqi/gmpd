@@ -137,7 +137,7 @@ app.post('/load', function(_req, _res) {
         break;
 
     case "album":
-        pm.getAlbum(_req.body.id, true, function(err, data) {
+        pm.getAlbum(_req.body.album, true, function(err, data) {
             var ids = data.tracks.map(function(track) { return track.nid; });
             mpc_add_track(_req, ids, _req.body.mode==='play')
         });

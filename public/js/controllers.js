@@ -77,7 +77,7 @@ angular.module('GMPDApp', [])
   };
 })
 
-.directive('contextmenu', function() {
+.directive('contextmenu', function($http) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -88,16 +88,21 @@ angular.module('GMPDApp', [])
 		  build: function($trigger) {
 			var options = {
 			  callback: function(key, options) {
-					var data = {
-					  "mode": key.split('-')[1],
-					  "type": key.split('-')[0],
-					  "album": $trigger.attr("data-album"),
-					  "artist": $trigger.attr("data-artist"),
-					  "track": [ $trigger.attr("data-track") ]
-					};
-					$.post("load", data, function(data, status){
-					  //$.notify(data,"success");
-					});
+                $http({
+                    method: 'POST',
+                    url: '/load',
+					data: {
+						  "mode": key.split('-')[1],
+						  "type": key.split('-')[0],
+						  "album": $trigger.attr("data-album"),
+						  "artist": $trigger.attr("data-artist"),
+						  "track": [ $trigger.attr("data-track") ]
+						}
+				}).then(function successCallback(res) {
+					console.log(res);
+				}, function errorCallback(res) {
+					console.log(res);
+				});
 			  },
 			  items: {
 					"radio-play": {name: "Play Radio", icon: "fa-feed"},
