@@ -2,7 +2,6 @@ var express = require('express');
 var fs = require('fs');
 var url = require('url');
 var https = require('https');
-var mustache = require('mustache');
 var bodyParser = require('body-parser');
 var tmp = require('tmp');
 var mpd = require('mpd');
@@ -56,61 +55,34 @@ function mpc_add_track(req, ids, play) {
 
 var app = express();
 
-app.engine('mu', function (filePath, options, callback) {
-    fs.readFile(filePath, function (err, content) {
-        if (err) return callback(new Error(err))
-        var rendered = mustache.render(content.toString(), options.view, options.partials)
-        return callback(null, rendered)
-    })
-})
-
 app.set('views', './views')
 app.set('view engine', 'mu')
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-function render_params(info) {
-    var params = { };
-    params.view = info;
-    params.partials = { 'search': fs.readFileSync(app.get('views') + '/search.mu').toString() };
-    return params;
-}
-
-app.get('/', function(_req, _res) {
-    var entry_type = function(entries, key, type) {
-        return entries.filter(function(entry) { return entry.type == type }).map(function(entry) { return entry[key] });
-    };
-
+app.get('/search', function(_req, _res) {
     if (_req.query.q) {
         pm.search(_req.query.q, max_results, function (err, data) {
-            _res.render('main', render_params({
-                'tracks'  : entry_type(data.entries || [], 'track', '1'),
-                'artists' : entry_type(data.entries || [], 'artist', '2').slice(0, 8),
-            }));
+            _res.status(200).send(data);
         });
     }
-    else _res.render('main');
 });
 
 app.get('/artist', function(_req, _res) {
     if (_req.query.id) {
         pm.getArtist(_req.query.id, false, max_results, 0, function (err, data) {
-            data.tracks = data.topTracks;
-            delete data.topTracks;
-            _res.render('main', render_params(data));
+            _res.status(200).send(data);
         });
     }
-    else _res.render('main');
 });
 
 app.get('/album', function(_req, _res) {
     if (_req.query.id) {
         pm.getAlbum(_req.query.id, true, function (err, data) {
-            _res.render('main', render_params(data));
+            _res.status(200).send(data);
         });
     }
-    else _res.render('main');
 });
 
 function id3_wrapper(id, callback) {
