@@ -18,12 +18,12 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/lightslider.css" />
-	<script src="js/lightslider.js"></script>
+    <script src="js/lightslider.js"></script>
 </head>
 <body>
 
 <div class="frm">
-	<span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
+    <span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" action="/" method="get">
         <input type="text" name="q" value="" placeholder="Search"/>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
@@ -34,18 +34,20 @@
 <div class="o">
 </div>
 
+<div ng-controller="SearchController">
+
 <!--
 <div style="padding:10px;">
 <ul class="cards" id="artist-cards">
 
 {{#artists}}
     <li id="{{artistId}}" class="artist-card card">
-    	<a href="/artist?id={{artistId}}">
-    		<div class="image card" style="background:url('{{artistArtRef}}') no-repeat center center;"></div>
-    	</a>
-    	<div class="info" style="">
-    		<a href="/artist?id={{artistId}}">{{name}}</a>
-    	</div>
+        <a href="/artist?id={{artistId}}">
+            <div class="image card" style="background:url('{{artistArtRef}}') no-repeat center center;"></div>
+        </a>
+        <div class="info" style="">
+            <a href="/artist?id={{artistId}}">{{name}}</a>
+        </div>
     </li>
 {{/artists}}
 
@@ -53,34 +55,27 @@
 </div>
 -->
 
-<div ng-controller="TrackController">
 <table id="table" class="display" >
 <tbody>
-
-<h1>{{tracks}}</h1>
-<!--
-{{#tracks}}
-    <tr id="{{storeId}}">
-        <td style="display:none;">{{score}}</td>
-        <td><a href="/artist?id={{artistId}}">{{artist}}</a></td>
-        <td>{{title}}<div><a href="/album?id={{albumId}}">{{album}}</a>&nbsp;({{year}})</div></td>
+    <tr id="{{track.storeId}}" ng-repeat="track in tracks">
+        <td style="display:none;">{{track.score}}</td>
+        <td><a href="/artist?id={{track.artistId}}">{{track.artist}}</a></td>
+        <td>{{track.title}}<div><a href="/album?id={{track.albumId}}">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
         <td style="width:1px;white-space:nowrap;">
-        	<span class="btn track" data-track="{{storeId}}" data-mode="add">
-        		<i class="fa fa-plus" aria-hidden="true"></i>
-			</span>
-        	<span class="btn track" data-track="{{storeId}}" data-mode="play">
-        		<i class="fa fa-play" aria-hidden="true"></i>
-			</span>
-        	<span class="context-menu-one btn btn-neutral" data-id="{{albumId}}" data-album="{{albumId}}" data-track="{{storeId}}" data-artist="{{artistId}}">
-        		<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-        	</span>
+            <span class="btn track" data-track="{{track.storeId}}" data-mode="add">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </span>
+            <span class="btn track" data-track="{{tracks.storeId}}" data-mode="play">
+                <i class="fa fa-play" aria-hidden="true"></i>
+            </span>
+            <span class="context-menu-one btn btn-neutral" data-id="{{track.albumId}}" data-album="{{track.albumId}}" data-track="{{track.storeId}}" data-artist="{{track.artistId}}">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </span>
         </td>
     </tr>
-{{/tracks}}
--->
-
 </tbody>
 </table>
+
 </div>
 
 </body>
