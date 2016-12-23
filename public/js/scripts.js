@@ -1,67 +1,56 @@
 $(document).ready(function(){
-
-    //$('#table').width($(window).width());
     
-	var context_menu_items = new Array();
+    $(window).on('load', function(){ updateView() });
+    $(window).on('resize', function(){ updateView() });
 	
-    if ( $( window ).width() < 600 ) {
-        context_menu_items = {
-            "album-add": {name: "Add Album", icon: "add"},
-            "album-play": {name: "Play Album", icon: "fa-play"},
-            "track-add": {name: "Add Track", icon: "add"},
-            "track-play": {name: "Play Track", icon: "fa-play"},
-            "radio-play": {name: "Play Radio", icon: "fa-feed"}
-        }
-        $(".btn.track").hide();
-    }
-    else {
-        context_menu_items = {
-            "album-add": {name: "Add Album", icon: "add"},
-            "album-play": {name: "Play Album", icon: "fa-play"},
-            "radio-play": {name: "Play Radio", icon: "fa-feed"}
-        }
-        $(".btn.track").show();
-    }
-    $(window).on('resize', function(){
-    if ( $( window ).width() < 600 ) {
-        context_menu_items = {
-            "album-add": {name: "Add Album", icon: "add"},
-            "album-play": {name: "Play Album", icon: "fa-play"},
-            "track-add": {name: "Add Track", icon: "add"},
-            "track-play": {name: "Play Track", icon: "fa-play"},
-            "radio-play": {name: "Play Radio", icon: "fa-feed"}
-        }
-        $(".btn.track").hide();
-    }
-    else {
-        context_menu_items = {
-            "album-add": {name: "Add Album", icon: "add"},
-            "album-play": {name: "Play Album", icon: "fa-play"},
-            "radio-play": {name: "Play Radio", icon: "fa-feed"}
-        }
-        $(".btn.track").show();
-    }
+	$.contextMenu({
+	  selector: ".context-menu-one", 
+	  trigger: 'left',
+	  build: function($trigger) {
+		var options = {
+		  callback: function(key, options) {
+				var tracks = new Array();
+				tracks.push($trigger.attr("data-track"));
+				var data = {
+				  "mode": key.split('-')[1],
+				  "type": key.split('-')[0],
+				  "id": $trigger.attr("data-id"), //remove - this is redundant with album id
+				  "album": $trigger.attr("data-album"),
+				  "artist": $trigger.attr("data-artist"),
+				  "track": tracks
+				};
+				$.post("load", data, function(data, status){
+				  $.notify(data,"success");
+				});
+		  },
+		  items: {
+				"album-add": {name: "Add Album", icon: "add"},
+				"album-play": {name: "Play Album", icon: "fa-play"},
+				"radio-play": {name: "Play Radio", icon: "fa-feed"}
+		  }
+		};
+		if ($('body').hasClass('mini')) {
+		  options.items['track-add'] = {name: "Add Track", icon: "add"};
+		  options.items['track-play'] = {name: "Play Track", icon: "fa-play"};
+		}
+		return options;
+	  }
 	});
+	
 
-    $.contextMenu({
-        selector: '.context-menu-one', 
-        trigger: 'left',
-    	callback: function(key, opt){ 
-    	    var tracks = new Array();
-    	    tracks.push(opt.$trigger.attr("data-track"));
-      		var data = {
-       		  "mode": key.split('-')[1],
-       		  "type": key.split('-')[0],
-       		  "id": opt.$trigger.attr("data-id"), //remove - this is redundant with album id
-       		  "album": opt.$trigger.attr("data-album"),
-       		  "artist": opt.$trigger.attr("data-artist"),
-       		  "track": tracks
-      		};
-      		$.post("load", data, function(data, status){
-          		$.notify(data,"success");
-      		});
-        },
-        items: context_menu_items
+    $('.btn.track').click( function () {
+      var mode = $(this).attr('data-mode');
+      var tracks = new Array();
+      tracks.push($(this).attr('data-track'));
+      var data = {
+        "mode": mode,
+        "type": "track",
+        "track": tracks,
+        "id": null
+      };
+      $.post("load", data, function(data, status){
+          $.notify(data,"success");
+      });
     });
 
     $("#artist-cards").lightSlider({
@@ -98,44 +87,25 @@ $(document).ready(function(){
             }
         ]
     });
-
-    $('.btn.track').click( function () {
-      var mode = $(this).attr('data-mode');
-      var tracks = new Array();
-      tracks.push($(this).attr('data-track'));
-      var data = {
-        "mode": mode,
-        "type": "track",
-        "track": tracks,
-        "id": null
-      };
-      $.post("load", data, function(data, status){
-          $.notify(data,"success");
-          $('#table tbody tr').removeClass('selected');
-          $('#table tbody tr td.num img').attr('src','img/unchecked.png');
-      });
-    });
     
     $('div.frm input').focus(function(){
     	$(this).select();
 	});
-    
-    $("form#search input").val(decodeURIComponent($.urlParam('q').replace(/\+/g, '%20')));
-    
-	/*$('.artist-card .card').mousemove(function(e){
-    	var amountMovedX = (e.pageX * -1 / 6);
-   		var amountMovedY = (e.pageY * -1 / 6);
-    	$(this).css('background-position', amountMovedX + 'px ' + amountMovedY + 'px');
-	});*/
+	
+    $("form#search input").val(decodeURIComponent(urlParam('q').replace(/\+/g, '%20')));
 
 });
 
-$(window).resize(function() {
-  var width = $(window).width();
-  $('#table').width(width);
-});
+function updateView() {
+	if ( $( window ).width() < 600 ) {
+		$('body').addClass('mini');
+	}
+	else {
+		$('body').removeClass('mini');
+	}
+}
 
-$.urlParam = function (name) {
+function urlParam(name) {
   var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
   return results ? results[1] : '';
 }
