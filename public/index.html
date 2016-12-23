@@ -9,10 +9,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="js/controllers.js"></script>
     <script src="https://use.fontawesome.com/2f2f714e84.js"></script>
+    <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
     <script type="text/javascript" charset="utf8" src="js/scripts.js"></script>
     <!--
     <script type="text/javascript" charset="utf8" src="js/notify.min.js"></script>
-    <script src="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.js" type="text/javascript"></script>
     -->
     <link href="https://swisnl.github.io/jQuery-contextMenu/dist/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="css/lightslider.css" />
@@ -57,13 +57,13 @@
         <td><a href="/artist?id={{track.artistId}}">{{track.artist}}</a></td>
         <td>{{track.title}}<div><a href="/album?id={{track.albumId}}">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
         <td style="width:1px;white-space:nowrap;">
-            <button class="btn track" data-track="{{track.storeId}}" data-mode="add" ng-click="load(track.storeId)">
+            <button class="btn track" ng-click="load(track.storeId,'add')">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
-            <button class="btn track" data-track="{{tracks.storeId}}" data-mode="play" ng-click="load(track.storeId)">
+            <button class="btn track" ng-click="load(track.storeId,'play')">
                 <i class="fa fa-play" aria-hidden="true"></i>
             </button>
-            <button class="context-menu-one btn btn-neutral" data-id="{{track.albumId}}" data-album="{{track.albumId}}" data-track="{{track.storeId}}" data-artist="{{track.artistId}}">
+            <button contextmenu class="context-menu-one btn btn-neutral" data-id="{{track.albumId}}" data-album="{{track.albumId}}" data-track="{{track.storeId}}" data-artist="{{track.artistId}}">
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
             </button>
         </td>
