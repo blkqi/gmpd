@@ -9,24 +9,21 @@ $(document).ready(function(){
 	  build: function($trigger) {
 		var options = {
 		  callback: function(key, options) {
-				var tracks = new Array();
-				tracks.push($trigger.attr("data-track"));
 				var data = {
 				  "mode": key.split('-')[1],
 				  "type": key.split('-')[0],
-				  "id": $trigger.attr("data-id"), //remove - this is redundant with album id
 				  "album": $trigger.attr("data-album"),
 				  "artist": $trigger.attr("data-artist"),
-				  "track": tracks
+				  "track": [ $trigger.attr("data-track") ]
 				};
 				$.post("load", data, function(data, status){
 				  $.notify(data,"success");
 				});
 		  },
 		  items: {
+				"radio-play": {name: "Play Radio", icon: "fa-feed"},
 				"album-add": {name: "Add Album", icon: "add"},
-				"album-play": {name: "Play Album", icon: "fa-play"},
-				"radio-play": {name: "Play Radio", icon: "fa-feed"}
+				"album-play": {name: "Play Album", icon: "fa-play"}
 		  }
 		};
 		if ($('body').hasClass('mini')) {
@@ -37,15 +34,11 @@ $(document).ready(function(){
 	  }
 	});
 	
-
     $('.btn.track').click( function () {
-      var mode = $(this).attr('data-mode');
-      var tracks = new Array();
-      tracks.push($(this).attr('data-track'));
       var data = {
-        "mode": mode,
+        "mode": $(this).attr('data-mode'),
         "type": "track",
-        "track": tracks,
+        "track": [ $(this).attr('data-track') ],
         "id": null
       };
       $.post("load", data, function(data, status){
@@ -56,6 +49,7 @@ $(document).ready(function(){
     $("#artist-cards").lightSlider({
         autoWidth: false,
         item:4,
+        slideMove:2,
         slideMargin: 10,
         mode: "slide",
         useCSS: true,
