@@ -22,10 +22,12 @@
 </head>
 <body>
 
+<div ng-controller="SearchController">
+
 <div class="frm">
     <span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
-    <form id="search" action="/" method="get">
-        <input type="text" name="q" value="" placeholder="Search"/>
+    <form id="search" ng-submit="search()">
+        <input type="text" value="{{query}}" ng-model="query" placeholder="Search"/>
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
     <div style="clear:both;"></div>
@@ -33,8 +35,6 @@
 
 <div class="o">
 </div>
-
-<div ng-controller="SearchController">
 
 <div style="padding:10px;">
 <ul class="cards" id="artist-cards">
