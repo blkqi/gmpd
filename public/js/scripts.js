@@ -17,7 +17,7 @@ $(document).ready(function(){
 				  "track": [ $trigger.attr("data-track") ]
 				};
 				$.post("load", data, function(data, status){
-				  $.notify(data,"success");
+				  //$.notify(data,"success");
 				});
 		  },
 		  items: {
@@ -45,6 +45,31 @@ $(document).ready(function(){
           $.notify(data,"success");
       });
     });
+    
+    $('.btn.track').click( function () {
+      var data = {
+        "mode": $(this).attr('data-mode'),
+        "type": "track",
+        "track": [ $(this).attr('data-track') ],
+        "id": null
+      };
+      $.post("load", data, function(data, status){
+          //$.notify(data,"success");
+      });
+    });
+    
+	/*$("#search").submit(function(event) {
+		event.preventDefault();
+		var $form = $(this),
+			term = $form.find('input[name="q"]').val(),
+			url = $form.attr('action');
+		var data = {
+			"q": term
+		};
+		$.get(url, data, function(data, status){
+			//$.notify(data,"success");
+		});
+	});*/
 
     $("#artist-cards").lightSlider({
         autoWidth: false,
