@@ -39,7 +39,7 @@
 
 <div style="padding:10px;">
 <ul class="cards" id="artist-cards">
-    <li lightslider id="{{artist.artistId}}" class="artist-card card" ng-repeat="artist in artists">
+    <li light-slider id="{{artist.artistId}}" class="artist-card card" ng-repeat="artist in artists">
         <a href ng-click="artist(track.artistId)">
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
         </a>
@@ -63,7 +63,7 @@
             <button class="btn track" ng-click="load(track.storeId,'play')">
                 <i class="fa fa-play" aria-hidden="true"></i>
             </button>
-            <button contextmenu class="context-menu-one btn btn-neutral" data-id="{{track.albumId}}" data-album="{{track.albumId}}" data-track="{{track.storeId}}" data-artist="{{track.artistId}}">
+            <button context-menu class="context-menu-one btn btn-neutral" data-id="{{track.albumId}}" data-album="{{track.albumId}}" data-track="{{track.storeId}}" data-artist="{{track.artistId}}">
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
             </button>
         </td>

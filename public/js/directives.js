@@ -1,10 +1,10 @@
 angular
     .module('app')
-    .directive('selectOnClick', selectOnClick)
-    .directive('lightslider', lightslider)
-    .directive('contextmenu', contextmenu)
+    .directive('selectOnClick', SelectOnClickDirective)
+    .directive('lightSlider', LightSliderDirective)
+    .directive('contextMenu', ContextMenuDirective)
 
-function selectOnClick($window) {
+function SelectOnClickDirective($window) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -17,7 +17,7 @@ function selectOnClick($window) {
     };
 }
 
-function lightslider() {
+function LightSliderDirective() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -62,7 +62,7 @@ function lightslider() {
   };
 }
 
-function contextmenu($window, $http) {
+function ContextMenuDirective($window, $http) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
