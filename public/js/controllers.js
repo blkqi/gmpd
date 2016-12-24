@@ -1,5 +1,19 @@
-angular.module('GMPDApp', [])
-    .controller('SearchController', function($scope, $http) {
+angular.module('GMPDApp', ['ngRoute'])
+/*
+	.config(function ($routeProvider) {
+		$routeProvider
+		  .when('/', {
+			templateUrl: 'index.html',
+			reloadOnSearch: false,
+			controller: 'SearchController',
+			controllerAs: 'main'
+		  })
+		  .otherwise({
+			redirectTo: '/'
+		  });
+	})
+*/
+    .controller('SearchController', function($scope, $http, $location) {
         $scope.search = function() {
             if ($scope.query) {
                 $http({
@@ -8,11 +22,18 @@ angular.module('GMPDApp', [])
                 }).then(function successCallback(res) {
                     $scope.tracks = res.data.entries.filter((x) => x.type == 1).map((x) => x.track);
                     $scope.artists = res.data.entries.filter((x) => x.type == 2).map((x) => x.artist);
+                    var data = { q: $scope.query }
+                    $location.search(data); //update q string
                 }, function errorCallback(res) {
                     console.log(res);
                 });
             }
         }
+        var q = $location.search()['q'];
+		if (q) {
+			$scope.query = q;
+			$scope.search();
+		}
         $scope.load = function(id,mode) {
             if ($scope.query) {
                 $http({
@@ -24,9 +45,9 @@ angular.module('GMPDApp', [])
 						mode: mode
 						}
                 }).then(function successCallback(res) {
-                    console.log(res);
+                    console.log(res); //dosomething
                 }, function errorCallback(res) {
-                    console.log(res);
+                    console.log(res); 
                 });
             }
         }
@@ -99,9 +120,9 @@ angular.module('GMPDApp', [])
 						  "track": [ $trigger.attr("data-track") ]
 						}
 				}).then(function successCallback(res) {
-					console.log(res);
+					console.log(res); //dosomething
 				}, function errorCallback(res) {
-					console.log(res);
+					console.log(res); 
 				});
 			  },
 			  items: {

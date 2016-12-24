@@ -20,7 +20,7 @@ $(document).ready(function(){
     	$(this).select();
 	});
 	
-    $("form#search input").val(decodeURIComponent(urlParam('q').replace(/\+/g, '%20')));
+    //$("form#search input").val(decodeURIComponent(urlParam('q').replace(/\+/g, '%20')));
 
 });
 
