@@ -1,6 +1,6 @@
 angular
     .module('app')
-    .directive('selectOnClick', ['$window', selectOnClick])
+    .directive('selectOnClick', selectOnClick)
     .directive('lightslider', lightslider)
     .directive('contextmenu', contextmenu)
 
@@ -62,7 +62,7 @@ function lightslider() {
   };
 }
 
-function contextmenu($http) {
+function contextmenu($window, $http) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -95,7 +95,7 @@ function contextmenu($http) {
 					"album-play": {name: "Play Album", icon: "fa-play"}
 			  }
 			};
-			if ($('body').hasClass('mini')) {
+			if ($window.innerWidth)  {
 			  options.items['track-add'] = {name: "Add Track", icon: "add"};
 			  options.items['track-play'] = {name: "Play Track", icon: "fa-play"};
 			}
