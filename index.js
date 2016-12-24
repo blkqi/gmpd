@@ -61,28 +61,22 @@ app.set('view engine', 'mu')
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-app.get('/search', function(_req, _res) {
-    if (_req.query.q) {
-        pm.search(_req.query.q, max_results, function (err, data) {
-            _res.status(200).send(data);
-        });
+function pass_through(res) {
+    return function pass_through_(err, data) {
+        res.status(200).send(data);
     }
+}
+
+app.get('/search', function(_req, _res) {
+    if (_req.query.q) pm.search(_req.query.q, max_results, pass_through(_res));
 });
 
 app.get('/artist', function(_req, _res) {
-    if (_req.query.id) {
-        pm.getArtist(_req.query.id, false, max_results, 0, function (err, data) {
-            _res.status(200).send(data);
-        });
-    }
+    if (_req.query.id) pm.getArtist(_req.query.id, false, max_results, 0, pass_through(_res));
 });
 
 app.get('/album', function(_req, _res) {
-    if (_req.query.id) {
-        pm.getAlbum(_req.query.id, true, function (err, data) {
-            _res.status(200).send(data);
-        });
-    }
+    if (_req.query.id) pm.getAlbum(_req.query.id, true, pass_through(_res));
 });
 
 function id3_wrapper(id, callback) {
@@ -137,7 +131,7 @@ app.post('/load', function(_req, _res) {
         break;
 
     case "album":
-        pm.getAlbum(_req.body.album, true, function(err, data) {
+        pm.getAlbum(_req.body.id, true, function(err, data) {
             var ids = data.tracks.map(function(track) { return track.nid; });
             mpc_add_track(_req, ids, _req.body.mode==='play')
         });
