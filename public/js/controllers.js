@@ -68,4 +68,4 @@ function SearchController($scope, $http, $location) {
     else if ($location.search()['album']) {
         $scope.album($location.search()['album']);
     }
-})
+}

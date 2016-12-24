@@ -32,7 +32,7 @@ function play_url(req, id) {
         'hostname': req.hostname,
         'port': listen_port,
         'pathname': 'play.mp3',
-        'query': {'id': id}
+        'query': {id: id}
     });
 }
 
@@ -54,9 +54,6 @@ function mpc_add_track(req, ids, play) {
 // Express setup
 
 var app = express();
-
-app.set('views', './views')
-app.set('view engine', 'mu')
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -147,5 +144,5 @@ app.post('/load', function(_req, _res) {
 var server = app.listen(listen_port, function() {
     var host = server.address().address
     var port = server.address().port
-    console.log('Example app listening at http://%s:%s', host, port)
-})
+    console.log('gmpd listening at http://%s:%s', host, port)
+});

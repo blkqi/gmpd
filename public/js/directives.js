@@ -9,7 +9,7 @@ function selectOnClick($window) {
         restrict: 'A',
         link: function(scope, element, attrs) {
             element.on('click', function() {
-                if (!$windows.getSelection().toString()) {
+                if (!$window.getSelection().toString()) {
                     this.setSelectionRange(0, this.value.length);
                 }
             });
