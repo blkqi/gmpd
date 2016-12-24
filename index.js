@@ -112,7 +112,6 @@ app.get('/play.mp3', function(_req, _res) {
 });
 
 app.post('/load', function(_req, _res) {
-    console.log(_req.body);
     switch (_req.body.type) {
     case "track":
         mpc_add_track(_req, _req.body.track, _req.body.mode==='play')
