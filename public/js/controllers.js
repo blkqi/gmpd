@@ -22,18 +22,36 @@ angular.module('GMPDApp', ['ngRoute'])
                 }).then(function successCallback(res) {
                     $scope.tracks = res.data.entries.filter((x) => x.type == 1).map((x) => x.track);
                     $scope.artists = res.data.entries.filter((x) => x.type == 2).map((x) => x.artist);
-                    var data = { q: $scope.query }
-                    $location.search(data); //update q string
+                    $location.search({ q: $scope.query });
                 }, function errorCallback(res) {
                     console.log(res);
                 });
             }
         }
-        var q = $location.search()['q'];
-		if (q) {
-			$scope.query = q;
-			$scope.search();
-		}
+        $scope.artist = function(id) {
+            $http({
+                method: 'GET',
+                url: '/artist?id=' + encodeURIComponent(id)
+            }).then(function successCallback(res) {
+                $scope.tracks = res.data.topTracks;
+                $scope.artists = [];
+                $location.search({ id: id });
+            }, function errorCallback(res) {
+                console.log(res);
+            });
+        }
+        $scope.album = function(id) {
+            $http({
+                method: 'GET',
+                url: '/album?id=' + encodeURIComponent(id)
+            }).then(function successCallback(res) {
+                $scope.tracks = res.data.tracks;
+                $scope.artists = [];
+                $location.search({ id: id });
+            }, function errorCallback(res) {
+                console.log(res);
+            });
+        }
         $scope.load = function(id,mode) {
             if ($scope.query) {
                 $http({
@@ -51,6 +69,11 @@ angular.module('GMPDApp', ['ngRoute'])
                 });
             }
         }
+        var q = $location.search()['q'];
+		if (q) {
+			$scope.query = q;
+			$scope.search();
+		}
     })
 
 .directive('lightslider', function() {

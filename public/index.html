@@ -40,11 +40,11 @@
 <ul class="cards" id="artist-cards">
 
     <li lightslider id="{{artist.artistId}}" class="artist-card card" ng-repeat="artist in artists">
-        <a href="/artist?id={{artist.artistId}}">
+        <a href ng-click="artist(track.artistId)">
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
         </a>
         <div class="info" style="">
-            <a href="/artist?id={{artist.artistId}}">{{artist.name}}</a>
+            <a href ng-click="artist(track.artistId)">{{artist.name}}</a>
         </div>
     </li>
 
@@ -55,8 +55,8 @@
 <tbody>
     <tr id="{{track.storeId}}" ng-repeat="track in tracks">
         <td style="display:none;">{{track.score}}</td>
-        <td><a href="/artist?id={{track.artistId}}">{{track.artist}}</a></td>
-        <td>{{track.title}}<div><a href="/album?id={{track.albumId}}">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
+        <td><a href ng-click="artist(track.artistId)">{{track.artist}}</a></td>
+        <td>{{track.title}}<div><a href ng-click="album(track.albumId)">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
         <td style="width:1px;white-space:nowrap;">
             <button class="btn track" ng-click="load(track.storeId,'addv')">
                 <i class="fa fa-plus" aria-hidden="true"></i>
