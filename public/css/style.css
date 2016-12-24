@@ -42,11 +42,16 @@
     .context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C; }
     .context-menu-list span { font-size:20px; padding-left:5px; }
     .context-menu-hover { background-color:#4ECFC2 !important; }
-    .card { height:200px; }
-	li.artist-card { position:relative; background-color:#000; }
-	li.artist-card div.info { width:calc(100% - 20px); padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; }
-	li.artist-card div.info a { color:#fff; text-decoration:none; cursor:pointer; }
-	li.artist-card div.image { width:100%; background-size: cover; }
+    #artist-cards { height:200px; }
+	#album-cards { display:block; margin:0; padding:10px; white-space:nowrap; overflow:hidden; }
+	#album-cards li { display:inline-block; width:200px; height:200px; margin:0 10px 10px 0; padding:0; }
+	.card { transition: box-shadow 0.5s; position:relative; background-color:#000; height:100%; border-radius:6px; box-shadow: inset 1px 1px 8px rgba(0,0,0,0.5); }
+	.card .image { width:100%; background-size: cover !important; }
+	.card .info { transition: all 0.5s; width:calc(100% - 20px); padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; border-bottom-left-radius:6px; border-bottom-right-radius:6px; }
+	.card .info a { color:#fff; text-decoration:none; cursor:pointer; }
+	.card .info span { color:#ccc; font-size:12px; }
+	.card:hover { box-shadow: none; }
+	.card:hover .info { background-color:rgba(0,0,0,1); }
     h2 { padding:0; margin:10px 0; }
     @media screen and (max-width:600px) {
         button.track { display:none; }

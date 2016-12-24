@@ -10,6 +10,7 @@ function SearchController($scope, $http, $location) {
                 url: '/search?q=' + encodeURIComponent($scope.query)
             }).then(function successCallback(res) {
                 $scope.tracks = res.data.entries.filter((x) => x.type == 1).map((x) => x.track);
+                $scope.albums = res.data.entries.filter((x) => x.type == 3).map((x) => x.album);
                 $scope.artists = res.data.entries.filter((x) => x.type == 2).map((x) => x.artist);
                 $location.search({ q: $scope.query });
             }, function errorCallback(res) {

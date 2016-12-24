@@ -38,9 +38,9 @@
 </div>
 
 <div style="padding:10px;">
-<ul class="cards" id="artist-cards">
-    <li light-slider id="{{artist.artistId}}" class="artist-card card" ng-repeat="artist in artists">
-        <a href ng-click="artist(track.artistId)">
+<ul id="artist-cards">
+    <li light-slider id="{{artist.artistId}}" class="card" ng-repeat="artist in artists">
+        <a href ng-click="artist(track.artistId)"> 																					<!-- this line looks wrong -->
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
         </a>
         <div class="info" style="">
@@ -49,6 +49,20 @@
     </li>
 </ul>
 </div>
+
+<ul id="album-cards">
+    <li id="{{album.albumId}}" class="card" ng-repeat="album in albums">
+        <a href ng-click="album(album.albumId)">
+            <div class="image card" style="background:url('{{album.albumArtRef}}') no-repeat center center;"></div>
+        </a>
+        <div class="info" style="">
+            <a href ng-click="artist(track.artistId)">
+				{{album.name}}<br/>
+				<span>{{album.year}} // {{album.albumArtist}}</span>
+            </a>
+        </div>
+    </li>
+</ul>
 
 <table id="table" class="display" >
 <tbody>
