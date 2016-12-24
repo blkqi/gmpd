@@ -27,7 +27,7 @@
 <div class="frm">
     <span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" ng-submit="search()">
-        <input type="text" value="{{query}}" ng-model="query" placeholder="Search"/>
+        <input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
     <div style="clear:both;"></div>
@@ -38,7 +38,6 @@
 
 <div style="padding:10px;">
 <ul class="cards" id="artist-cards">
-
     <li lightslider id="{{artist.artistId}}" class="artist-card card" ng-repeat="artist in artists">
         <a href ng-click="artist(track.artistId)">
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
@@ -47,7 +46,6 @@
             <a href ng-click="artist(track.artistId)">{{artist.name}}</a>
         </div>
     </li>
-
 </ul>
 </div>
 

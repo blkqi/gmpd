@@ -81,6 +81,19 @@ angular.module('GMPDApp', ['ngRoute'])
 		}
     })
 
+.directive('selectOnClick', ['$window', function($window) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.on('click', function() {
+                if (!$windows.getSelection().toString()) {
+                    this.setSelectionRange(0, this.value.length);
+                }
+            });
+        }
+    };
+})
+
 .directive('lightslider', function() {
   return {
     restrict: 'A',
