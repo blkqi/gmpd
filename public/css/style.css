@@ -48,3 +48,6 @@
 	li.artist-card div.info a { color:#fff; text-decoration:none; cursor:pointer; }
 	li.artist-card div.image { width:100%; background-size: cover; }
     h2 { padding:0; margin:10px 0; }
+    @media screen and (max-width:600px) {
+        button.track { display:none; }
+    }
