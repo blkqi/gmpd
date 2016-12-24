@@ -35,7 +35,7 @@ angular.module('GMPDApp', ['ngRoute'])
             }).then(function successCallback(res) {
                 $scope.tracks = res.data.topTracks;
                 $scope.artists = [];
-                $location.search({ id: id });
+                $location.search({ artist: id });
             }, function errorCallback(res) {
                 console.log(res);
             });
@@ -47,7 +47,7 @@ angular.module('GMPDApp', ['ngRoute'])
             }).then(function successCallback(res) {
                 $scope.tracks = res.data.tracks;
                 $scope.artists = [];
-                $location.search({ id: id });
+                $location.search({ album: id });
             }, function errorCallback(res) {
                 console.log(res);
             });
@@ -69,10 +69,15 @@ angular.module('GMPDApp', ['ngRoute'])
                 });
             }
         }
-        var q = $location.search()['q'];
-		if (q) {
-			$scope.query = q;
+        if ($location.search()['q']) {
+			$scope.query = $location.search()['q'];
 			$scope.search();
+		}
+        else if ($location.search()['artist']) {
+			$scope.artist($location.search()['artist']);
+		}
+        else if ($location.search()['album']) {
+			$scope.album($location.search()['album']);
 		}
     })
 
