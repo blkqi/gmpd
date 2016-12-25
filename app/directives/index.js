@@ -1,3 +1,7 @@
+var $ = require('jquery');
+global.jQuery = require('jquery');
+require('jquery-contextmenu');
+
 angular
     .module('app')
     .directive('selectOnClick', SelectOnClickDirective)
