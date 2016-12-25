@@ -1,6 +1,6 @@
 angular
     .module('app', [require('angular-route')])
-	.config(function ($routeProvider) {
+	.config(function ($routeProvider, $locationProvider) {
 		$routeProvider
 		  .when('/', {
 			templateUrl: 'index.html',
@@ -11,4 +11,5 @@ angular
 		  .otherwise({
 			redirectTo: '/'
 		  });
+        $locationProvider.html5Mode(true);
 	});
