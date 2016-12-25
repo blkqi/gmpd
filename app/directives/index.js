@@ -49,12 +49,12 @@ function ContextMenuDirective($window, $http) {
 			  },
 			  items: {
 					"radio-play": {name: "Play Radio", icon: "fa-feed"},
-					"album-add": {name: "Add Album", icon: "add"},
+					"album-add": {name: "Add Album", icon: "fa-plus"},
 					"album-play": {name: "Play Album", icon: "fa-play"}
 			  }
 			};
 			if ($window.innerWidth)  {
-			  options.items['track-add'] = {name: "Add Track", icon: "add"};
+			  options.items['track-add'] = {name: "Add Track", icon: "fa-plus"};
 			  options.items['track-play'] = {name: "Play Track", icon: "fa-play"};
 			}
 			return options;
