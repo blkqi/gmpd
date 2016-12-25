@@ -23,8 +23,19 @@
     <div style="clear:both;"></div>
 </div>
 
-<div class="o">
+<div id="bgdiv" ng-if="!query" style="height:100vh;background-size:cover;">
+<script type="text/javascript"> 
+changeBg(3);
+function changeBg(totalCount) 
+{
+var num = Math.ceil( Math.random() * totalCount );
+document.getElementById("bgdiv").style.background = "url('"+num+".jpg') no-repeat top center";
+document.getElementById("bgdiv").style.backgroundSize = "cover";
+}
+</script>
 </div>
+
+<div class="o" ng-if="query">
 
 <div ng-show="artists.length">
 	<h2>Artists</h2>
@@ -77,6 +88,8 @@
 		</tr>
 	</tbody>
 	</table>
+</div>
+
 </div>
 
 </div>
