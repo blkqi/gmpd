@@ -21,7 +21,7 @@ function SearchController($scope, $http, $location) {
             method: 'GET',
             url: '/artist?id=' + encodeURIComponent(id)
         }).then(function successCallback(res) {
-            $scope.entries = res.data.entries;
+            $scope.entries = res.data.topTracks.map(function(x) {return {track:x,type:'1'}});
             $location.search({ artist: id });
         }, function errorCallback(res) {
             console.log(res);
@@ -32,7 +32,7 @@ function SearchController($scope, $http, $location) {
             method: 'GET',
             url: '/album?id=' + encodeURIComponent(id)
         }).then(function successCallback(res) {
-            $scope.entries = res.data.entries;
+            $scope.entries = res.data.tracks.map(function(x) {return {track:x,type:'1'}});
             $location.search({ album: id });
         }, function errorCallback(res) {
             console.log(res);
