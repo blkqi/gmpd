@@ -40,11 +40,11 @@
 <div style="padding:10px;">
 <ul id="artist-cards">
     <li light-slider id="{{artist.artistId}}" class="card" ng-repeat="artist in artists">
-        <a href ng-click="artist(track.artistId)"> 																					<!-- this line looks wrong -->
+        <a href ng-click="artist(artist.artistId)">
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
         </a>
         <div class="info" style="">
-            <a href ng-click="artist(track.artistId)">{{artist.name}}</a>
+            <a href ng-click="artist(artist.artistId)">{{artist.name}}</a>
         </div>
     </li>
 </ul>
