@@ -26,52 +26,58 @@
 <div class="o">
 </div>
 
-<h2 ng-show="artists.length">Artists</h2>
-<ul id="artist-cards" class="cards">
-    <li id="{{entry.artist.artistId}}" class="card" ng-repeat="entry in artists = (entries | filter:{type:'2'})">
-        <a href ng-click="artist(entry.artist.artistId)">
-            <div class="image card" style="background:url('{{entry.artist.artistArtRef}}') no-repeat center center;"></div>
-			<div class="info" style="">
-				{{entry.artist.name}}
-			</div>
-        </a>
-    </li>
-</ul>
+<div ng-show="artists.length">
+	<h2>Artists</h2>
+	<ul id="artist-cards" class="cards">
+		<li id="{{entry.artist.artistId}}" class="card" ng-repeat="entry in artists = (entries | filter:{type:'2'})">
+			<a href ng-click="artist(entry.artist.artistId)">
+				<div class="image card" style="background:url('{{entry.artist.artistArtRef}}') no-repeat center center;"></div>
+				<div class="info" style="">
+					{{entry.artist.name}}
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
 
-<h2 ng-show="albums.length">Albums</h2>
-<ul id="album-cards" class="cards">
-    <li id="{{entry.album.albumId}}" class="card" ng-repeat="entry in albums = (entries | filter:{type:'3'})">
-        <a href ng-click="album(entry.album.albumId)">
-            <div class="image card" style="background:url('{{entry.album.albumArtRef}}') no-repeat center center;"></div>
-			<div class="info" style="">
-					{{entry.album.name}}<br/>
-					<span>{{entry.album.year}} // {{entry.album.albumArtist}}</span>
-			</div>
-        </a>
-    </li>
-</ul>
+<div ng-show="albums.length">
+	<h2>Albums</h2>
+	<ul id="album-cards" class="cards">
+		<li id="{{entry.album.albumId}}" class="card" ng-repeat="entry in albums = (entries | filter:{type:'3'})">
+			<a href ng-click="album(entry.album.albumId)">
+				<div class="image card" style="background:url('{{entry.album.albumArtRef}}') no-repeat center center;"></div>
+				<div class="info" style="">
+						{{entry.album.name}}<br/>
+						<span>{{entry.album.year}} // {{entry.album.albumArtist}}</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>
 
-<h2 ng-show="tracks.length">Songs</h2>
-<table id="table" class="display" >
-<tbody>
-    <tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
-        <td style="display:none;">{{entry.track.score}}</td>
-        <td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
-        <td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
-        <td style="width:1px;white-space:nowrap;">
-            <button class="btn track" ng-click="load(entry.track.storeId,'addv')">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-            <button class="btn track" ng-click="load(entry.track.storeId,'play')">
-                <i class="fa fa-play" aria-hidden="true"></i>
-            </button>
-            <button context-menu class="context-menu-one btn btn-neutral" data-id="{{entry.track.albumId}}" data-album="{{entry.track.albumId}}" data-track="{{entry.track.storeId}}" data-artist="{{entry.track.artistId}}">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </button>
-        </td>
-    </tr>
-</tbody>
-</table>
+<div ng-show="tracks.length">
+	<h2>Songs</h2>
+	<table id="table" class="display" >
+	<tbody>
+		<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
+			<td style="display:none;">{{entry.track.score}}</td>
+			<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
+			<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
+			<td style="width:1px;white-space:nowrap;">
+				<button class="btn track" ng-click="load(entry.track.storeId,'addv')">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+				</button>
+				<button class="btn track" ng-click="load(entry.track.storeId,'play')">
+					<i class="fa fa-play" aria-hidden="true"></i>
+				</button>
+				<button context-menu class="context-menu-one btn btn-neutral" data-id="{{entry.track.albumId}}" data-album="{{entry.track.albumId}}" data-track="{{entry.track.storeId}}" data-artist="{{entry.track.artistId}}">
+					<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+				</button>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
 
 </div>
 
