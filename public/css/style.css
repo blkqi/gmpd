@@ -31,6 +31,18 @@ form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:aut
 form#search button i { color:#fff; font-size:24px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 
+.start { background:url('../1.jpg') no-repeat center center; background-size:cover; display: table-cell; vertical-align: middle; text-align:center; width:100vw; height:100vh; padding:0; margin:0; }
+.start div.frm { background-color:transparent; display: inline-block; line-height: 50px; box-shadow:none; position:relative; font-weight:bold; }
+.start div.frm span.title { display:none; position:relative; width:100%; text-align:center; font-size:34px; }
+.start div.frm span.title span { font-size:44px; }
+.start div.frm form#search { width:50%; position:relative; }
+.start div.frm form#search input { font-size:30px; background:rgba(255, 255, 255, 0.5); box-shadow:1px 1px 20px rgba(0,0,0,0.5); }
+.start div.frm form#search button { font-size:36px; right:0; position:absolute; }
+.start div.frm form#search input:focus { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
+.start ::-webkit-input-placeholder {
+   color: #000; font-weight:lighter !important;
+}
+
 div.o { padding-top:54px; }
 
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
