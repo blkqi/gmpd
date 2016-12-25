@@ -15,7 +15,7 @@
 
 <div ng-controller="SearchController">
 
-<div class="frm">
+<div class="frm" ng-class="{query:''}[entry]">
     <span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
     <form id="search" ng-submit="search()">
         <input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
@@ -23,20 +23,6 @@
     </form>
     <div style="clear:both;"></div>
 </div>
-
-<div id="bgdiv" ng-if="!query" style="height:100vh;background-size:cover;">
-<script type="text/javascript"> 
-changeBg(3);
-function changeBg(totalCount) 
-{
-var num = Math.ceil( Math.random() * totalCount );
-document.getElementById("bgdiv").style.background = "url('"+num+".jpg') no-repeat top center";
-document.getElementById("bgdiv").style.backgroundSize = "cover";
-}
-</script>
-</div>
-
-<div class="o" ng-if="query">
 
 <div ng-show="artists.length">
 	<h2>Artists</h2>
@@ -89,8 +75,6 @@ document.getElementById("bgdiv").style.backgroundSize = "cover";
 		</tr>
 	</tbody>
 	</table>
-</div>
-
 </div>
 
 </div>
