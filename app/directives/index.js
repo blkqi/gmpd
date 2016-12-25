@@ -1,3 +1,5 @@
+require('./lightslider');
+
 angular
     .module('app')
     .directive('selectOnClick', SelectOnClickDirective)
