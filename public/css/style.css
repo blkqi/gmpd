@@ -52,7 +52,7 @@ table#table td button.btn:hover { opacity:1; cursor:pointer; }
 .card { display:inline-block; margin:0 0 10px 10px; padding:0; transition: box-shadow 0.5s; position:relative; background-color:#000; height:100%; border-radius:6px; box-shadow: inset 1px 1px 8px rgba(0,0,0,0.5); }
 .card .image { width:100%; background-size: cover !important; margin:0; }
 .card .info { transition: all 0.5s; height:auto; min-height:0; width:calc(100% - 20px); padding:8px 10px; background-color:rgba(0,0,0,0.75); position:absolute; bottom:0; left:0; border-bottom-left-radius:6px; border-bottom-right-radius:6px; }
-.card .info a { color:#fff; text-decoration:none; cursor:pointer; }
+.card a div { color:#fff; text-decoration:none; cursor:pointer; }
 .card .info span { color:#ccc; font-size:12px; }
 .card:hover { box-shadow: inset 1px 1px 16px rgba(0,0,0,0.5); }
 .card:hover .info { min-height: 100px; }
