@@ -1,6 +1,5 @@
 angular
-    .module('app', ['ngRoute'])
-/*
+    .module('app', [require('angular-route')])
 	.config(function ($routeProvider) {
 		$routeProvider
 		  .when('/', {
@@ -12,5 +11,4 @@ angular
 		  .otherwise({
 			redirectTo: '/'
 		  });
-	})
-*/
+	});
