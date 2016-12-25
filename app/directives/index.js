@@ -1,4 +1,4 @@
-require('./lightslider');
+require('lightslider');
 
 angular
     .module('app')
