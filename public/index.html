@@ -26,9 +26,9 @@
 <div class="o">
 </div>
 
-<h2>Artists</h2>
+<h2 ng-show="artists.length">Artists</h2>
 <ul id="artist-cards" class="cards">
-    <li id="{{entry.artist.artistId}}" class="card" ng-repeat="entry in entries | filter:{type:'2'}">
+    <li id="{{entry.artist.artistId}}" class="card" ng-repeat="entry in artists = (entries | filter:{type:'2'})">
         <a href ng-click="artist(entry.artist.artistId)">
             <div class="image card" style="background:url('{{entry.artist.artistArtRef}}') no-repeat center center;"></div>
         </a>
@@ -38,9 +38,9 @@
     </li>
 </ul>
 
-<h2>Albums</h2>
+<h2 ng-show="albums.length">Albums</h2>
 <ul id="album-cards" class="cards">
-    <li id="{{entry.album.albumId}}" class="card" ng-repeat="entry in entries | filter:{type:'3'}">
+    <li id="{{entry.album.albumId}}" class="card" ng-repeat="entry in albums = (entries | filter:{type:'3'})">
         <a href ng-click="album(entry.album.albumId)">
             <div class="image card" style="background:url('{{entry.album.albumArtRef}}') no-repeat center center;"></div>
         </a>
@@ -53,10 +53,10 @@
     </li>
 </ul>
 
-<h2>Songs</h2>
+<h2 ng-show="tracks.length">Songs</h2>
 <table id="table" class="display" >
 <tbody>
-    <tr id="{{entry.track.storeId}}" ng-repeat="entry in entries | filter:{type:'1'}">
+    <tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
         <td style="display:none;">{{entry.track.score}}</td>
         <td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
         <td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
