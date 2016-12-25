@@ -42,8 +42,9 @@
     .context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C; }
     .context-menu-list span { font-size:20px; padding-left:5px; }
     .context-menu-hover { background-color:#4ECFC2 !important; }
+    .cards { margin:0; padding:0; }
     #artist-cards { height:200px; }
-	#album-cards { display:block; margin:0; padding:10px; white-space:nowrap; overflow:hidden; }
+	#album-cards { display:block; margin:0; padding:0 10px; white-space:nowrap; overflow:hidden; }
 	#album-cards li { display:inline-block; width:200px; height:200px; margin:0 10px 10px 0; padding:0; }
 	.card { transition: box-shadow 0.5s; position:relative; background-color:#000; height:100%; border-radius:6px; box-shadow: inset 1px 1px 8px rgba(0,0,0,0.5); }
 	.card .image { width:100%; background-size: cover !important; }
@@ -52,7 +53,7 @@
 	.card .info span { color:#ccc; font-size:12px; }
 	.card:hover { /*box-shadow: none;*/ }
 	.card:hover .info { /*background-color:rgba(0,0,0,1);*/ min-height: 100px; }
-    h2 { padding:0; margin:10px 0; }
+    h2 { padding:0; margin:20px 10px 10px 20px; }
     @media screen and (max-width:600px) {
         button.track { display:none; }
     }

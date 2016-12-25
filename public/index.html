@@ -29,7 +29,8 @@
 <div class="o">
 </div>
 
-<div style="padding:10px;">
+<h2>Artists</h2>
+<div style="padding:0 10px;">
 <ul id="artist-cards">
     <li light-slider id="{{artist.artistId}}" class="card" ng-repeat="artist in artists">
         <a href ng-click="artist(artist.artistId)">
@@ -42,6 +43,7 @@
 </ul>
 </div>
 
+<h2>Albums</h2>
 <ul id="album-cards">
     <li id="{{album.albumId}}" class="card" ng-repeat="album in albums">
         <a href ng-click="album(album.albumId)">
@@ -56,6 +58,7 @@
     </li>
 </ul>
 
+<h2>Songs</h2>
 <table id="table" class="display" >
 <tbody>
     <tr id="{{track.storeId}}" ng-repeat="track in tracks">
