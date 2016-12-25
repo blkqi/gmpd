@@ -26,7 +26,7 @@
 </div>
 
 <h2>Artists</h2>
-<ul id="artist-cards">
+<ul id="artist-cards" class="cards">
     <li id="{{artist.artistId}}" class="card" ng-repeat="artist in artists">
         <a href ng-click="artist(artist.artistId)">
             <div class="image card" style="background:url('{{artist.artistArtRef}}') no-repeat center center;"></div>
@@ -38,7 +38,7 @@
 </ul>
 
 <h2>Albums</h2>
-<ul id="album-cards">
+<ul id="album-cards" class="cards">
     <li id="{{album.albumId}}" class="card" ng-repeat="album in albums">
         <a href ng-click="album(album.albumId)">
             <div class="image card" style="background:url('{{album.albumArtRef}}') no-repeat center center;"></div>
