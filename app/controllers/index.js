@@ -1,5 +1,5 @@
 angular
-    .module('app',['ngMaterial'])
+    .module('app', [require('angular-aria'), require('angular-animate'), require('angular-material')])
     .controller('SearchController', SearchController);
     
 function SearchController($scope, $http, $location) {
