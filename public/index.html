@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="js/bundle.js"></script>
-    <script src="https://use.fontawesome.com/2f2f714e84.js"></script>
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link type="text/css" rel="stylesheet" href="css/angular-material.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -70,15 +69,33 @@
       </md-button>
       <md-menu-content width="4">
         <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'play')">
+          <md-button ng-click="load(entry.track.storeId,'play','track')">
             <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Play
+            Play Track
           </md-button>
         </md-menu-item>
         <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'addv')">
+          <md-button ng-click="load(entry.track.storeId,'add','track')">
             <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Add
+            Add Track
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'play','album')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Play Album
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'add','album')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Add Album
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'play','radio')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Play Radio
           </md-button>
         </md-menu-item>
       </md-menu-content>
