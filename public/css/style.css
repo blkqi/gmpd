@@ -25,10 +25,19 @@ form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:aut
 form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 .md-toolbar-tools { text-align:center !important; }
-.md-headline { font-size:20px !important; padding:0 !important; position: relative !important; white-space:nowrap; }
+.md-headline { font-size:20px !important; padding:0 !important; white-space:nowrap; width:100%; }
+.md-headline:after { 
+  content:'';
+  width:30px;
+  height:100%;    
+  position:absolute;
+  right:0;
+  top:0;
+  background:linear-gradient(to right, transparent 0, white 80%, white);
+}
 .md-subhead { font-size:13px !important; padding:0 !important;margin:0; }
 md-card { cursor:pointer; }
-md-card-title { padding:8px 12px !important; }
+md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card { width:180px;overflow:hidden; }
 
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
