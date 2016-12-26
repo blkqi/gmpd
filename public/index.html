@@ -61,7 +61,7 @@
 				<td style="width:1px;white-space:nowrap;">
 					<md-menu>
 					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-						<md-icon md-svg-icon="img/more_vert.svg"></md-icon>
+                        <i class="material-icons">more_vert</i>
 					  </md-button>
 					  <md-menu-content width="4">
 						<md-menu-item>
@@ -72,13 +72,13 @@
 						</md-menu-item>
 						<md-menu-item>
 						  <md-button ng-click="load(entry.track.storeId,'add','track')">
-                            <i class="material-icons">playlist_add</i>
+                            <i class="material-icons">add</i>
 							Add Track
 						  </md-button>
 						</md-menu-item>
 						<md-menu-item>
 						  <md-button ng-click="load(entry.track.albumId,'play','album')">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="material-icons">playlist_play</i>
 							Play Album
 						  </md-button>
 						</md-menu-item>
@@ -90,7 +90,7 @@
 						</md-menu-item>
 						<md-menu-item>
 						  <md-button ng-click="load(entry.track.storeId,'play','radio')">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="material-icons">radio</i>
 							Play Radio
 						  </md-button>
 						</md-menu-item>
