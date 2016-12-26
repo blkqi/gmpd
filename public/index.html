@@ -38,7 +38,7 @@
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-  <md-card class="artist-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
+  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
 	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
 	<md-card-title>
 	  <md-card-title-text>

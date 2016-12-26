@@ -29,7 +29,7 @@ form#search button i:hover { opacity:0.75; cursor:pointer; }
 .md-subhead { font-size:13px !important; padding:0 !important;margin:0; }
 md-card { cursor:pointer; }
 md-card-title { padding:8px 12px !important; }
-.artist-card { width:200px;overflow:hidden; }
+.album-card { width:180px;overflow:hidden; }
 
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
 table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
