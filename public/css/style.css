@@ -30,6 +30,18 @@ form#search button i:hover { opacity:0.75; cursor:pointer; }
 md-card { cursor:pointer; }
 .artist-card { width:200px;overflow:hidden; }
 
+table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
+table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
+table#table button:hover { background-color:white; }
+table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
+table#table td { padding:6px 16px; border:none; }
+table#table td div { font-size:12px; padding:4px 0; }
+table#table tr { border-bottom:1px solid #eee; }
+table#table tr:nth-child(odd) td { background-color:#f8f8f8; }
+table#table tr:hover td { background-color:#f2f2f2; }
+table#table td button.btn { opacity:0.65; color:#aaa; font-size:18px; width:15px; margin-left:10px; padding:4px 10px; background-color:transparent; text-align:left; }
+table#table td button.btn:hover { opacity:1; cursor:pointer; }
+
 .start { background:url('../1.jpg') no-repeat center center; background-size:cover; display: table-cell; vertical-align: middle; text-align:center; width:100vw; height:100vh; padding:0; margin:0; }
 .start div.frm { background-color:transparent; display: inline-block; line-height: 50px; box-shadow:none; position:relative; font-weight:bold; }
 .start div.frm span.title { display:none; position:relative; width:100%; text-align:center; font-size:34px; }
@@ -41,19 +53,3 @@ md-card { cursor:pointer; }
 .start ::-webkit-input-placeholder {
    color: #000; font-weight:lighter !important;
 }
-
-table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
-table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
-table#table button:hover { background-color:white; }
-table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
-table#table td { padding:6px 16px; border:none; }
-table#table td div { font-size:12px; padding:4px 0; }
-table#table tr { border-bottom:1px solid #eee; }
-table#table tr:nth-child(odd) td { background-color:#f9f9f9; }
-table#table tr:hover td { background-color:#f2f2f2; }
-table#table td button.btn { opacity:0.65; color:#aaa; font-size:18px; width:15px; margin-left:10px; padding:4px 10px; background-color:transparent; text-align:left; }
-table#table td button.btn:hover { opacity:1; cursor:pointer; }
-
-.context-menu-icon::before, .context-menu-icon.context-menu-icon--fa::before { font-size:18px; color:#1ABC9C !important; }
-.context-menu-list span { font-size:20px; padding-left:5px; }
-.context-menu-hover { background-color:#4ECFC2 !important; }

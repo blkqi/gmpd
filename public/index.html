@@ -15,21 +15,17 @@
 
 <div ng-controller="SearchController">
 
-<md-content>
-
-    <md-toolbar class="md-hue-2">
-      <div class="md-toolbar-tools">
-		<form id="search" ng-submit="search()">
-			<input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
-			<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-		</form>
-      </div>
-    </md-toolbar>
-    
-</md-content>
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+	<form id="search" ng-submit="search()">
+		<input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
+		<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+	</form>
+  </div>
+</md-toolbar>
 
 <h2 ng-show="artists.length">Artists</h2>
-<div ng-show="artists.length" class='md-padding' layout="row" layout-wrap>
+<div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
 	
       <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 4" ng-click="artist(entry.artist.artistId)">
         <img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
@@ -43,7 +39,7 @@
 </div>
 
 <h2 ng-show="albums.length">Albums</h2>
-<div ng-show="albums.length" class='md-padding' layout="row" layout-wrap>
+<div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
 	
       <md-card class="artist-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
         <img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
@@ -57,9 +53,9 @@
 
 </div>
 
-<div ng-show="tracks.length">
+<div ng-show="tracks.length" class="md-padding">
 	<h2>Songs</h2>
-	<section class="md-whiteframe-z1">
+	<section class="md-whiteframe-1dp">
 		<table id="table" class="display">
 		<tbody>
 			<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
