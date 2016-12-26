@@ -1,5 +1,5 @@
 angular
-    .module('app')
+    .module('app',['ngMaterial'])
     .controller('SearchController', SearchController);
     
 function SearchController($scope, $http, $location) {

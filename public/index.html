@@ -3,10 +3,11 @@
 <head>
     <title>MPD All Access</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="js/bundle.js"></script>
     <script src="https://use.fontawesome.com/2f2f714e84.js"></script>
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/angular-material.css">
     <link type="text/css" rel="stylesheet" href="css/jquery.contextMenu.min.css">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Basic" rel="stylesheet">
     <base href="/">
@@ -15,42 +16,50 @@
 
 <div ng-controller="SearchController">
 
-<div class="frm">
-    <span class="title"><span>g</span><i class="fa fa-music" aria-hidden="true"></i></span>
-    <form id="search" ng-submit="search()">
-        <input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
-        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-    </form>
-    <div style="clear:both;"></div>
+<md-content>
+
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+		<form id="search" ng-submit="search()">
+			<input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
+			<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+		</form>
+      </div>
+    </md-toolbar>
+    
+</md-content>
+
+<h2 ng-show="artists.length">Artists</h2>
+<div ng-show="artists.length" class='md-padding' layout="row" layout-wrap>
+	
+      <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'})" ng-click="artist(entry.artist.artistId)">
+        <img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{entry.artist.name}}</span>
+          </md-card-title-text>
+        </md-card-title>
+      </md-card>
+
 </div>
 
-<div ng-show="artists.length">
-	<h2>Artists</h2>
-	<ul id="artist-cards" class="cards">
-		<li id="{{entry.artist.artistId}}" class="card" ng-repeat="entry in artists = (entries | filter:{type:'2'})">
-			<a href ng-click="artist(entry.artist.artistId)">
-				<div class="image card" style="background:url('{{entry.artist.artistArtRef}}') no-repeat center center;"></div>
-				<div class="info" style="">
-					{{entry.artist.name}}
-				</div>
-			</a>
-		</li>
-	</ul>
-</div>
+<h2 ng-show="albums.length">Albums</h2>
+<div ng-show="albums.length" class='md-padding' layout="row" layout-wrap>
+	
+      <md-card ng-repeat="entry in albums = (entries | filter:{type:'3'})" ng-click="album(entry.album.albumId)" style="width:200px;overflow:hidden;text-overflow:ellipsis;">
+        <img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline" style="white-space:nowrap;">{{entry.album.name}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>
+            {{entry.album.year}} // {{entry.album.albumArtist}}
+          </p>
+        </md-card-content>
+      </md-card>
 
-<div ng-show="albums.length">
-	<h2>Albums</h2>
-	<ul id="album-cards" class="cards">
-		<li id="{{entry.album.albumId}}" class="card" ng-repeat="entry in albums = (entries | filter:{type:'3'})">
-			<a href ng-click="album(entry.album.albumId)">
-				<div class="image card" style="background:url('{{entry.album.albumArtRef}}') no-repeat center center;"></div>
-				<div class="info" style="">
-						{{entry.album.name}}<br/>
-						<span>{{entry.album.year}} // {{entry.album.albumArtist}}</span>
-				</div>
-			</a>
-		</li>
-	</ul>
 </div>
 
 <div ng-show="tracks.length">
