@@ -25,85 +25,79 @@
 
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
-	
-      <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 4" ng-click="artist(entry.artist.artistId)">
-        <img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{entry.artist.name}}</span>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-
+  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 4" ng-click="artist(entry.artist.artistId)">
+	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
+	<md-card-title>
+	  <md-card-title-text>
+		<span class="md-headline">{{entry.artist.name}}</span>
+	  </md-card-title-text>
+	</md-card-title>
+  </md-card>
 </div>
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-	
-      <md-card class="artist-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
-        <img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{entry.album.name}}</span>
-            <span class="md-subhead">{{entry.album.albumArtist}}</span>
-          </md-card-title-text>
-        </md-card-title>
-      </md-card>
-
+  <md-card class="artist-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
+	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
+	<md-card-title>
+	  <md-card-title-text>
+		<span class="md-headline">{{entry.album.name}}</span>
+		<span class="md-subhead">{{entry.album.albumArtist}}</span>
+	  </md-card-title-text>
+	</md-card-title>
+  </md-card>
 </div>
 
 <div ng-show="tracks.length" class="md-padding">
 	<h2>Songs</h2>
 	<section class="md-whiteframe-1dp">
 	<table id="table" class="display" >
-	<tbody>
-		<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
-			<td style="display:none;">{{entry.track.score}}</td>
-			<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
-			<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
-			<td style="width:1px;white-space:nowrap;">
-
-    <md-menu>
-      <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-        <md-icon md-svg-icon="img/more_vert.svg"></md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'play','track')">
-            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Play Track
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'add','track')">
-            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Add Track
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'play','album')">
-            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Play Album
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'add','album')">
-            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Add Album
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'play','radio')">
-            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Play Radio
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-
-			</td>
-		</tr>
-	</tbody>
+		<tbody>
+			<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
+				<td style="display:none;">{{entry.track.score}}</td>
+				<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
+				<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
+				<td style="width:1px;white-space:nowrap;">
+					<md-menu>
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-svg-icon="img/more_vert.svg"></md-icon>
+					  </md-button>
+					  <md-menu-content width="4">
+						<md-menu-item>
+						  <md-button ng-click="load(entry.track.storeId,'play','track')">
+							<md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+							Play Track
+						  </md-button>
+						</md-menu-item>
+						<md-menu-item>
+						  <md-button ng-click="load(entry.track.storeId,'add','track')">
+							<md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+							Add Track
+						  </md-button>
+						</md-menu-item>
+						<md-menu-item>
+						  <md-button ng-click="load(entry.track.albumId,'play','album')">
+							<md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+							Play Album
+						  </md-button>
+						</md-menu-item>
+						<md-menu-item>
+						  <md-button ng-click="load(entry.track.albumId,'add','album')">
+							<md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+							Add Album
+						  </md-button>
+						</md-menu-item>
+						<md-menu-item>
+						  <md-button ng-click="load(entry.track.albumId,'play','radio')">
+							<md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+							Play Radio
+						  </md-button>
+						</md-menu-item>
+					  </md-menu-content>
+					</md-menu>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 	</section>
 </div>
