@@ -22,7 +22,7 @@ form#search input { width:100%; font-size:20px; margin:10px 0; padding:6px 12px;
 form#search input:focus { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
 form#search input:not(:focus):hover { background:rgba(255, 255, 255, 0.35); }
 form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
-form#search button i { color:#fff; font-size:24px; }
+form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 .md-toolbar-tools { text-align:center !important; }
 .md-headline { font-size:20px !important; padding:0 !important; position: relative !important; white-space:nowrap; }
