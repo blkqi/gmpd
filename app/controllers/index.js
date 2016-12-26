@@ -38,14 +38,14 @@ function SearchController($scope, $http, $location) {
             console.log(res);
         });
     }
-    $scope.load = function(id,mode) {
+    $scope.load = function(id,mode,type) {
         if ($scope.query) {
             $http({
                 method: 'POST',
                 url: '/load',
                 data: { 
-                    track: [id],
-                    type: 'track',
+                    track: id,
+                    type: type,
                     mode: mode
                     }
             }).then(function successCallback(res) {

@@ -70,15 +70,33 @@
       </md-button>
       <md-menu-content width="4">
         <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'play')">
+          <md-button ng-click="load(entry.track.storeId,'play','track')">
             <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Play
+            Play Track
           </md-button>
         </md-menu-item>
         <md-menu-item>
-          <md-button ng-click="load(entry.track.storeId,'addv')">
+          <md-button ng-click="load(entry.track.storeId,'add','track')">
             <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
-            Add
+            Add Track
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'play','album')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Play Album
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'add','album')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Add Album
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-click="load(entry.track.storeId,'play','radio')">
+            <md-icon md-svg-icon="img/play_arrow.svg"></md-icon>
+            Play Radio
           </md-button>
         </md-menu-item>
       </md-menu-content>
