@@ -35,11 +35,11 @@ table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
 table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
 table#table button:hover { background-color:white; }
 table#table th { white-space:nowrap; padding: 3px  6px 3px 6px; text-align:left; font-size:12px; border-bottom:1px solid #bbb; }
-table#table td { padding:6px 16px; border:none; }
+table#table td { padding:6px 16px; border:none; background-color:#fcfcfc; }
 table#table td div { font-size:12px; padding:4px 0; }
 table#table tr { border-bottom:1px solid #eee; }
-table#table tr:nth-child(odd) td { background-color:#f8f8f8; }
-table#table tr:hover td { background-color:#f2f2f2; }
+table#table tr:nth-child(odd) td { background-color:#fff; }
+table#table tr:hover td { background-color:#f8f8f8; }
 table#table td button.btn { opacity:0.65; color:#aaa; font-size:18px; width:15px; margin-left:10px; padding:4px 10px; background-color:transparent; text-align:left; }
 table#table td button.btn:hover { opacity:1; cursor:pointer; }
 
