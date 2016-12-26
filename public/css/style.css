@@ -11,7 +11,7 @@
    color: #CAF1ED;   font-weight:lighter !important;
 }
 
-body { font-family:sans-serif; margin:0; padding:0; }
+body { font-family:'Roboto',sans-serif; margin:0; padding:0; }
 body a, body a:visited { color:#0000EE; }
 
 h2 { padding:0; margin:20px 10px 10px 20px; }
@@ -25,9 +25,10 @@ form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:aut
 form#search button i { color:#fff; font-size:24px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 .md-toolbar-tools { text-align:center !important; }
-.md-headline { white-space:nowrap; }
-.md-subhead { padding:0 !important;margin:0; }
+.md-headline { font-size:20px !important; padding:0 !important; position: relative !important; white-space:nowrap; }
+.md-subhead { font-size:13px !important; padding:0 !important;margin:0; }
 md-card { cursor:pointer; }
+md-card-title { padding:8px 12px !important; }
 .artist-card { width:200px;overflow:hidden; }
 
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
