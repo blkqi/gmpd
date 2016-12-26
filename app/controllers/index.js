@@ -44,7 +44,7 @@ function SearchController($scope, $http, $location) {
                 method: 'POST',
                 url: '/load',
                 data: { 
-                    track: id,
+                    id: id,
                     type: type,
                     mode: mode
                     }
