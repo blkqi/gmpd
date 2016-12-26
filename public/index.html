@@ -59,51 +59,51 @@
 
 <div ng-show="tracks.length">
 	<h2>Songs</h2>
-	<table id="table" class="display" >
-	<tbody>
-		<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
-			<td style="display:none;">{{entry.track.score}}</td>
-			<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
-			<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
-			<td style="width:1px;white-space:nowrap;">
-				<button class="btn track" ng-click="load(entry.track.storeId,'addv')">
-					<i class="fa fa-plus" aria-hidden="true"></i>
-				</button>
-				<button class="btn track" ng-click="load(entry.track.storeId,'play')">
-					<i class="fa fa-play" aria-hidden="true"></i>
-				</button>
-
-    <md-menu>
-      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
-        []
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="ctrl.redial($event)">
-            <md-icon md-svg-icon="call:dialpad" md-menu-align-target></md-icon>
-            Redial
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-            <md-icon md-svg-icon="call:voicemail"></md-icon>
-            Check voicemail
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="ctrl.toggleNotifications()">
-            <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-            {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-
-			</td>
-		</tr>
-	</tbody>
-	</table>
+	<section class="md-whiteframe-z1">
+		<table id="table" class="display">
+		<tbody>
+			<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">
+				<td style="display:none;">{{entry.track.score}}</td>
+				<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
+				<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
+				<td style="width:1px;white-space:nowrap;">
+					<button class="btn track" ng-click="load(entry.track.storeId,'addv')">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+					</button>
+					<button class="btn track" ng-click="load(entry.track.storeId,'play')">
+						<i class="fa fa-play" aria-hidden="true"></i>
+					</button>
+					<md-menu>
+					  <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+						[]
+					  </md-button>
+					  <md-menu-content width="4">
+						<md-menu-item>
+						  <md-button ng-click="ctrl.redial($event)">
+							<md-icon md-svg-icon="call:dialpad" md-menu-align-target></md-icon>
+							Redial
+						  </md-button>
+						</md-menu-item>
+						<md-menu-item>
+						  <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+							<md-icon md-svg-icon="call:voicemail"></md-icon>
+							Check voicemail
+						  </md-button>
+						</md-menu-item>
+						<md-menu-divider></md-menu-divider>
+						<md-menu-item>
+						  <md-button ng-click="ctrl.toggleNotifications()">
+							<md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
+							{{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+						  </md-button>
+						</md-menu-item>
+					  </md-menu-content>
+					</md-menu>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</section>
 </div>
 
 </div>
