@@ -30,9 +30,9 @@
 
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
-  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" ng-click="artist(entry.artist.artistId)" flex-gt-sm="30" flex-sm="45">
-	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
-	<md-card-title>
+  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" flex-gt-sm="30" flex-sm="45">
+	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}" ng-click="artist(entry.artist.artistId)">
+	<md-card-title ng-click="artist(entry.artist.artistId)">
 	  <md-card-title-text>
 		<span class="md-headline">{{entry.artist.name}}</span>
 	  </md-card-title-text>
@@ -42,16 +42,16 @@
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)" flex-gt-md="15" flex-md="20" flex-sm="30">
-	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
-	<md-card-title>
+  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30">
+	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}" ng-click="album(entry.album.albumId)">
+	<md-card-title ng-click="album(entry.album.albumId)">
 	  <md-card-title-text>
 		<span class="md-headline">{{entry.album.name}}</span>
 		<span class="md-subhead">{{entry.album.albumArtist}}</span>
 	  </md-card-title-text>
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
-	  <md-button ng-repeat="item in menuItems | filter:{ type: 'album' }" class="md-icon-button" aria-label="item.name">
+	  <md-button ng-repeat="item in menuItems | filter:{ type: 'album' }" ng-click="load(entry.album[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
 		<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 	  </md-button>
 	</md-card-actions>
