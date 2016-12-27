@@ -11,9 +11,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <base href="/">
 </head>
-<body>
+<body style="max-width:100%; max-height:100%; overflow:hidden;">
 
-<div ng-controller="SearchController">
+<div ng-controller="SearchController"
+     layout="column" role="main" flex="" class="layout-column flex">
 
 <md-toolbar class="md-hue-2">
   <div class="md-toolbar-tools">
@@ -23,6 +24,8 @@
 	</form>
   </div>
 </md-toolbar>
+
+<md-content md-scroll-y layout="column" flex class="layout-column flex">
 
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
@@ -102,6 +105,8 @@
 	</table>
 	</section>
 </div>
+
+</md-content>
 
 </div>
 
