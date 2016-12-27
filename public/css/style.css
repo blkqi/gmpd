@@ -40,6 +40,9 @@ md-card { cursor:pointer; }
 md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card { width:180px;overflow:hidden; }
 
+md-toolbar.search { background-color:#3ACABB; }
+md-content[md-scroll-y] { max-height:calc(100vh - 64px); }
+
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
 table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
 table#table button:hover { background-color:white; }

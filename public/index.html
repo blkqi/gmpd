@@ -11,12 +11,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <base href="/">
 </head>
-<body style="max-width:100%; max-height:100%; overflow:hidden;">
+<body class="layout-column">
 
-<div ng-controller="SearchController"
-     layout="column" role="main" flex="" class="layout-column flex">
+<div ng-controller="SearchController">
 
-<md-toolbar class="md-hue-2">
+<md-toolbar class="search">
   <div class="md-toolbar-tools">
 	<form id="search" ng-submit="search()">
 		<input type="text" value="{{query}}" ng-model="query" placeholder="Search" select-on-click />
@@ -25,11 +24,11 @@
   </div>
 </md-toolbar>
 
-<md-content md-scroll-y layout="column" flex class="layout-column flex">
+<md-content md-scroll-y>
 
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
-  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 4" ng-click="artist(entry.artist.artistId)">
+  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" ng-click="artist(entry.artist.artistId)" flex-gt-sm="30" flex-sm="45">
 	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}">
 	<md-card-title>
 	  <md-card-title-text>
@@ -41,7 +40,7 @@
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)">
+  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 8" ng-click="album(entry.album.albumId)" flex-gt-sm="20" flex-sm="30">
 	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
 	<md-card-title>
 	  <md-card-title-text>
