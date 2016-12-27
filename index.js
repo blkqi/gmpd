@@ -13,6 +13,7 @@ var id3 = require('node-id3');
 var config = require('./config.json');
 var max_results = config.max_results || 25;
 var listen_port = config.listen_port || 3000;
+var server_timeout = config.server_timeout || 600000;
 
 // PlayMusic setup
 
@@ -145,3 +146,4 @@ var server = app.listen(listen_port, function() {
     var port = server.address().port
     console.log('gmpd listening at http://%s:%s', host, port)
 });
+server.setTimeout(600000, console.log);
