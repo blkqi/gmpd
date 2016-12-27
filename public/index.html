@@ -40,7 +40,7 @@
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 8" ng-click="album(entry.album.albumId)" flex-gt-sm="20" flex-sm="30">
+  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" ng-click="album(entry.album.albumId)" flex-gt-md="15" flex-md="20" flex-sm="30">
 	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}">
 	<md-card-title>
 	  <md-card-title-text>
@@ -51,7 +51,7 @@
   </md-card>
 </div>
 
-<div ng-show="tracks.length" class="md-padding">
+<div ng-show="tracks.length" class="md-padding" layout="column">
 	<h2>Songs</h2>
 	<section class="md-whiteframe-1dp">
 	<table id="table" class="display" >
