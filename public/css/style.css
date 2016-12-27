@@ -14,7 +14,7 @@
 body { font-family:'Roboto',sans-serif; margin:0; padding:0; }
 body a, body a:visited { color:#0000EE; }
 
-h2 { padding:0; margin:20px 10px 10px 20px; }
+h2 { padding:0; margin:20px 10px 0px 20px; }
 button:focus {outline:0;}
 input:focus {outline:0;}
 form#search { vertical-align: middle; height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:90%; margin:0 auto; padding:0; }
@@ -45,11 +45,9 @@ md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card md-card-actions { margin:0 !important; }
 .album-card md-card-actions i { opacity:0.5; transition:all 0.25s; font-size:24px; }
 .album-card md-card-actions i:hover { opacity:1; }
-
 md-toolbar.search { background-color:#3ACABB; }
 md-content[md-scroll-y] { max-height:calc(100vh - 64px); }
 .md-icon-button { position: relative !important;z-index:10 !important; }
-
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
 table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
 table#table button:hover { background-color:white; }
@@ -61,6 +59,7 @@ table#table tr:nth-child(odd) td { background-color:#fff; }
 table#table tr:hover td { background-color:#f8f8f8; }
 table#table td button { opacity:0.5; transition:all 0.25s; font-size:24px; }
 table#table td button:hover { opacity:1; background-color:transparent; }
+div.table-margin { margin:6px; }
 
 .start { background:url('../1.jpg') no-repeat center center; background-size:cover; display: table-cell; vertical-align: middle; text-align:center; width:100vw; height:100vh; padding:0; margin:0; }
 .start div.frm { background-color:transparent; display: inline-block; line-height: 50px; box-shadow:none; position:relative; font-weight:bold; }
