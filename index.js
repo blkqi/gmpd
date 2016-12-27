@@ -27,28 +27,18 @@ pm.init(config.gmp, function(err) {
 
 var mpc = mpd.connect(config.mpd);
 
-function play_url(req, id) {
-    return url.format({
-        'protocol': req.protocol,
-        'hostname': req.hostname,
-        'port': listen_port,
-        'pathname': 'play.mp3',
-        'query': {id: id}
-    });
-}
-
 function mpc_clear_cmd() { return mpd.cmd('clear', []) };
 function mpc_play_cmd() { return mpd.cmd('play', []) };
-function mpc_load_cmd(req, id) { return mpd.cmd('add', [play_url(req, id)]) };
+function mpc_load_cmd(url) { return mpd.cmd('add', [url]) };
 
 function mpc_callback(err, msg) { 
     if (err) throw err;
     if (msg) console.log(msg);
 }
 
-function mpc_add_track(req, ids, play) {
+function mpc_add_track(urls, play) {
     if (play) mpc.sendCommand(mpc_clear_cmd(), mpc_callback);
-    ids.map(function(id) { mpc.sendCommand(mpc_load_cmd(req, id), mpc_callback) });
+    urls.map(function(url) { mpc.sendCommand(mpc_load_cmd(url), mpc_callback) });
     if (play) mpc.sendCommand(mpc_play_cmd(), mpc_callback);
 }
 
@@ -110,15 +100,27 @@ app.get('/play.mp3', function(_req, _res) {
     else _res.status(400).end();
 });
 
+function url_ids(req, ids) {
+    return ids.map(function(id) {
+        return url.format({
+            'protocol': req.protocol,
+            'hostname': req.hostname,
+            'port': listen_port,
+            'pathname': 'play.mp3',
+            'query': {id: id}
+        });
+    });
+}
+
 function load_track(_req) {
-    mpc_add_track(_req, [_req.body.id], _req.body.mode==='play');
+    mpc_add_track(url_ids(_req, [_req.body.id]), _req.body.mode==='play');
 }
 
 function load_radio(_req) {
     pm.createStation('radio:' + _req.body.id, _req.body.id, "track", function(err, body) {
         pm.getStationTracks(body.mutate_response[0].id, max_results, function(err, data) {
             var ids = data.data.stations[0].tracks.map(function(track) { return track.nid; });
-            mpc_add_track(_req, ids, true)
+            mpc_add_track(url_ids(_req, ids), true)
         });
     });
 }
@@ -126,7 +128,7 @@ function load_radio(_req) {
 function load_album(_req) {
     pm.getAlbum(_req.body.id, true, function(err, data) {
         var ids = data.tracks.map(function(track) { return track.nid; });
-        mpc_add_track(_req, ids, _req.body.mode==='play')
+        mpc_add_track(url_ids(_req, ids), _req.body.mode==='play')
     });
 }
 
