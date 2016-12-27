@@ -60,9 +60,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 function pass_through(res) {
-    return function pass_through_(err, data) {
-        res.status(200).send(data);
-    }
+    return function(err, data) { res.status(200).send(data); }
 }
 
 app.get('/search', function(_req, _res) {
