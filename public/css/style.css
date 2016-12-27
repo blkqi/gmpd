@@ -11,7 +11,8 @@
    color: #CAF1ED;   font-weight:lighter !important;
 }
 
-body { font-family:'Roboto',sans-serif; margin:0; padding:0; }
+body { font-family:'Roboto',sans-serif; height:100%; }
+body.toolbar-spacer { margin:0; padding:64px 0 0 0; }
 body a, body a:visited { color:#0000EE; }
 
 h2 { padding:0; margin:20px 10px 0px 20px; }
@@ -25,6 +26,7 @@ md-input-container { margin:6px !important;}
 form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
 form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
+md-toolbar.search { position:fixed; top:0; left:0;  z-index:99; }
 .md-toolbar-tools { text-align:center !important; }
 .md-headline { font-size:20px !important; padding:0 !important; white-space:nowrap; width:100%; }
 .md-headline:after { 
