@@ -68,15 +68,18 @@
 				<td><a href ng-click="artist(entry.track.artistId)">{{entry.track.artist}}</a></td>
 				<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
 				<td style="width:1px;white-space:nowrap;">
+				   <md-button hide-xs ng-repeat="item in menuItems | filter:{ type: 'track' }" ng-click="load(entry.track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
+					 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+				   </md-button>
 					<md-menu>
 					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
-                        <i class="material-icons" style="vertical-align:inherit;">more_vert</i>
+						<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 					  </md-button>
 					  <md-menu-content width="4">
 						<md-menu-item ng-repeat="item in menuItems">
 						  <md-button ng-click="load(entry.track[item.id], item.mode ,item.type)" style="vertical-align:middle;">
-                            <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
-                            {{item.name}}
+							<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+							{{item.name}}
 						  </md-button>
 						</md-menu-item>
 					  </md-menu-content>
