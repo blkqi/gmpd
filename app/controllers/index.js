@@ -3,6 +3,14 @@ angular
     .controller('SearchController', SearchController);
     
 function SearchController($scope, $http, $location, $mdToast) {
+    $scope.menuItems = [
+        {name: 'Play track', mode: 'play', type: 'track', id: 'storeId', icon: 'play_arrow'},
+        {name: 'Add track',  mode: 'add',  type: 'track', id: 'storeId', icon: 'add'},
+        {name: 'Play album', mode: 'play', type: 'album', id: 'albumId', icon: 'playlist_play'},
+        {name: 'Add album',  mode: 'add',  type: 'album', id: 'albumId', icon: 'playlist_add'},
+        {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'},
+    ];
+
     $scope.search = function() {
         if ($scope.query) {
             $http({
@@ -16,6 +24,7 @@ function SearchController($scope, $http, $location, $mdToast) {
             });
         }
     }
+
     $scope.artist = function(id) {
         $http({
             method: 'GET',
@@ -27,6 +36,7 @@ function SearchController($scope, $http, $location, $mdToast) {
             console.log(res);
         });
     }
+
     $scope.album = function(id) {
         $http({
             method: 'GET',
@@ -38,6 +48,7 @@ function SearchController($scope, $http, $location, $mdToast) {
             console.log(res);
         });
     }
+
     $scope.load = function(id,mode,type) {
         if ($scope.query) {
             $http({

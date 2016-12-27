@@ -64,38 +64,14 @@
 				<td>{{entry.track.title}}<div><a href ng-click="album(entry.track.albumId)">{{entry.track.album}}</a>&nbsp;({{entry.track.year}})</div></td>
 				<td style="width:1px;white-space:nowrap;">
 					<md-menu>
-					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                        <i class="material-icons">more_vert</i>
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
+                        <i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 					  </md-button>
 					  <md-menu-content width="4">
-						<md-menu-item>
-						  <md-button ng-click="load(entry.track.storeId,'play','track')">
-                            <i class="material-icons">play_arrow</i>
-							Play Track
-						  </md-button>
-						</md-menu-item>
-						<md-menu-item>
-						  <md-button ng-click="load(entry.track.storeId,'add','track')">
-                            <i class="material-icons">add</i>
-							Add Track
-						  </md-button>
-						</md-menu-item>
-						<md-menu-item>
-						  <md-button ng-click="load(entry.track.albumId,'play','album')">
-                            <i class="material-icons">playlist_play</i>
-							Play Album
-						  </md-button>
-						</md-menu-item>
-						<md-menu-item>
-						  <md-button ng-click="load(entry.track.albumId,'add','album')">
-                            <i class="material-icons">playlist_add</i>
-							Add Album
-						  </md-button>
-						</md-menu-item>
-						<md-menu-item>
-						  <md-button ng-click="load(entry.track.storeId,'play','radio')">
-                            <i class="material-icons">radio</i>
-							Play Radio
+						<md-menu-item ng-repeat="item in menuItems">
+						  <md-button ng-click="load(entry.track[item.id], item.mode ,item.type)" style="vertical-align:middle;">
+                            <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+                            {{item.name}}
 						  </md-button>
 						</md-menu-item>
 					  </md-menu-content>
