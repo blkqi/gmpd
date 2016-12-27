@@ -43,9 +43,8 @@ md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card { width:180px;overflow:hidden; }
 .album-card md-card-title { padding-bottom:0 !important; }
 .album-card md-card-actions { margin:0 !important; }
-.album-card md-card-actions i { opacity:0; transition:all 0.5s; font-size:24px; }
-.album-card:hover md-card-actions i { opacity:0.5; }
-.album-card md-card-actions i:hover { opacity:0.75; }
+.album-card md-card-actions i { opacity:0.5; transition:all 0.25s; font-size:24px; }
+.album-card md-card-actions i:hover { opacity:1; }
 
 md-toolbar.search { background-color:#3ACABB; }
 md-content[md-scroll-y] { max-height:calc(100vh - 64px); }
@@ -60,8 +59,8 @@ table#table td div { font-size:14px; padding:4px 0; }
 table#table tr { border-bottom:1px solid #eee; }
 table#table tr:nth-child(odd) td { background-color:#fff; }
 table#table tr:hover td { background-color:#f8f8f8; }
-table#table td button { opacity:0.5; transition:all 0.5s; font-size:24px; }
-table#table td button:hover { opacity:0.75; background-color:transparent; }
+table#table td button { opacity:0.5; transition:all 0.25s; font-size:24px; }
+table#table td button:hover { opacity:1; background-color:transparent; }
 
 .start { background:url('../1.jpg') no-repeat center center; background-size:cover; display: table-cell; vertical-align: middle; text-align:center; width:100vw; height:100vh; padding:0; margin:0; }
 .start div.frm { background-color:transparent; display: inline-block; line-height: 50px; box-shadow:none; position:relative; font-weight:bold; }
