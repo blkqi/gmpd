@@ -41,6 +41,11 @@ md-card { cursor:pointer; transition:all 0.5s;  }
 md-card:hover { box-shadow: 1px 1px 16px rgba(0,0,0,0.5); }
 md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card { width:180px;overflow:hidden; }
+.album-card md-card-title { padding-bottom:0 !important; }
+.album-card md-card-actions { margin:0 !important; }
+.album-card md-card-actions i { opacity:0; transition:all 0.5s; font-size:24px; }
+.album-card:hover md-card-actions i { opacity:0.5; }
+.album-card md-card-actions i:hover { opacity:0.75; }
 
 md-toolbar.search { background-color:#3ACABB; }
 md-content[md-scroll-y] { max-height:calc(100vh - 64px); }

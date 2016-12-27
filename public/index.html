@@ -50,6 +50,11 @@
 		<span class="md-subhead">{{entry.album.albumArtist}}</span>
 	  </md-card-title-text>
 	</md-card-title>
+	<md-card-actions layout="row" layout-align="end center">
+	  <md-button ng-repeat="item in menuItems | filter:{ type: 'album' }" class="md-icon-button" aria-label="item.name">
+		<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+	  </md-button>
+	</md-card-actions>
   </md-card>
 </div>
 
