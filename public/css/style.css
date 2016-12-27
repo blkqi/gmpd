@@ -18,9 +18,10 @@ h2 { padding:0; margin:20px 10px 10px 20px; }
 button:focus {outline:0;}
 input:focus {outline:0;}
 form#search { vertical-align: middle; height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:90%; margin:0 auto; padding:0; }
-form#search input { width:100%; font-size:20px; margin:10px 0; padding:6px 12px; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
+form#search input { height:auto !important; font-size:20px; margin:0; padding:6px 12px !important; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
 form#search input:focus { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
 form#search input:not(:focus):hover { background:rgba(255, 255, 255, 0.35); }
+md-input-container { margin:6px !important;}
 form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
 form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
@@ -42,6 +43,7 @@ md-card-title { padding:8px 12px !important;position: relative !important;  }
 
 md-toolbar.search { background-color:#3ACABB; }
 md-content[md-scroll-y] { max-height:calc(100vh - 64px); }
+.md-icon-button { position: relative !important;z-index:10 !important; }
 
 table#table { border-collapse: collapse; margin:0; padding:0; width:100%; }
 table#table button { font-size:14px; border:0; width:25px; padding:2px 0; position:relativr; z-index:9999; cursor:pointer; }
