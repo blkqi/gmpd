@@ -1,16 +1,3 @@
-::-webkit-input-placeholder {
-   color: #CAF1ED; font-weight:lighter !important;
-}
-:-moz-placeholder { /* Firefox 18- */
-   color: #CAF1ED;   font-weight:lighter !important;
-}
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #CAF1ED;   font-weight:lighter !important;
-}
-:-ms-input-placeholder {  
-   color: #CAF1ED;   font-weight:lighter !important;
-}
-
 body { font-family:'Roboto',sans-serif; }
 body.toolbar-spacer { margin:0; padding:64px 0 0 0; }
 body a, body a:visited { color:#0000EE; }
@@ -23,7 +10,11 @@ form#search { vertical-align: middle; height:54px; position:relative; vertical-a
 form#search input { height:auto !important; font-size:20px; margin:0; padding:6px 12px !important; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
 form#search input:focus { background:rgba(255, 255, 255, 0.9); color:#4ECFC2; box-shadow:inset 1px 1px 10px rgba(0,0,0,0.1); }
 form#search input:not(:focus):hover { background:rgba(255, 255, 255, 0.35); }
-form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 12px 0 0; border:0; background-color:transparent; }
+form#search input::-webkit-input-placeholder { color: #CAF1ED; }
+form#search input:-moz-placeholder { color: #CAF1ED; }
+form#search input::-moz-placeholder { color: #CAF1ED; }
+form#search input:-ms-input-placeholder { color: #CAF1ED; }
+form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 6px 0 0; border:0; background-color:transparent; }
 form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 
