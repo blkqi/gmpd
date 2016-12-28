@@ -3,7 +3,7 @@
 <head>
     <title>MPD All Access</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="js/bundle.js"></script>
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link type="text/css" rel="stylesheet" href="css/angular-material.css">
@@ -27,8 +27,8 @@
 </md-toolbar>
 
 <h2 ng-show="artists.length">Artists</h2>
-<div ng-show="artists.length" class="md-padding" layout="row" layout-wrap>
-  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" flex-gt-sm="30" flex-sm="45">
+<div ng-show="artists.length" layout="row" layout-wrap>
+  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" flex-gt-md="25" flex-md="30" flex-sm="45" flex-xs="100">
 	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}" ng-click="artist(entry.artist.artistId)">
 	<md-card-title ng-click="artist(entry.artist.artistId)">
 	  <md-card-title-text>
@@ -39,8 +39,8 @@
 </div>
 
 <h2 ng-show="albums.length">Albums</h2>
-<div ng-show="albums.length" class="md-padding" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30">
+<div ng-show="albums.length" layout="row" layout-wrap>
+  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
 	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}" ng-click="album(entry.album.albumId)">
 	<md-card-title ng-click="album(entry.album.albumId)">
 	  <md-card-title-text>
@@ -57,8 +57,8 @@
 </div>
 
 <h2 ng-show="tracks.length">Songs</h2>
-<div ng-show="tracks.length" class="md-padding table-margin" layout="column">
-	<section class="md-whiteframe-1dp">
+<div ng-show="tracks.length" class="table-margin" layout="column">
+	<section class="md-whiteframe-1dp" flex>
 	<table id="table" class="display" >
 		<tbody>
 			<tr id="{{entry.track.storeId}}" ng-repeat="entry in tracks = (entries | filter:{type:'1'})">

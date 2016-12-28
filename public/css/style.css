@@ -1,5 +1,5 @@
 body { font-family:'Roboto',sans-serif; }
-body.toolbar-spacer { margin:0; padding:64px 0 0 0; }
+body.toolbar-spacer { margin:0; padding:64px 1% 1% 1%; }
 body a, body a:visited { color:#0000EE; }
 
 h2 { padding:0; margin:20px 10px 0px 20px; }
@@ -35,7 +35,7 @@ md-toolbar.search { position:fixed; top:0; left:0;  z-index:99; }
 md-card { cursor:pointer; transition:all 0.5s;  }
 md-card:hover { box-shadow: 1px 1px 16px rgba(0,0,0,0.5); }
 md-card-title { padding:8px 12px !important;position: relative !important;  }
-.album-card { width:180px;overflow:hidden; }
+.album-card { overflow:hidden; }
 .album-card md-card-title { padding-bottom:0 !important; }
 .album-card md-card-actions { margin:0 !important; }
 .album-card md-card-actions i { opacity:0.5; transition:all 0.25s; font-size:24px; }
@@ -66,3 +66,10 @@ div.table-margin { margin:6px; }
 .start ::-webkit-input-placeholder {
    color: #000; font-weight:lighter !important;
 }
+
+/*@media only screen 
+and (min-width: 360px)
+and (orientation: portrait)
+and (-webkit-min-device-pixel-ratio: 3.0) {
+  .album-card { width:50%; }
+}*/
