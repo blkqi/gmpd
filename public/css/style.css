@@ -1,10 +1,12 @@
 body { font-family:'Roboto',sans-serif; }
-body.toolbar-spacer { margin:0; padding:64px 1% 1% 1%; }
+body.toolbar-spacer { margin:0; padding:64px 0 0 0; }
 body a, body a:visited { color:#0000EE; }
 
 h2 { padding:0; margin:20px 10px 0px 20px; }
 button:focus {outline:0;}
 input:focus {outline:0;}
+
+.search-body { padding:1%; }
 
 form#search { vertical-align: middle; height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:90%; margin:0 auto; padding:0; }
 form#search input { height:auto !important; font-size:20px; margin:0; padding:6px 12px !important; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }
@@ -14,7 +16,7 @@ form#search input::-webkit-input-placeholder { color: #CAF1ED; }
 form#search input:-moz-placeholder { color: #CAF1ED; }
 form#search input::-moz-placeholder { color: #CAF1ED; }
 form#search input:-ms-input-placeholder { color: #CAF1ED; }
-form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 6px 0 0; border:0; background-color:transparent; }
+form#search button { position:absolute; top:0; right:0; color:#CAF1ED; width:auto; font-size:20px; height:100%; margin:0 10px 0 0; border:0; background-color:transparent; }
 form#search button i { color:#fff; font-size:30px; padding-top:8px; }
 form#search button i:hover { opacity:0.75; cursor:pointer; }
 
@@ -37,7 +39,7 @@ md-card:hover { box-shadow: 1px 1px 16px rgba(0,0,0,0.5); }
 md-card-title { padding:8px 12px !important;position: relative !important;  }
 .album-card { overflow:hidden; }
 .album-card md-card-title { padding-bottom:0 !important; }
-.album-card md-card-actions { margin:0 !important; }
+.album-card md-card-actions button { margin:0 !important;}
 .album-card md-card-actions i { opacity:0.5; transition:all 0.25s; font-size:24px; }
 .album-card md-card-actions i:hover { opacity:1; }
 md-toolbar.search { background-color:#3ACABB; }

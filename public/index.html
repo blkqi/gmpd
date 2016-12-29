@@ -13,7 +13,7 @@
 </head>
 <body class="toolbar-spacer">
 
-<div ng-controller="SearchController">
+<div ng-controller="SearchController" class="search-body">
 
 <md-toolbar class="search">
   <div class="md-toolbar-tools">
@@ -49,9 +49,19 @@
 	  </md-card-title-text>
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
-	  <md-button ng-repeat="item in menuItems | filter:{ type: 'album' }" ng-click="load(entry.album[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
-		<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
-	  </md-button>
+					<md-menu>
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
+						<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">more_vert</i>
+					  </md-button>
+					  <md-menu-content width="4">
+						<md-menu-item ng-repeat="item in menuItems | filter:{ type: 'album' }">
+						  <md-button ng-click="load(entry.track[item.id], item.mode ,item.type)" style="vertical-align:middle;">
+							<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+							{{item.name}}
+						  </md-button>
+						</md-menu-item>
+					  </md-menu-content>
+					</md-menu>
 	</md-card-actions>
   </md-card>
 </div>
@@ -76,7 +86,7 @@
 					  <md-menu-content width="4">
 						<md-menu-item ng-repeat="item in menuItems">
 						  <md-button ng-click="load(entry.track[item.id], item.mode ,item.type)" style="vertical-align:middle;">
-							<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+							<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 							{{item.name}}
 						  </md-button>
 						</md-menu-item>
