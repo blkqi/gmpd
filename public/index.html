@@ -20,8 +20,8 @@
 	<form id="search" ng-submit="search()">
 	      <md-input-container class="md-block" md-no-float flex-gt-xs>
             <input ng-model="query" placeholder="Search" select-on-click/>
-          </md-input-container>
 		<button type="submit"><i class="material-icons">search</i></button>
+          </md-input-container>
 	</form>
   </div>
 </md-toolbar>
@@ -49,19 +49,19 @@
 	  </md-card-title-text>
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
-					<md-menu>
-					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
-						<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">more_vert</i>
-					  </md-button>
-					  <md-menu-content width="4">
-						<md-menu-item ng-repeat="item in menuItems | filter:{ type: 'album' }">
-						  <md-button ng-click="load(entry.track[item.id], item.mode ,item.type)" style="vertical-align:middle;">
-							<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
-							{{item.name}}
-						  </md-button>
-						</md-menu-item>
-					  </md-menu-content>
-					</md-menu>
+		<md-menu>
+		  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
+			<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">more_vert</i>
+		  </md-button>
+		  <md-menu-content width="4">
+			<md-menu-item ng-repeat="item in menuItems | filter:{ type: 'album' }">
+			  <md-button ng-click="load(entry.album[item.id], item.mode, item.type)">
+				<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+				{{item.name}}
+			  </md-button>
+			</md-menu-item>
+		  </md-menu-content>
+		</md-menu>
 	</md-card-actions>
   </md-card>
 </div>
@@ -80,7 +80,7 @@
 					 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 				   </md-button>
 					<md-menu>
-					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 					  </md-button>
 					  <md-menu-content width="4">
