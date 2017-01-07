@@ -28,7 +28,7 @@
 
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" layout="row" layout-wrap>
-  <md-card ng-repeat="entry in artists = (entries | filter:{type:'2'}) | limitTo: 3" flex-gt-md="25" flex-md="30" flex-sm="45" flex-xs="100">
+  <md-card ng-repeat="entry in artists = (data.entries | filter:{type:'2'}) | limitTo: 3" flex-gt-md="25" flex-md="30" flex-sm="45" flex-xs="100">
 	<img ng-src="{{entry.artist.artistArtRef}}" class="md-card-image" alt="{{entry.artist.name}}" ng-click="artist(entry.artist.artistId)">
 	<md-card-title ng-click="artist(entry.artist.artistId)">
 	  <md-card-title-text>
@@ -40,7 +40,7 @@
 
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = (entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
+  <md-card class="album-card" ng-repeat="entry in albums = (data.entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
 	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}" ng-click="album(entry.album.albumId)">
 	<md-card-title ng-click="album(entry.album.albumId)">
 	  <md-card-title-text>

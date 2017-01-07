@@ -1,3 +1,5 @@
+var url = require('url');
+
 angular
     .module('app', [require('angular-aria'), require('angular-animate'), require('angular-material')])
     .controller('SearchController', SearchController);
@@ -11,60 +13,37 @@ function SearchController($scope, $http, $location, $mdToast) {
         {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'},
     ];
 
-    $scope.search = function() {
-        if ($scope.query) {
-            $http({
-                method: 'GET',
-                url: '/search?q=' + encodeURIComponent($scope.query)
-            }).then(function successCallback(res) {
-                $scope.entries = res.data.entries;
-                $location.search({ q: $scope.query });
-            }, function errorCallback(res) {
-                console.log(res);
-            });
-        }
-    }
-
-    $scope.artist = function(id) {
+    function get_method(path, query) {
         $http({
             method: 'GET',
-            url: '/artist?id=' + encodeURIComponent(id)
+            url: url.format({pathname: '/api/' + path, query: query})
         }).then(function successCallback(res) {
-            $scope.entries = res.data.topTracks.map(function(x) {return {track:x,type:'1'}});
-            $location.search({ artist: id });
+            $location.path(path);
+            $location.search(query);
+            $scope.data = res.data;
+            console.log($scope.data);
         }, function errorCallback(res) {
             console.log(res);
         });
     }
 
-    $scope.album = function(id) {
+    $scope.search = function() { get_method('', {'q': $scope.query}) }
+    $scope.artist = function(id) { get_method('artist', {'id': id}) }
+    $scope.album = function(id) { get_method('album', {'id': id}) }
+    $scope.load = function(id, mode, type) {
         $http({
-            method: 'GET',
-            url: '/album?id=' + encodeURIComponent(id)
+            method: 'POST',
+            url: '/load',
+            data: { 
+                id: id,
+                type: type,
+                mode: mode
+            }
         }).then(function successCallback(res) {
-            $scope.entries = res.data.tracks.map(function(x) {return {track:x,type:'1'}});
-            $location.search({ album: id });
+            if (res.status == 202) $scope.notify(id);
         }, function errorCallback(res) {
-            console.log(res);
+            console.log(res); 
         });
-    }
-
-    $scope.load = function(id,mode,type) {
-        if ($scope.query) {
-            $http({
-                method: 'POST',
-                url: '/load',
-                data: { 
-                    id: id,
-                    type: type,
-                    mode: mode
-                }
-            }).then(function successCallback(res) {
-                if (res.status == 202) $scope.notify(id);
-            }, function errorCallback(res) {
-                console.log(res); 
-            });
-        }
     }
 
     var last = {
@@ -107,14 +86,15 @@ function SearchController($scope, $http, $location, $mdToast) {
     }
 
     // cheeky way of handling page refreshes
-    if ($location.search()['q']) {
+    switch ($location.path()) {
+    case "/":
         $scope.query = $location.search()['q'];
-        $scope.search();
-    }
-    else if ($location.search()['artist']) {
-        $scope.artist($location.search()['artist']);
-    }
-    else if ($location.search()['album']) {
-        $scope.album($location.search()['album']);
+        if ($scope.query) $scope.search();
+    case "/artist":
+        $scope.artist($location.search()['id']);
+    case "/album":
+        $scope.album($location.search()['id']);
+    default:
+        console.log($location.path());
     }
 }

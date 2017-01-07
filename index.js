@@ -53,15 +53,15 @@ function pass_through(res) {
     return function(err, data) { res.status(200).send(data); }
 }
 
-app.get('/search', function(_req, _res) {
+app.get('/api', function(_req, _res) {
     if (_req.query.q) pm.search(_req.query.q, max_results, pass_through(_res));
 });
 
-app.get('/artist', function(_req, _res) {
+app.get('/api/artist', function(_req, _res) {
     if (_req.query.id) pm.getArtist(_req.query.id, false, max_results, 0, pass_through(_res));
 });
 
-app.get('/album', function(_req, _res) {
+app.get('/api/album', function(_req, _res) {
     if (_req.query.id) pm.getAlbum(_req.query.id, true, pass_through(_res));
 });
 
