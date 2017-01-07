@@ -1,5 +1,5 @@
 body { font-family:'Roboto',sans-serif; }
-body.toolbar-spacer { margin:0; padding:64px 0 0 0; }
+.toolbar-spacer { margin:0; padding:64px 0 0 0; }
 body a, body a:visited { color:#0000EE; }
 
 h2 { padding:0; margin:20px 10px 0px 20px; }
@@ -56,6 +56,16 @@ table#table tr:nth-child(odd) td { background-color:#fff; }
 table#table tr:hover td { background-color:#f8f8f8; }
 table#table td button { margin:0; }
 div.table-margin { margin:6px; }
+
+.album-header {
+width:100%;height:100%;position:fixed;top:56px;left:0;z-index:0;
+}
+.album-body {
+position:relative;z-index:1;padding-top:33%;
+}
+.album-body h2 {
+color:#fff;
+}
 
 .start { background:url('../1.jpg') no-repeat center center; background-size:cover; display: table-cell; vertical-align: middle; text-align:center; width:100vw; height:100vh; padding:0; margin:0; }
 .start div.frm { background-color:transparent; display: inline-block; line-height: 50px; box-shadow:none; position:relative; font-weight:bold; }
