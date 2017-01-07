@@ -4,36 +4,44 @@
 	<div class="fader"></div>
 </div>
 <div class="immersive-body">
-	<h2 ng-show="tracks.length">Track Listing</h2>
 	<div ng-show="tracks.length" class="table-margin" layout="column">
 		<section class="md-whiteframe-1dp" flex>
-		<table id="table" class="display" >
-			<tbody>
-				<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
-					<td>{{track.trackNumber}}</td>
-					<td>{{track.title}}</td>
-					<td>{{track.durationMillis}}</td>
-					<td style="width:1px;white-space:nowrap;">
-					   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
-						 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
-					   </md-button>
-						<md-menu>
-						  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-							<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
-						  </md-button>
-						  <md-menu-content width="4">
-							<md-menu-item ng-repeat="item in $ctrl.menu">
-							  <md-button ng-click="load({id: track[item.id], mode: item.mode, type: item.type})" style="vertical-align:middle;">
-								<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
-								{{item.name}}
+			<div layout="row" layout-fill hide-xs>
+				<div flex="nogrow"><img src="{{$ctrl.data.albumArtRef}}" style="width:100%;max-width:500px;"/></div>
+				<div flex="grow" layout-padding>
+					<h1>{{$ctrl.data.name}}</h1>
+					<h3>by {{$ctrl.data.artist}}</h3>
+					<p>{{$ctrl.data.year}}</p>
+					<a href="{{$ctrl.data.description_attribution.source_url}}">{{$ctrl.data.description_attribution.source_title}}</a>
+				</div>
+			</div>
+			<table id="table" class="display" >
+				<tbody>
+					<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
+						<td>{{track.trackNumber}}</td>
+						<td>{{track.title}}</td>
+						<td>{{track.durationMillis}}</td>
+						<td style="width:1px;white-space:nowrap;">
+						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
+							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+						   </md-button>
+							<md-menu>
+							  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+								<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 							  </md-button>
-							</md-menu-item>
-						  </md-menu-content>
-						</md-menu>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+							  <md-menu-content width="4">
+								<md-menu-item ng-repeat="item in $ctrl.menu">
+								  <md-button ng-click="load({id: track[item.id], mode: item.mode, type: item.type})" style="vertical-align:middle;">
+									<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+									{{item.name}}
+								  </md-button>
+								</md-menu-item>
+							  </md-menu-content>
+							</md-menu>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 	</div>
 </div>
