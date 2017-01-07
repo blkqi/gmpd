@@ -1,0 +1,32 @@
+<h2 ng-show="tracks.length">Songs</h2>
+<div ng-show="tracks.length" class="table-margin" layout="column">
+	<section class="md-whiteframe-1dp" flex>
+	<table id="table" class="display" >
+		<tbody>
+			<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
+				<td style="display:none;">{{track.score}}</td>
+				<td><a href ng-click="show({id: track.artistId, type: 'artist'})">{{track.artist}}</a></td>
+				<td>{{track.title}}<div><a href ng-click="show({id: track.albumId, type: 'album'})">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
+				<td style="width:1px;white-space:nowrap;">
+				   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
+					 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+				   </md-button>
+					<md-menu>
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
+					  </md-button>
+					  <md-menu-content width="4">
+						<md-menu-item ng-repeat="item in $ctrl.menu">
+						  <md-button ng-click="load({id: track[item.id], mode: item.mode, type: item.type})" style="vertical-align:middle;">
+							<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
+							{{item.name}}
+						  </md-button>
+						</md-menu-item>
+					  </md-menu-content>
+					</md-menu>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</section>
+</div>

@@ -132,8 +132,8 @@ function load_album(_req) {
     });
 }
 
-app.post('/load', function(_req, _res) {
-    switch (_req.body.type) {
+app.post('/api/:type', function(_req, _res) {
+    switch (_req.params.type) {
         case "track": load_track(_req); break;
         case "radio": load_radio(_req); break;
         case "album": load_album(_req); break;
