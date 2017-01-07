@@ -17,7 +17,7 @@ angular
         bindings: { data: '=', menu: '=' }
     })
     
-function SearchController($scope, $http, $location, $resource, $mdToast) {
+function SearchController($scope, $location, $resource, $mdToast) {
     var ctrl = this;
 
     ctrl.menuItems = [
