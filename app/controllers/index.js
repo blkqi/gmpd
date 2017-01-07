@@ -21,6 +21,11 @@ angular
         controller: AlbumPageController,
         bindings: { data: '=', menu: '=' }
     })
+    .component('artistPage', {
+        templateUrl: 'partials/artist_page.tmpl.html',
+        controller: AlbumPageController,
+        bindings: { data: '=', menu: '=' }
+    })
     
 function SearchController($scope, $location, $resource, $mdToast) {
     var ctrl = this;
@@ -110,6 +115,11 @@ function TrackListingController($scope) {
 }
 
 function AlbumPageController($scope) {
+    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.load = $scope.$parent.entry_resource.load;
+}
+
+function ArtistPageController($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }

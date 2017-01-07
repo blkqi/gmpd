@@ -1,6 +1,8 @@
-<div class="album-header" style="background:#000 url('{{$ctrl.data.albumArtRef}}') no-repeat;background-size:100%;"></div>
-<div class="album-body">
-	<h2 ng-show="tracks.length">{{$ctrl.data.albumArtist}} {{$ctrl.data.name}}</h2>
+<div class="immersive-header" style="background:#000 url('{{$ctrl.data.albumArtRef}}') no-repeat;background-attachment: fixed;background-position: center 54px;">
+	<div class="fader"></div>
+</div>
+<div class="immersive-body">
+	<h2 ng-show="tracks.length">Track Listing</h2>
 	<div ng-show="tracks.length" class="table-margin" layout="column">
 		<section class="md-whiteframe-1dp" flex>
 		<table id="table" class="display" >

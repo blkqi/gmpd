@@ -23,10 +23,10 @@
             </form>
           </div>
         </md-toolbar>
-        <track-listing ng-if="ctrl.data.kind === 'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></track-listing>
+        <artist-page ng-if="ctrl.data.kind === 'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
         <album-page ng-if="ctrl.data.kind === 'sj#album'" data="ctrl.data" menu="ctrl.menuItems"></album-page>
         <artist-listing ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></artist-listing>
-        <album-listing ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></album-listing>
+        <album-listing ng-if="ctrl.data.kind === 'sj#searchresponse' || ctrl.data.kind ===  'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></album-listing>
         <track-listing ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></track-listing>
     </div>
 </body>
