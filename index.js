@@ -147,4 +147,4 @@ var server = app.listen(listen_port, function() {
     var port = server.address().port
     console.log('gmpd listening at http://%s:%s', host, port)
 });
-server.setTimeout(server_timeout, console.log);
+server.setTimeout(server_timeout, function(msg) { console.log("timeout:", msg) } );
