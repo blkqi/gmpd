@@ -58,7 +58,7 @@ function SearchController($scope, $http, $location, $mdToast) {
                     id: id,
                     type: type,
                     mode: mode
-                    }
+                }
             }).then(function successCallback(res) {
                 if (res.status == 202) $scope.notify(id);
             }, function errorCallback(res) {
@@ -105,6 +105,8 @@ function SearchController($scope, $http, $location, $mdToast) {
               .hideDelay(3000)
         );
     }
+
+    // cheeky way of handling page refreshes
     if ($location.search()['q']) {
         $scope.query = $location.search()['q'];
         $scope.search();
