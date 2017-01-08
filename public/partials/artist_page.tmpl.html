@@ -1,19 +1,21 @@
-<div class="immersive-header" style="background:url('{{$ctrl.data.artistArtRef}}') no-repeat;background-size:120% 120%;background-attachment: fixed;background-position: center 54px;">
-</div>
-<div class="immersive-header" style="background:url('{{$ctrl.data.artistArtRef}}') no-repeat;background-size:100%;background-attachment: fixed;background-position: center 54px;">
-	<div class="fader"></div>
-</div>
-<div class="container">
-    
+<div class="immersive-header" style="background:url('{{$ctrl.data.artistArtRef}}=s2560-e100') no-repeat;background-size:100%;background-attachment: fixed;background-position: center 54px;">
 </div>
 <div class="immersive-body">
+	<div ng-show="tracks.length" class="table-margin" layout="column">
+		<section class="md-whiteframe-1dp info" flex>
+			<h1>{{$ctrl.data.name}}</h1>
+			<div class="bio">{{$ctrl.data.artistBio}}</div>
+			 <md-button>Read More</md-button>
+		</section>
+	</div>
 	<h2 ng-show="tracks.length">Top Tracks</h2>
 	<div ng-show="tracks.length" class="table-margin" layout="column">
 		<section class="md-whiteframe-1dp" flex>
 			<table id="table" class="display" >
 				<tbody>
 					<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
-						<td>{{track.title}}<div><a href ng-click="show({id: track.albumId, type: 'album'})">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
+						<td>{{track.title}}</td>
+						<td><a href ng-click="show({id: track.albumId, type: 'album'})">{{track.album}}</a></td>
 						<td style="width:1px;white-space:nowrap;">
 						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
 							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
