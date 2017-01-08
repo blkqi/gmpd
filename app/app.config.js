@@ -1,6 +1,6 @@
 angular
     .module('app', [require('angular-route'), require('angular-resource')])
-	.config(function ($routeProvider, $locationProvider, $resourceProvider ) {
+	.config(function ($routeProvider, $resourceProvider ) {
 		$routeProvider
 		  .when('/', {
 			templateUrl: 'index.html',
@@ -11,6 +11,5 @@ angular
 		  .otherwise({
 			redirectTo: '/'
 		  });
-        $locationProvider.html5Mode(true);
         $resourceProvider.defaults.stripTrailingSlashes = false;
 	});

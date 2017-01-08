@@ -1,33 +1,34 @@
 angular
     .module('app', [require('angular-aria'), require('angular-animate'), require('angular-material'), require('angular-resource')])
-    .controller('SearchController', SearchController)
+    .controller('SearchCtrl', SearchCtrl)
+    .controller('ToastCtrl', ToastCtrl)
     .component('artistListing', {
         templateUrl: 'partials/artist_listing.tmpl.html',
-        controller: ArtistListingController,
+        controller: ArtistListingCtrl,
         bindings: { data: '=', menu: '=' }
     })
     .component('albumListing', {
         templateUrl: 'partials/album_listing.tmpl.html',
-        controller: AlbumListingController,
+        controller: AlbumListingCtrl,
         bindings: { data: '=', menu: '=' }
     })
     .component('trackListing', {
         templateUrl: 'partials/track_listing.tmpl.html',
-        controller: TrackListingController,
+        controller: TrackListingCtrl,
         bindings: { data: '=', menu: '=' }
     })
     .component('albumPage', {
         templateUrl: 'partials/album_page.tmpl.html',
-        controller: AlbumPageController,
+        controller: AlbumPageCtrl,
         bindings: { data: '=', menu: '=' }
     })
     .component('artistPage', {
         templateUrl: 'partials/artist_page.tmpl.html',
-        controller: AlbumPageController,
+        controller: AlbumPageCtrl,
         bindings: { data: '=', menu: '=' }
     })
     
-function SearchController($scope, $location, $resource, $mdToast) {
+function SearchCtrl($scope, $location, $resource, $mdToast) {
     var ctrl = this;
 
     ctrl.menuItems = [
@@ -49,77 +50,45 @@ function SearchController($scope, $location, $resource, $mdToast) {
 
     $scope.entry_resource = $resource('/api/:type', {type: '@type', id: '@id'}, {
         show: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
-        load: {method:'POST', interceptor: {response: (res) => { $scope.notify(res.status) }}},
+        load: {method:'POST', interceptor: {response: (res) => { $scope.notify({status: res.status}) }}},
     });
 
-    // a lot of logic for a little toast
-    var last = {
-      bottom: false,
-      top: true,
-      left: false,
-      right: true
-    };
-
-    $scope.toastPosition = angular.extend({},last);
-
-    $scope.getToastPosition = () => {
-        sanitizePosition();
-        return Object.keys($scope.toastPosition)
-            .filter((pos) => $scope.toastPosition[pos])
-            .join(' ');
-    };
-      
-    function sanitizePosition() {
-        var current = $scope.toastPosition;
-        if ( current.bottom && last.top ) current.top = false;
-        if ( current.top && last.bottom ) current.bottom = false;
-        if ( current.right && last.left ) current.left = false;
-        if ( current.left && last.right ) current.right = false;
-        last = angular.extend({},current);
+    $scope.notify = (data) => {
+        $mdToast.show({
+            hideDelay: 3000,
+            position: 'bottom right',
+            controller: 'ToastCtrl',
+            templateUrl: 'partials/toast.tmpl.html',
+            locals: {data: data}
+        });
     }
-
-    $scope.notify = function(id) {
-        var pinTo = $scope.getToastPosition();
-        $mdToast.show($mdToast.simple().textContent(id).position(pinTo).hideDelay(3000));
-    }
-
-    /*
-    // cheeky way of handling page refreshes
-    switch ($location.path()) {
-    case "/":
-        $scope.query = $location.search()['q'];
-        if ($scope.query) $scope.search();
-    case "/artist":
-        $scope.artist($location.search()['id']);
-    case "/album":
-        $scope.album($location.search()['id']);
-    default:
-        console.log($location.path());
-    }
-    */
 }
 
-function ArtistListingController($scope) {
+function ToastCtrl($scope, data) {
+    $scope.data = data;
+}
+
+function ArtistListingCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
-function AlbumListingController($scope) {
+function AlbumListingCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
-function TrackListingController($scope) {
+function TrackListingCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
-function AlbumPageController($scope) {
+function AlbumPageCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
-function ArtistPageController($scope) {
+function ArtistPageCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
