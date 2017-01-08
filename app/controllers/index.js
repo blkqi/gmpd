@@ -39,6 +39,16 @@ function SearchCtrl($scope, $location, $resource, $mdToast) {
         {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'},
     ];
 
+    function notify(data) {
+        $mdToast.show({
+            hideDelay: 3000,
+            position: 'bottom right',
+            controller: 'ToastCtrl',
+            templateUrl: 'partials/toast.tmpl.html',
+            locals: {data: data}
+        });
+    }
+
     function search_interceptor(res) {
         ctrl.data = res.data;
         ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
@@ -50,18 +60,8 @@ function SearchCtrl($scope, $location, $resource, $mdToast) {
 
     $scope.entry_resource = $resource('/api/:type', {type: '@type', id: '@id'}, {
         show: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
-        load: {method:'POST', interceptor: {response: (res) => { $scope.notify({status: res.status}) }}},
+        load: {method:'POST', interceptor: {response: (res) => { notify({status: res.status}) }}},
     });
-
-    $scope.notify = (data) => {
-        $mdToast.show({
-            hideDelay: 3000,
-            position: 'bottom right',
-            controller: 'ToastCtrl',
-            templateUrl: 'partials/toast.tmpl.html',
-            locals: {data: data}
-        });
-    }
 }
 
 function ToastCtrl($scope, data) {
