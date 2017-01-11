@@ -90,6 +90,7 @@ function TrackListingCtrl($scope) {
 }
 
 function AlbumPageCtrl($scope) {
+    $scope.entry_resource = $scope.$parent.entry_resource;
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
 }
