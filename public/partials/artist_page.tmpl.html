@@ -15,7 +15,7 @@
 				<tbody>
 					<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
 						<td>{{track.title}}</td>
-						<td><a href ng-click="show({id: track.albumId, type: 'album'})">{{track.album}}</a></td>
+						<td><a href ng-click="fetch({id: track.albumId, type: 'album'})">{{track.album}}</a></td>
 						<td style="width:1px;white-space:nowrap;">
 						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
 							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>

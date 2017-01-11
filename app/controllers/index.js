@@ -65,7 +65,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     });
 
     $scope.entry_resource = $resource('/api/:type', {type: '@type', id: '@id'}, {
-        show: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
+        fetch: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
         load: {method:'POST', interceptor: {response: (res) => { notify({status: res.status}) }}},
     });
 }
@@ -75,28 +75,28 @@ function ToastCtrl($scope, data) {
 }
 
 function ArtistListingCtrl($scope) {
-    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.fetch = $scope.$parent.entry_resource.fetch;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
 function AlbumListingCtrl($scope) {
-    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.fetch = $scope.$parent.entry_resource.fetch;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
 function TrackListingCtrl($scope) {
-    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.fetch = $scope.$parent.entry_resource.fetch;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
 function AlbumPageCtrl($scope) {
     $scope.entry_resource = $scope.$parent.entry_resource;
-    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.fetch = $scope.$parent.entry_resource.fetch;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
 function ArtistPageCtrl($scope) {
-    $scope.show = $scope.$parent.entry_resource.show;
+    $scope.fetch = $scope.$parent.entry_resource.fetch;
     $scope.load = $scope.$parent.entry_resource.load;
 }
 
