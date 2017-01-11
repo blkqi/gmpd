@@ -1,11 +1,11 @@
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" layout="row" layout-wrap>
-  <md-card class="album-card" ng-repeat="entry in albums = ($ctrl.data.entries | filter:{type:'3'}) | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
-	<img ng-src="{{entry.album.albumArtRef}}" class="md-card-image" alt="{{entry.album.name}}" ng-click="show({id: entry.album.albumId, type: 'album'})">
-    <md-card-title ng-click="show({id: entry.album.albumId, type: 'album'})">
+  <md-card class="album-card" ng-repeat="album in albums = $ctrl.data.albums | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
+	<img ng-src="{{album.albumArtRef}}" class="md-card-image" alt="{{album.name}}" ng-click="show({id: album.albumId, type: 'album'})">
+    <md-card-title ng-click="show({id: album.albumId, type: 'album'})">
 	  <md-card-title-text>
-		<span class="md-headline">{{entry.album.name}}</span>
-		<span class="md-subhead">{{entry.album.albumArtist}}</span>
+		<span class="md-headline">{{album.name}}</span>
+		<span class="md-subhead">{{album.albumArtist}}</span>
 	  </md-card-title-text>
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
@@ -15,7 +15,7 @@
 		  </md-button>
 		  <md-menu-content width="4">
 			<md-menu-item ng-repeat="item in $ctrl.menu | filter:{ type: 'album' }">
-            <md-button ng-click="load({id: entry.album[item.id], mode: item.mode, type: item.type})">
+            <md-button ng-click="load({id: album[item.id], mode: item.mode, type: item.type})">
 				<i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 				{{item.name}}
 			  </md-button>

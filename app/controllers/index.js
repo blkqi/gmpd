@@ -52,6 +52,7 @@ function SearchCtrl($scope, $location, $resource, $mdToast) {
     function search_interceptor(res) {
         ctrl.data = res.data;
         ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
+        ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
     }
 
     $scope.search_resource = $resource('/api', {q: '@q'}, {
