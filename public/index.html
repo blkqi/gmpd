@@ -15,7 +15,7 @@
     <div class="app-body">
         <md-toolbar class="search">
           <div class="md-toolbar-tools">
-              <form id="search" ng-submit="search_resource.query({q: query})">
+              <form id="search" ng-submit="searchResource.search({q: query})">
                   <md-input-container class="md-block" md-no-float flex-gt-xs>
                     <input ng-model="query" placeholder="Search" select-on-click/>
                 <button type="submit"><i class="material-icons">search</i></button>

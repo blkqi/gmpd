@@ -54,19 +54,19 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         });
     }
 
-    function search_interceptor(res) {
+    function searchInterceptor(res) {
         ctrl.data = res.data;
         ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
         ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
     }
 
-    $scope.search_resource = $resource('/api', {q: '@q'}, {
-        query: {method: 'GET', interceptor: {response: search_interceptor}}
+    $scope.searchResource = $resource('/api', {q: '@q'}, {
+        search: {method: 'GET', interceptor: {response: searchInterceptor}}
     });
 
-    $scope.entry_resource = $resource('/api/:type', {type: '@type', id: '@id'}, {
+    $scope.entryResource = $resource('/api/:type', {type: '@type', id: '@id'}, {
         fetch: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
-        load: {method:'POST', interceptor: {response: (res) => { notify({status: res.status}) }}},
+        load: {method:'POST', interceptor: {response: (res) => { notify(res) }}},
     });
 }
 
@@ -74,32 +74,32 @@ function ToastCtrl($scope, data) {
     $scope.data = data;
 }
 
+function sourceScope($scope) {
+    $scope.entryResource = $scope.$parent.entryResource;
+    $scope.fetch = $scope.entryResource.fetch;
+    $scope.load = $scope.entryResource.load;
+}
+
 function ArtistListingCtrl($scope) {
-    $scope.fetch = $scope.$parent.entry_resource.fetch;
-    $scope.load = $scope.$parent.entry_resource.load;
+    sourceScope($scope);
 }
 
 function AlbumListingCtrl($scope) {
-    $scope.fetch = $scope.$parent.entry_resource.fetch;
-    $scope.load = $scope.$parent.entry_resource.load;
+    sourceScope($scope);
 }
 
 function TrackListingCtrl($scope) {
-    $scope.fetch = $scope.$parent.entry_resource.fetch;
-    $scope.load = $scope.$parent.entry_resource.load;
+    sourceScope($scope);
 }
 
 function AlbumPageCtrl($scope) {
-    $scope.entry_resource = $scope.$parent.entry_resource;
-    $scope.fetch = $scope.$parent.entry_resource.fetch;
-    $scope.load = $scope.$parent.entry_resource.load;
+    sourceScope($scope);
 }
 
 function ArtistPageCtrl($scope) {
-    $scope.fetch = $scope.$parent.entry_resource.fetch;
-    $scope.load = $scope.$parent.entry_resource.load;
+    sourceScope($scope);
 }
 
 function SearchPageCtrl($scope) {
-    $scope.entry_resource = $scope.$parent.entry_resource;
+    sourceScope($scope);
 }
