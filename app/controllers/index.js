@@ -61,14 +61,18 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
     }
 
-    $scope.searchResource = $resource('/api', {q: '@q'}, {
+    var searchResource = $resource('/api', {q: '@q'}, {
         search: {method: 'GET', interceptor: {response: searchInterceptor}}
     });
 
-    $scope.entryResource = $resource('/api/:type', {type: '@type', id: '@id'}, {
+    var entryResource = $resource('/api/:type', {type: '@type', id: '@id'}, {
         fetch: {method:'GET', interceptor: {response: (res) => { ctrl.data = res.data }}},
         load: {method:'POST', interceptor: {response: (res) => { notify(res) }}},
     });
+
+    $scope.search = searchResource.search;
+    $scope.fetch = entryResource.fetch;
+    $scope.load = entryResource.load;
 }
 
 function ToastCtrl($scope, data) {
@@ -76,9 +80,9 @@ function ToastCtrl($scope, data) {
 }
 
 function sourceScope($scope) {
-    $scope.entryResource = $scope.$parent.entryResource;
-    $scope.fetch = $scope.entryResource.fetch;
-    $scope.load = $scope.entryResource.load;
+    $scope.search = $scope.$parent.search;
+    $scope.fetch = $scope.$parent.fetch;
+    $scope.load = $scope.$parent.load;
 }
 
 function ArtistListingCtrl($scope) {
