@@ -3,7 +3,7 @@
 	<section class="md-whiteframe-1dp" flex>
 	<table id="table" class="display" >
 		<tbody>
-			<tr id="{{track.storeId}}" ng-repeat="track in tracks = ($ctrl.data.topTracks || $ctrl.data.tracks)">
+			<tr id="{{track.storeId}}" ng-repeat="track in tracks = $ctrl.data.tracks">
 				<td><a href ng-click="fetch({id: track.artistId, type: 'artist'})">{{track.artist}}</a></td>
 				<td>{{track.title}}<div><a href ng-click="fetch({id: track.albumId, type: 'album'})">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
 				<td style="width:1px;white-space:nowrap;">
