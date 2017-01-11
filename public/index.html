@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <title>MPD All Access</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script src="js/bundle.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/angular-material.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <base href="/">
+  <title>MPD All Access</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="js/bundle.js"></script>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/angular-material.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <base href="/">
 </head>
 <body ng-controller="AppCtrl as ctrl" class="toolbar-spacer">
-    <div class="app-body">
-        <md-toolbar class="search">
-          <div class="md-toolbar-tools">
-              <form id="search" ng-submit="searchResource.search({q: query})">
-                  <md-input-container class="md-block" md-no-float flex-gt-xs>
-                    <input ng-model="query" placeholder="Search" select-on-click/>
-                <button type="submit"><i class="material-icons">search</i></button>
-                  </md-input-container>
-            </form>
-          </div>
-        </md-toolbar>
-        <div ng-switch="ctrl.data.kind">
-            <search-page ng-switch-when="sj#searchresponse" data="ctrl.data" menu="ctrl.menuItems"></search-page>
-            <artist-page ng-switch-when="sj#artist" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
-            <album-page ng-switch-when="sj#album" data="ctrl.data" menu="ctrl.menuItems"></album-page>
-            <!-- <ANY ng-switch-default>...</ANY> -->
-        </div>
+  <div class="app-body">
+    <md-toolbar class="search">
+      <div class="md-toolbar-tools">
+        <form id="search" ng-submit="searchResource.search({q: query})">
+          <md-input-container class="md-block" md-no-float flex-gt-xs>
+            <input ng-model="query" placeholder="Search" select-on-click/>
+            <button type="submit"><i class="material-icons">search</i></button>
+          </md-input-container>
+        </form>
+      </div>
+    </md-toolbar>
+    <div ng-switch="ctrl.data.kind">
+      <search-page ng-switch-when="sj#searchresponse" data="ctrl.data" menu="ctrl.menuItems"></search-page>
+      <artist-page ng-switch-when="sj#artist" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
+      <album-page ng-switch-when="sj#album" data="ctrl.data" menu="ctrl.menuItems"></album-page>
+      <!-- <ANY ng-switch-default>...</ANY> -->
     </div>
+  </div>
 </body>
 </html>
