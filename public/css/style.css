@@ -8,7 +8,7 @@ input:focus {outline:0;}
 button i { opacity:0.5; transition:all 0.25s; font-size:24px; }
 button i:hover { opacity:1; }
 
-.search-body { padding:1%; }
+.app-body { padding:1%; }
 
 form#search { vertical-align: middle; height:54px; position:relative; vertical-align: middle; display: inline-block; line-height: normal; width:90%; margin:0 auto; padding:0; }
 form#search input { height:auto !important; font-size:20px; margin:0; padding:6px 12px !important; background:rgba(255, 255, 255, 0.25); border:0; border-radius:5px; color:#fff; }

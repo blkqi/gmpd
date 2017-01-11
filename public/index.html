@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <base href="/">
 </head>
-<body ng-controller="SearchCtrl as ctrl" class="toolbar-spacer">
-    <div class="search-body">
+<body ng-controller="AppCtrl as ctrl" class="toolbar-spacer">
+    <div class="app-body">
         <md-toolbar class="search">
           <div class="md-toolbar-tools">
               <form id="search" ng-submit="search_resource.query({q: query})">
@@ -23,11 +23,9 @@
             </form>
           </div>
         </md-toolbar>
+        <search-page ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></search-page>
         <artist-page ng-if="ctrl.data.kind === 'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
         <album-page ng-if="ctrl.data.kind === 'sj#album'" data="ctrl.data" menu="ctrl.menuItems"></album-page>
-        <artist-listing ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></artist-listing>
-        <album-listing ng-if="ctrl.data.kind === 'sj#searchresponse' || ctrl.data.kind ===  'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></album-listing>
-        <track-listing ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></track-listing>
     </div>
 </body>
 </html>

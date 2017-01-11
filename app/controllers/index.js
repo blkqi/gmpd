@@ -1,6 +1,6 @@
 angular
     .module('app', [require('angular-aria'), require('angular-animate'), require('angular-material'), require('angular-resource')])
-    .controller('SearchCtrl', SearchCtrl)
+    .controller('AppCtrl', AppCtrl)
     .controller('ToastCtrl', ToastCtrl)
     .component('artistListing', {
         templateUrl: 'partials/artist_listing.tmpl.html',
@@ -17,6 +17,11 @@ angular
         controller: TrackListingCtrl,
         bindings: { data: '=', menu: '=' }
     })
+    .component('searchPage', {
+        templateUrl: 'partials/search_page.tmpl.html',
+        controller: SearchPageCtrl,
+        bindings: { data: '=', menu: '=' }
+    })
     .component('albumPage', {
         templateUrl: 'partials/album_page.tmpl.html',
         controller: AlbumPageCtrl,
@@ -28,7 +33,7 @@ angular
         bindings: { data: '=', menu: '=' }
     })
     
-function SearchCtrl($scope, $location, $resource, $mdToast) {
+function AppCtrl($scope, $location, $resource, $mdToast) {
     var ctrl = this;
 
     ctrl.menuItems = [
@@ -92,4 +97,8 @@ function AlbumPageCtrl($scope) {
 function ArtistPageCtrl($scope) {
     $scope.show = $scope.$parent.entry_resource.show;
     $scope.load = $scope.$parent.entry_resource.load;
+}
+
+function SearchPageCtrl($scope) {
+    $scope.entry_resource = $scope.$parent.entry_resource;
 }
