@@ -58,7 +58,7 @@ app.get('/api', function(_req, _res) {
 });
 
 app.get('/api/artist', function(_req, _res) {
-    if (_req.query.id) pm.getArtist(_req.query.id, false, max_results, 0, pass_through(_res));
+    if (_req.query.id) pm.getArtist(_req.query.id, true, max_results, 0, pass_through(_res));
 });
 
 app.get('/api/album', function(_req, _res) {
