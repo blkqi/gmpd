@@ -36,7 +36,7 @@ angular
 function AppCtrl($scope, $location, $resource, $mdToast) {
     var ctrl = this;
 
-    ctrl.menuItems = [
+    ctrl.menu = [
         {name: 'Play track', mode: 'play', type: 'track', id: 'storeId', icon: 'play_arrow'},
         {name: 'Add track',  mode: 'add',  type: 'track', id: 'storeId', icon: 'add'},
         {name: 'Play album', mode: 'play', type: 'album', id: 'albumId', icon: 'playlist_play'},
@@ -58,6 +58,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         ctrl.data = res.data;
         ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
         ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
+        ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
     }
 
     $scope.searchResource = $resource('/api', {q: '@q'}, {
