@@ -23,9 +23,12 @@
             </form>
           </div>
         </md-toolbar>
-        <search-page ng-if="ctrl.data.kind === 'sj#searchresponse'" data="ctrl.data" menu="ctrl.menuItems"></search-page>
-        <artist-page ng-if="ctrl.data.kind === 'sj#artist'" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
-        <album-page ng-if="ctrl.data.kind === 'sj#album'" data="ctrl.data" menu="ctrl.menuItems"></album-page>
+        <div ng-switch="ctrl.data.kind">
+            <search-page ng-switch-when="sj#searchresponse" data="ctrl.data" menu="ctrl.menuItems"></search-page>
+            <artist-page ng-switch-when="sj#artist" data="ctrl.data" menu="ctrl.menuItems"></artist-page>
+            <album-page ng-switch-when="sj#album" data="ctrl.data" menu="ctrl.menuItems"></album-page>
+            <!-- <ANY ng-switch-default>...</ANY> -->
+        </div>
     </div>
 </body>
 </html>
