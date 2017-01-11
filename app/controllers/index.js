@@ -70,41 +70,37 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         load: {method:'POST', interceptor: {response: (res) => { notify(res) }}},
     });
 
-    $scope.search = searchResource.search;
-    $scope.fetch = entryResource.fetch;
-    $scope.load = entryResource.load;
+    $scope.methods = {
+        search: searchResource.search,
+        fetch: entryResource.fetch,
+        load: entryResource.load
+    };
 }
 
 function ToastCtrl($scope, data) {
     $scope.data = data;
 }
 
-function sourceScope($scope) {
-    $scope.search = $scope.$parent.search;
-    $scope.fetch = $scope.$parent.fetch;
-    $scope.load = $scope.$parent.load;
-}
-
 function ArtistListingCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }
 
 function AlbumListingCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }
 
 function TrackListingCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }
 
 function AlbumPageCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }
 
 function ArtistPageCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }
 
 function SearchPageCtrl($scope) {
-    sourceScope($scope);
+    $scope.methods = $scope.$parent.methods;
 }

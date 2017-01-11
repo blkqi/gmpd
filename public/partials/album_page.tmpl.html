@@ -7,7 +7,7 @@
 				<div flex="nogrow"><img src="{{$ctrl.data.albumArtRef}}" style="width:100%;max-width:500px;"/></div>
 				<div flex="grow" layout-padding>
 					<h1>{{$ctrl.data.name}}</h1>
-					<h3>by <a href ng-click="fetch({id: $ctrl.data.artistId[0], type: 'artist'})">{{$ctrl.data.artist}}</a></h3>
+					<h3>by <a href ng-click="methods.fetch({id: $ctrl.data.artistId[0], type: 'artist'})">{{$ctrl.data.artist}}</a></h3>
 					<p>{{$ctrl.data.year}}</p>
 					<a href="{{$ctrl.data.description_attribution.source_url}}">{{$ctrl.data.description_attribution.source_title}}</a>
 					<md-button>Radio</md-button>
@@ -22,7 +22,7 @@
 						<td>{{track.title}}</td>
 						<td>{{track.durationMillis}}</td>
 						<td style="width:1px;white-space:nowrap;">
-						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
+						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="methods.load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
 							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 						   </md-button>
 							<md-menu>
@@ -31,7 +31,7 @@
 							  </md-button>
 							  <md-menu-content width="4">
 								<md-menu-item ng-repeat="item in $ctrl.menu">
-								  <md-button ng-click="load({id: track[item.id], mode: item.mode, type: item.type})" style="vertical-align:middle;">
+								  <md-button ng-click="methods.load({id: track[item.id], mode: item.mode, type: item.type})" style="vertical-align:middle;">
 									<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 									{{item.name}}
 								  </md-button>
