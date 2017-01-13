@@ -1,3 +1,2 @@
 #/bin/bash -x
-mkdir -p public/js/
 browserify app/app.js -o public/js/bundle.js
