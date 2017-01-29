@@ -10,9 +10,9 @@
 					<h3>by <a href ng-click="methods.fetch({id: $ctrl.data.artistId[0], type: 'artist'})">{{$ctrl.data.artist}}</a></h3>
 					<p>{{$ctrl.data.year}}</p>
 					<a href="{{$ctrl.data.description_attribution.source_url}}">{{$ctrl.data.description_attribution.source_title}}</a>
-					<md-button>Radio</md-button>
-					<md-button>Add</md-button>
-					<md-button>Play</md-button>
+						   <md-button ng-repeat="item in $ctrl.menu | filter:{ type: '!track' }" ng-click="methods.load({id: $ctrl.data.albumId, mode: item.mode, type: item.type})" aria-label="item.name">
+							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>{{item.name}}
+						   </md-button>
 				</div>
 			</div>
 			<table id="table" class="display" >
@@ -22,7 +22,7 @@
 						<td>{{track.title}}</td>
 						<td>{{track.durationMillis}}</td>
 						<td style="width:1px;white-space:nowrap;">
-						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="methods.load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
+						   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="methods.load({id: track[item.id], mode: item.mode, type: item.type})" class="md-icon-button" aria-label="item.name">
 							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 						   </md-button>
 							<md-menu>
