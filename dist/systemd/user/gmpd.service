@@ -1,0 +1,12 @@
+[Unit]
+Description=Play Music Proxy for MPD
+
+[Service]
+type=simple
+ExecStart=/usr/bin/node %h/.config/gmpd/server.js
+WorkingDirectory=%h/.config/gmpd
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
