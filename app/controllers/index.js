@@ -56,9 +56,11 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
 
     function searchInterceptor(res) {
         ctrl.data = res.data;
-        ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
-        ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
-        ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
+        if (res.data.entries) {
+            ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
+            ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
+            ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
+        }
     }
 
     var searchResource = $resource('/api', {q: '@q'}, {
