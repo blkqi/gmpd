@@ -54,7 +54,18 @@ function pass_through(res) {
 }
 
 app.get('/api', function(_req, _res) {
-    if (_req.query.q) pm.search(_req.query.q, max_results, pass_through(_res));
+    switch (_req.query.q) {
+        case ".lib":
+            pm.getAllTracks(function(err, data) {
+                data.tracks = data.data.items;
+                delete data.data;
+                _res.status(200).send(data);
+            });
+            return;
+        default:
+            pm.search(_req.query.q, max_results, pass_through(_res));
+            return;
+    }
 });
 
 app.get('/api/artist', function(_req, _res) {

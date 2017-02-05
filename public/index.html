@@ -24,6 +24,7 @@
       </div>
     </md-toolbar>
     <div ng-switch="ctrl.data.kind">
+      <track-listing ng-switch-when="sj#trackList" data="ctrl.data" menu="ctrl.menu"></track-listing>
       <search-page ng-switch-when="sj#searchresponse" data="ctrl.data" menu="ctrl.menu"></search-page>
       <artist-page ng-switch-when="sj#artist" data="ctrl.data" menu="ctrl.menu"></artist-page>
       <album-page ng-switch-when="sj#album" data="ctrl.data" menu="ctrl.menu"></album-page>
