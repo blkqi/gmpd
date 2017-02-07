@@ -159,3 +159,5 @@ var server = app.listen(listen_port, function() {
     console.log('gmpd listening at http://%s:%s', host, port)
 });
 server.setTimeout(server_timeout, function(msg) { console.log("timeout:", msg) } );
+
+['SIGINT', 'SIGTERM'].map(function(x) { process.on(x, process.exit) });
