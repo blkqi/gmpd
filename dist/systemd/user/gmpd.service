@@ -1,6 +1,5 @@
 [Unit]
 Description = Play Music Proxy for MPD
-Wants = network-online.target
 
 [Service]
 Type = simple
