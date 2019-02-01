@@ -19,9 +19,15 @@ var server_timeout = config.server_timeout || 600000;
 
 var pm = new PlayMusic();
 
-pm.init(config.gmp, function(err) {
-    if (err) throw err;
-});
+var pmlogin = new Object();
+pm.login(config.gmp, function(err, msg) {
+    if (err) console.error(err);
+    if (msg) {
+      pm.init(msg, function(err) {
+          if (err) throw err;
+      });
+    }
+})
 
 // MPD setup
 
@@ -31,7 +37,7 @@ function mpc_clear_cmd() { return mpd.cmd('clear', []) };
 function mpc_play_cmd() { return mpd.cmd('play', []) };
 function mpc_load_cmd(url) { return mpd.cmd('add', [url]) };
 
-function mpc_callback(err, msg) { 
+function mpc_callback(err, msg) {
     if (err) throw err;
     if (msg) console.log(msg);
 }
@@ -54,7 +60,18 @@ function pass_through(res) {
 }
 
 app.get('/api', function(_req, _res) {
-    if (_req.query.q) pm.search(_req.query.q, max_results, pass_through(_res));
+    switch (_req.query.q) {
+        case ".lib":
+            pm.getAllTracks(function(err, data) {
+                data.tracks = data.data.items;
+                delete data.data;
+                _res.status(200).send(data);
+            });
+            return;
+        default:
+            pm.search(_req.query.q, max_results, pass_through(_res));
+            return;
+    }
 });
 
 app.get('/api/artist', function(_req, _res) {
@@ -148,3 +165,5 @@ var server = app.listen(listen_port, function() {
     console.log('gmpd listening at http://%s:%s', host, port)
 });
 server.setTimeout(server_timeout, function(msg) { console.log("timeout:", msg) } );
+
+['SIGINT', 'SIGTERM'].map(function(x) { process.on(x, process.exit) });
