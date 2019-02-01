@@ -11,5 +11,5 @@ angular
 		  .otherwise({
 			redirectTo: '/'
 		  });
-        $resourceProvider.defaults.stripTrailingSlashes = false;
+      $resourceProvider.defaults.stripTrailingSlashes = false;
 	});

@@ -19,9 +19,15 @@ var server_timeout = config.server_timeout || 600000;
 
 var pm = new PlayMusic();
 
-pm.init(config.gmp, function(err) {
-    if (err) throw err;
-});
+var pmlogin = new Object();
+pm.login(config.gmp, function(err, msg) {
+    if (err) console.error(err);
+    if (msg) {
+      pm.init(msg, function(err) {
+          if (err) throw err;
+      });
+    }
+})
 
 // MPD setup
 
@@ -31,7 +37,7 @@ function mpc_clear_cmd() { return mpd.cmd('clear', []) };
 function mpc_play_cmd() { return mpd.cmd('play', []) };
 function mpc_load_cmd(url) { return mpd.cmd('add', [url]) };
 
-function mpc_callback(err, msg) { 
+function mpc_callback(err, msg) {
     if (err) throw err;
     if (msg) console.log(msg);
 }

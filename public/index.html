@@ -11,13 +11,13 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <base href="/">
 </head>
-<body ng-controller="AppCtrl as ctrl" class="toolbar-spacer">
+<body ng-controller="AppCtrl as ctrl" data-ng-init="init()" class="toolbar-spacer">
   <div class="app-body">
     <md-toolbar class="search">
       <div class="md-toolbar-tools">
         <form id="search" ng-submit="methods.search({q: query})">
           <md-input-container class="md-block" md-no-float flex-gt-xs>
-            <input ng-model="query" placeholder="Search" select-on-click blur-on-enter/>
+            <input ng-model="query" value="ctrl.query" placeholder="Search" select-on-click blur-on-enter/>
             <button type="submit"><i class="material-icons">search</i></button>
           </md-input-container>
         </form>

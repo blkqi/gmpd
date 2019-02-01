@@ -32,7 +32,7 @@ angular
         controller: AlbumPageCtrl,
         bindings: { data: '=', menu: '=' }
     })
-    
+
 function AppCtrl($scope, $location, $resource, $mdToast) {
     var ctrl = this;
 
@@ -54,7 +54,8 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         });
     }
 
-    function searchInterceptor(res) {
+    function searchInterceptor(res,qry) {
+        $location.search('q', res.config.params.q);
         ctrl.data = res.data;
         if (res.data.entries) {
             ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
@@ -64,7 +65,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     }
 
     var searchResource = $resource('/api', {q: '@q'}, {
-        search: {method: 'GET', interceptor: {response: searchInterceptor}}
+        search: {method: 'GET', interceptor: {response: (res) => { searchInterceptor(res,this) }}}
     });
 
     var entryResource = $resource('/api/:type', {type: '@type', id: '@id'}, {
@@ -77,6 +78,22 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         fetch: entryResource.fetch,
         load: entryResource.load
     };
+
+    $scope.init = function () {
+        $scope.query = $location.search()['q'];
+        searchResource.search({q: $scope.query});
+    };
+
+    $scope.$on('$locationChangeSuccess', function() {
+      $scope.actualLocation = $location.url();
+    });
+
+    $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
+      if($scope.actualLocation === newLocation) {
+        $scope.init();
+      };
+    });
+
 }
 
 function ToastCtrl($scope, data) {
