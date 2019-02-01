@@ -81,17 +81,17 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
 
     $scope.init = function () {
         $scope.query = $location.search()['q'];
-        searchResource.search({q: $scope.query});
+        ($scope.query != null) && searchResource.search({q: $scope.query});
     };
 
     $scope.$on('$locationChangeSuccess', function() {
-      $scope.actualLocation = $location.url();
+        $scope.actualLocation = $location.url();
     });
 
     $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
-      if($scope.actualLocation === newLocation) {
-        $scope.init();
-      };
+        if($scope.actualLocation === newLocation) {
+          $scope.init();
+        };
     });
 
 }
