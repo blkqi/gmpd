@@ -89,9 +89,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     });
 
     $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
-        if($scope.actualLocation === newLocation) {
-          $scope.init();
-        };
+        ($scope.actualLocation === newLocation) && $scope.init();
     });
 
 }
