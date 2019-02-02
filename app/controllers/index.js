@@ -44,6 +44,22 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'}
     ];
 
+    function exec(method, data) {
+        $location.search({
+            'action': method,
+            'data': window.btoa(JSON.stringify(data))
+        });
+        $scope.resourcesLoaded = false;
+        eval('$scope.methods.'+method)(data,
+            function success(data){
+                $scope.resourcesLoaded = true;
+                window.scrollTo(0,0);
+            },
+            function error(error){
+                console.log(error);
+        });
+    };
+
     function notify(data) {
         $mdToast.show({
             hideDelay: 3000,
@@ -73,37 +89,23 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     });
 
     $scope.init = function () {
-        var query = $location.search();
-        if (query.a != null) {
-            var data = JSON.parse(window.atob(query.d));
+        var query = $location.search()
+        if (query.action != null) {
+            var data = JSON.parse(window.atob(query.data));
+            exec(query.action,data);
             $scope.query = data.q;
-            $scope.exec(query.a,data);
+            $scope.resourcesLoaded = false;
         }
         else {
             $scope.resourcesLoaded = true;
         }
     };
 
-    $scope.exec = function(method, data) {
-        $location.search({
-            'a': method,
-            'd': window.btoa(JSON.stringify(data))
-        });
-        $scope.resourcesLoaded = false;
-        eval('$scope.methods.'+method)(data,
-            function success(data){
-                $scope.resourcesLoaded = true;
-            },
-            function error(error){
-                console.log(error);
-        });
-    };
-
     $scope.methods = {
         search: searchResource.search,
         fetch: entryResource.fetch,
         load: entryResource.load,
-        exec: $scope.exec
+        exec: exec
     };
 
     $scope.$on('$locationChangeSuccess', function() {
