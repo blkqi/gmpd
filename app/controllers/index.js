@@ -44,22 +44,6 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'}
     ];
 
-    function exec(method, data) {
-        $location.search({
-            'action': method,
-            'data': window.btoa(JSON.stringify(data))
-        });
-        $scope.resourcesLoaded = false;
-        eval('$scope.methods.'+method)(data,
-            function success(data){
-                $scope.resourcesLoaded = true;
-                window.scrollTo(0,0);
-            },
-            function error(error){
-                console.log(error);
-        });
-    };
-
     function notify(data) {
         $mdToast.show({
             hideDelay: 3000,
@@ -69,6 +53,22 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
             locals: {data: data}
         });
     }
+
+    function exec(method, data) {
+        $location.search({
+            'action': method,
+            'data': window.btoa(JSON.stringify(data))
+        });
+        $scope.resourcesLoaded = false;
+        $scope.methods[method](data,
+            function success(data){
+                $scope.resourcesLoaded = true;
+                window.scrollTo(0,0);
+            },
+            function error(error){
+                notify(error);
+        });
+    };
 
     function searchInterceptor(res,qry) {
         ctrl.data = res.data;
