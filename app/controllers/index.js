@@ -62,6 +62,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
             ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
             ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
         }
+        $scope.resourcesLoaded = true;
     }
 
     var searchResource = $resource('/api', {q: '@q'}, {
@@ -89,7 +90,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     });
 
     $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
-        ($scope.actualLocation === newLocation) && $scope.init();
+        ($scope.actualLocation === newLocation) ? $scope.init() : $scope.resourcesLoaded = true;;
     });
 
 }
