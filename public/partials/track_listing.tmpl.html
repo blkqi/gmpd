@@ -4,14 +4,14 @@
 	<table id="table" class="display" >
 		<tbody>
 			<tr id="{{track.storeId}}" ng-repeat="track in tracks = $ctrl.data.tracks">
-				<td><a href ng-click="methods.fetch({id: track.artistId, type: 'artist'})">{{track.artist}}</a></td>
-				<td>{{track.title}}<div><a href ng-click="methods.fetch({id: track.albumId, type: 'album'})">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
+				<td><a href ng-click="methods.exec('fetch',{id: track.artistId, type: 'artist'})">{{track.artist}}</a></td>
+				<td>{{track.title}}<div><a href ng-click="methods.exec('fetch',{id: track.albumId, type: 'album'})">{{track.album}}</a>&nbsp;({{track.year}})</div></td>
 				<td style="width:1px;white-space:nowrap;">
 				   <md-button hide-xs ng-repeat="item in $ctrl.menu | filter:{ type: 'track' }" ng-click="methods.load(track[item.id], item.mode ,item.type)" class="md-icon-button" aria-label="item.name">
 					 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 				   </md-button>
 					<md-menu>
-					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
 						<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 					  </md-button>
 					  <md-menu-content width="4">

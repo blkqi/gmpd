@@ -41,7 +41,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         {name: 'Add track',  mode: 'add',  type: 'track', id: 'storeId', icon: 'add'},
         {name: 'Play album', mode: 'play', type: 'album', id: 'albumId', icon: 'playlist_play'},
         {name: 'Add album',  mode: 'add',  type: 'album', id: 'albumId', icon: 'playlist_add'},
-        {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'},
+        {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'}
     ];
 
     function notify(data) {
@@ -55,14 +55,12 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     }
 
     function searchInterceptor(res,qry) {
-        $location.search('q', res.config.params.q);
         ctrl.data = res.data;
         if (res.data.entries) {
             ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
             ctrl.data.albums = ctrl.data.entries.filter((x) => x.album).map((x) => x.album);
             ctrl.data.artists = ctrl.data.entries.filter((x) => x.artist).map((x) => x.artist);
         }
-        $scope.resourcesLoaded = true;
     }
 
     var searchResource = $resource('/api', {q: '@q'}, {
@@ -74,15 +72,38 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         load: {method:'POST', interceptor: {response: (res) => { notify(res) }}},
     });
 
+    $scope.init = function () {
+        var query = $location.search();
+        if (query.a != null) {
+            var data = JSON.parse(window.atob(query.d));
+            $scope.query = data.q;
+            $scope.exec(query.a,data);
+        }
+        else {
+            $scope.resourcesLoaded = true;
+        }
+    };
+
+    $scope.exec = function(method, data) {
+        $location.search({
+            'a': method,
+            'd': window.btoa(JSON.stringify(data))
+        });
+        $scope.resourcesLoaded = false;
+        eval('$scope.methods.'+method)(data,
+            function success(data){
+                $scope.resourcesLoaded = true;
+            },
+            function error(error){
+                console.log(error);
+        });
+    };
+
     $scope.methods = {
         search: searchResource.search,
         fetch: entryResource.fetch,
-        load: entryResource.load
-    };
-
-    $scope.init = function () {
-        $scope.query = $location.search()['q'];
-        ($scope.query != null) && searchResource.search({q: $scope.query});
+        load: entryResource.load,
+        exec: $scope.exec
     };
 
     $scope.$on('$locationChangeSuccess', function() {
@@ -90,7 +111,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
     });
 
     $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
-        ($scope.actualLocation === newLocation) ? $scope.init() : $scope.resourcesLoaded = true;;
+        ($scope.actualLocation === newLocation) && $scope.init();
     });
 
 }

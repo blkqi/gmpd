@@ -7,7 +7,7 @@
 				<div flex="nogrow"><img src="{{$ctrl.data.albumArtRef}}" style="width:100%;max-width:500px;"/></div>
 				<div flex="grow" layout-padding>
 					<h1>{{$ctrl.data.name}}</h1>
-					<h3>by <a href ng-click="methods.fetch({id: $ctrl.data.artistId[0], type: 'artist'})">{{$ctrl.data.artist}}</a></h3>
+					<h3>by <a href ng-click="methods.exec('fetch',{id: $ctrl.data.artistId[0], type: 'artist'})">{{$ctrl.data.artist}}</a></h3>
 					<p>{{$ctrl.data.year}}</p>
 					<a href="{{$ctrl.data.description_attribution.source_url}}">{{$ctrl.data.description_attribution.source_title}}</a>
 						   <md-button ng-repeat="item in $ctrl.menu | filter:{ type: '!track' }" ng-click="methods.load({id: $ctrl.data.albumId, mode: item.mode, type: item.type})" aria-label="item.name">
@@ -26,7 +26,7 @@
 							 <i class="material-icons" style="vertical-align:inherit;">{{item.icon}}</i>
 						   </md-button>
 							<md-menu>
-							  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
 								<i class="material-icons" style="vertical-align:inherit;">more_vert</i>
 							  </md-button>
 							  <md-menu-content width="4">
