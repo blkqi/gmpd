@@ -15,7 +15,7 @@
   <div class="app-body">
     <md-toolbar class="search">
       <div class="md-toolbar-tools">
-        <form id="search" ng-submit="methods.search({q: query})">
+        <form id="search" ng-submit="methods.exec('search',{q: query})">
           <md-input-container class="md-block" md-no-float flex-gt-xs>
             <input ng-model="query" value="ctrl.query" placeholder="Search" select-on-click blur-on-enter/>
             <button type="submit"><i class="material-icons">search</i></button>
@@ -23,6 +23,9 @@
         </form>
       </div>
     </md-toolbar>
+    <div class="md-loader" ng-show="!resourcesLoaded" layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <div ng-switch="ctrl.data.kind">
       <track-listing ng-switch-when="sj#trackList" data="ctrl.data" menu="ctrl.menu"></track-listing>
       <search-page ng-switch-when="sj#searchresponse" data="ctrl.data" menu="ctrl.menu"></search-page>

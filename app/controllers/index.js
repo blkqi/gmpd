@@ -41,7 +41,7 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         {name: 'Add track',  mode: 'add',  type: 'track', id: 'storeId', icon: 'add'},
         {name: 'Play album', mode: 'play', type: 'album', id: 'albumId', icon: 'playlist_play'},
         {name: 'Add album',  mode: 'add',  type: 'album', id: 'albumId', icon: 'playlist_add'},
-        {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'},
+        {name: 'Play radio', mode: 'play', type: 'radio', id: 'storeId', icon: 'radio'}
     ];
 
     function notify(data) {
@@ -54,8 +54,23 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         });
     }
 
+    function exec(method, data) {
+        $location.search({
+            'action': method,
+            'data': window.btoa(JSON.stringify(data))
+        });
+        $scope.resourcesLoaded = false;
+        $scope.methods[method](data,
+            function success(data){
+                $scope.resourcesLoaded = true;
+                window.scrollTo(0,0);
+            },
+            function error(error){
+                notify(error);
+        });
+    };
+
     function searchInterceptor(res,qry) {
-        $location.search('q', res.config.params.q);
         ctrl.data = res.data;
         if (res.data.entries) {
             ctrl.data.tracks = ctrl.data.entries.filter((x) => x.track).map((x) => x.track);
@@ -73,25 +88,32 @@ function AppCtrl($scope, $location, $resource, $mdToast) {
         load: {method:'POST', interceptor: {response: (res) => { notify(res) }}},
     });
 
+    $scope.init = function () {
+        var query = $location.search()
+        if (query.action != null) {
+            var data = JSON.parse(window.atob(query.data));
+            exec(query.action,data);
+            $scope.query = data.q;
+            $scope.resourcesLoaded = false;
+        }
+        else {
+            $scope.resourcesLoaded = true;
+        }
+    };
+
     $scope.methods = {
         search: searchResource.search,
         fetch: entryResource.fetch,
-        load: entryResource.load
-    };
-
-    $scope.init = function () {
-        $scope.query = $location.search()['q'];
-        searchResource.search({q: $scope.query});
+        load: entryResource.load,
+        exec: exec
     };
 
     $scope.$on('$locationChangeSuccess', function() {
-      $scope.actualLocation = $location.url();
+        $scope.actualLocation = $location.url();
     });
 
     $scope.$watch(function () {return $location.url()}, function (newLocation, oldLocation) {
-      if($scope.actualLocation === newLocation) {
-        $scope.init();
-      };
+        ($scope.actualLocation === newLocation) && $scope.init();
     });
 
 }

@@ -1,8 +1,8 @@
 <h2 ng-show="artists.length">Artists</h2>
 <div ng-show="artists.length" layout="row" layout-wrap>
   <md-card ng-repeat="artist in artists = $ctrl.data.artists | limitTo: 3" flex-gt-md="25" flex-md="30" flex-sm="45" flex-xs="100">
-	<img ng-src="{{artist.artistArtRef}}" class="md-card-image" alt="{{artist.name}}" ng-click="methods.fetch({id: artist.artistId, type: 'artist'})">
-	<md-card-title ng-click="methods.fetch({id: artist.artistId, type: 'artist'})">
+	<img ng-src="{{artist.artistArtRef}}" class="md-card-image" alt="{{artist.name}}" ng-click="methods.exec('fetch',{id: artist.artistId, type: 'artist'})">
+	<md-card-title ng-click="methods.exec('fetch',{id: artist.artistId, type: 'artist'})">
 	  <md-card-title-text>
 		<span class="md-headline">{{artist.name}}</span>
 	  </md-card-title-text>

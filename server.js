@@ -82,6 +82,10 @@ app.get('/api/album', function(_req, _res) {
     if (_req.query.id) pm.getAlbum(_req.query.id, true, pass_through(_res));
 });
 
+app.get('/api/station', function(_req, _res) {
+    if (_req.query.id) pm.getStationTracks(_req.query.id, true, pass_through(_res));
+});
+
 function id3_wrapper(id, callback) {
     pm.getAllAccessTrack(id, function(err, track) {
         var tags = {

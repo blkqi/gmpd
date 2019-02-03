@@ -1,8 +1,8 @@
 <h2 ng-show="albums.length">Albums</h2>
 <div ng-show="albums.length" layout="row" layout-wrap>
   <md-card class="album-card" ng-repeat="album in albums = $ctrl.data.albums | limitTo: 6" flex-gt-md="15" flex-md="20" flex-sm="30" flex-xs="45">
-	<img ng-src="{{album.albumArtRef}}" class="md-card-image" alt="{{album.name}}" ng-click="methods.fetch({id: album.albumId, type: 'album'})">
-    <md-card-title ng-click="methods.fetch({id: album.albumId, type: 'album'})">
+	<img ng-src="{{album.albumArtRef}}" class="md-card-image" alt="{{album.name}}" ng-click="methods.exec('fetch',{id: album.albumId, type: 'album'})">
+    <md-card-title ng-click="methods.exec('fetch',{id: album.albumId, type: 'album'})">
 	  <md-card-title-text>
 		<span class="md-headline">{{album.name}}</span>
 		<span class="md-subhead">{{album.albumArtist}}</span>
@@ -10,7 +10,7 @@
 	</md-card-title>
 	<md-card-actions layout="row" layout-align="end center">
 		<md-menu>
-		  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)" style="vertical-align:middle;">
+		  <md-button aria-label="Open actions menu" class="md-icon-button" ng-click="$mdMenu.open($event)" style="vertical-align:middle;">
 			<i md-menu-align-target class="material-icons" style="vertical-align:inherit;">more_vert</i>
 		  </md-button>
 		  <md-menu-content width="4">
