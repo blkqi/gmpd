@@ -1,6 +1,6 @@
 # Google Music Player Daemon
 
-A Node.js application that lets you stream music from Google Play Music to Music Player Daemon. You can search and browse artists, albums, and tracks in a Play Music-lite web interface. 
+A Node.js application that lets you stream music from Google Play Music to Music Player Daemon. You can search and browse artists, albums and tracks (then send to MPD) in a Play Music-lite web interface, across all of your devices. 
 
 Uses [playmusic](https://github.com/jamon/playmusic) for Google Play Music integration and [mpd.js](https://github.com/andrewrk/mpd.js) to control Music Player Daemon.
 
