@@ -4,6 +4,12 @@ A Node.js application that lets you search for music on Google Play Music and st
 
 This project is not endorsed by of affiliated with Google in any way.
 
+## Screenshots
+
+| Desktop | Mobile |
+| --- | --- |
+| <img height="400" alt="desktop" src="https://user-images.githubusercontent.com/778005/52178071-c75fcc80-2797-11e9-94d4-af3d86c166cf.png"> | <img height="400" alt="mobile" src="https://user-images.githubusercontent.com/778005/52178070-c75fcc80-2797-11e9-990a-30926a8113a2.png"> |
+
 ## Prerequisites
 
 * MPD server
@@ -31,7 +37,7 @@ Run directly with node:
 $ node server.js
 ```
 
-Then access the web interface at [localhost:3000](http://localhost:3000).
+Then access the web interface at [localhost:3000](http://localhost:3000) (or remotely using the server's IP address).
 
 ### Systemd
 
