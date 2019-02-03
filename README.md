@@ -27,6 +27,18 @@ Install the dependencies:
 $ npm install
 ```
 
+Create the build directory (if it doesn't exist):
+
+```sh
+$ mkdir public/js
+```
+
+Build the app bundle:
+
+```sh
+$ bin/build
+```
+
 ### Configuration
 
 Make a copy of `config.json.template` at `config.json` and adjust all variables as necessary. 
