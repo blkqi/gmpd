@@ -36,7 +36,7 @@ Then access the web interface at [localhost:3000](http://localhost:3000).
 
 ### Systemd
 
-Ad example systemd unit file is provided under `dist/systemd/user`
+This app can be run as a service with systemd. An example unit file is provided under `dist/systemd/user`.
 
 ## Contributors
 
