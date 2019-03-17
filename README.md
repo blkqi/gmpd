@@ -25,7 +25,6 @@ Install the dependencies:
 
 ```sh
 $ npm install
-$ npm install -g browserify
 ```
 
 Create the build directory (if it doesn't exist):
@@ -34,7 +33,7 @@ Create the build directory (if it doesn't exist):
 $ mkdir public/js
 ```
 
-Build the app bundle:
+Build the app bundle using [browserify](https://github.com/browserify/browserify) (you may need to install it):
 
 ```sh
 $ bin/build
