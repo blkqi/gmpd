@@ -25,6 +25,7 @@ Install the dependencies:
 
 ```sh
 $ npm install
+$ npm install -g browserify
 ```
 
 Create the build directory (if it doesn't exist):
