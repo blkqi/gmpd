@@ -45,7 +45,7 @@ Make a copy of `config.json.template` at `config.json` and adjust all variables 
 
 ## Usage
 
-Run directly with node:
+Run directly with [node](https://github.com/nodejs/node):
 
 ```sh
 $ node server.js
